@@ -1,22 +1,22 @@
+var chai = require('chai');
+var chaiHttp = require('chai-http');
+var server = require('../server.js');
 
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-
-const {app} = require('../server');
-
-const should = chai.should();
+var should = chai.should();
+var app = server.app;
+var storage = server.storage;
 
 chai.use(chaiHttp);
 
 
-// var expect = require('chai').expect;
-
-describe('Capstone 2 functions', function() {
-    it('should return appropriate status', function() {
-        return chai.request(app)
-            .get('/')
-            .then(function(res) {
-                res.should.have.status(200);
-            })
+describe('index page', function() {
+  it('exists', function(done) {
+    chai.request(app)
+      .get('/')
+      .end(function(err, res) {
+        res.should.have.status(200);
+        res.should.be.html;
+        done();
     });
+  });
 });
