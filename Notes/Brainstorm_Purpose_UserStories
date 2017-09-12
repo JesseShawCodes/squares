@@ -1,0 +1,23 @@
+Project Ideas:
+
+1. Create an App that organizes resources for a Project
+2. Music Rating Application using the Spotify API (may be capstone 3)
+
+I have selected idea number 1.
+
+Application purpose:
+The purpose of this application is to organize all resources in a project in one place. The user of this application will be able to add their own resources to their project application, as well as specify type of resource. Types of resources could include Internal/External, News Resources, Tutorials, blogs, etc.
+
+User Stories:
+
+    As a user, I can login to the project with my own unique user-name and password
+    As a user, I can give my database a unique title and change that title whenever I need to
+    As a user, I can add any resources that I would like to add to my database
+    As a user, I can filter my database resources by type of resource
+
+    Higher End features:
+
+    As a user, I can grant access to my database to whichever users I choose.
+    As a user, I can customize the types and not just be limited to what the application suggests
+    As a user, I can adjust the color pallete of my database to my liking
+
