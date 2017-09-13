@@ -8,6 +8,7 @@ var storage = server.storage;
 
 chai.use(chaiHttp);
 
+//Tests
 
 describe('index page', function() {
   it('exists', function(done) {
