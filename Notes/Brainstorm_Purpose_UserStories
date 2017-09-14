@@ -15,7 +15,7 @@ User Stories:
     As a user, I can add any resources that I would like to add to my database
     As a user, I can filter my database resources by type of resource
 
-    Higher End features:
+    Nice to haves features:
 
     As a user, I can grant access to my database to whichever users I choose.
     As a user, I can customize the types and not just be limited to what the application suggests
