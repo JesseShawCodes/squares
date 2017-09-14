@@ -1,0 +1,16 @@
+User Stories:
+
+    As a user, I can login to the project with my own unique user-name and password
+    As a user, I can give my database a unique title and change that title whenever I need to
+    As a user, I can add any resources that I would like to add to my database
+    As a user, I can filter my database resources by type of resource
+
+Screens Users will see:
+
+    Screen to login
+    Screen to name database
+    Main dashboard to add items to the database
+
+Sign-Up Page. User will create their own login. If password/username combination is not correct, users will see and
+error notification
+
