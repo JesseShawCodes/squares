@@ -8,16 +8,28 @@ var TaskSchema = new Schema({
     type: String,
     required: 'Kindly enter the name of the task'
   },
+  //Date Added
   Created_date: {
     type: Date,
     default: Date.now
   },
+  /*
   status: {
     type: [{
       type: String,
       enum: ['pending', 'ongoing', 'completed']
     }],
     default: ['pending']
+  },
+  */
+  // Category for the resource
+  category: {
+    type: String,
+    required: 'Kindly enter the name of the task'
+  },
+  // Link to the resources 
+  link: {
+    type: String
   }
 });
 
