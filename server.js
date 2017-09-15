@@ -18,9 +18,9 @@ app.use(bodyParser.json());
 var routes = require('./routes/todoListRoutes'); //importing route
 routes(app); //register the route
 
-
-// app.listen(port);
-
+app.use(function(req, res) {
+    res.status(404).send(`We aplogize. But the url ${req.originalUrl} was not found`)
+  });
 
 console.log('todo list RESTful API server started on: ' + port);
 
