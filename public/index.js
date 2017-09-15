@@ -2,36 +2,44 @@ var MOCK_RESOURCES = {
     "resources": [
         {
             "id": "1111111",
-            "text": "CSS MDN",
+            "name": "CSS MDN",
             "friendId": "aaaaaa",
             "friendName": "Jesse Shaw",
-            "publishedAt": 1470016976609
+            "Created_date": 1470016976609,
+            "link": "",
+            "category": "CSS"
         },
         {
             "id": "2222222",
-            "text": "Javascript MDN",
+            "name": "Javascript MDN",
             "friendId": "bbbbbbb",
             "author": "Jesse Shaw",
-            "publishedAt": 1470012976609
+            "Created_date": 1470012976609,
+            "link": "",
+            "category": "javascript"
         },
         {
             "id": "333333",
-            "text": "jQuery API",
+            "name": "jQuery API",
             "friendId": "cccc",
             "friendName": "Jesse Shaw",
-            "publishedAt": 1470011976609
+            "Created_date": 1470011976609,
+            "link": "",
+            "category": "jquery"
         },
         {
             "id": "4444444",
-            "text": "HTML MDN",
+            "name": "HTML MDN",
             "friendId": "ddddd",
             "friendName": "Jesse Shaw",
-            "publishedAt": 1470009976609
+            "Created_date": 1470009976609,
+            "link": "",
+            "category": "html"
         }
     ]
 };
 
-function getRecentStatusUpdates(callbackFn) {
+function getResources(callbackFn) {
     setTimeout(function(){ callbackFn(MOCK_RESOURCES)}, 3000);
 }
 
@@ -40,18 +48,16 @@ function getRecentStatusUpdates(callbackFn) {
 function displayReferences(data) {
     for (index in data.resources) {
        $('body').append(
-        '<p>' + data.resources[index].text + '</p>');
+        '<p>' + data.resources[index].name + '</p>');
     }
 }
 
 // this function can stay the same even when we
 // are connecting to real API
-function getAndDisplayStatusUpdates() {
-    getRecentStatusUpdates(displayReferences);
+function getAndDisplayReferences() {
+    getResources(displayReferences);
 }
 
 $(function() {
-    getAndDisplayStatusUpdates();
+    getAndDisplayReferences();
 })
-
-$("body").css("background-color", "pink");
