@@ -32,7 +32,7 @@ var MOCK_RESOURCES = {
 };
 
 function getRecentStatusUpdates(callbackFn) {
-    setTimeout(function(){ callbackFn(MOCK_RESOURCES)}, 300);
+    setTimeout(function(){ callbackFn(MOCK_RESOURCES)}, 3000);
 }
 
 // this function stays the same when we connect
