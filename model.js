@@ -13,15 +13,6 @@ var TaskSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  /*
-  status: {
-    type: [{
-      type: String,
-      enum: ['pending', 'ongoing', 'completed']
-    }],
-    default: ['pending']
-  },
-  */
   // Category for the resource
   category: {
     type: String,

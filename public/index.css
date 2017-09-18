@@ -10,6 +10,11 @@ form {
     display: inline-block;
 }
 
+form textarea {
+    width: 400px;
+    height: 100px;
+}
+
 form input {
     width: 400px;
     height: 100px;
@@ -20,8 +25,31 @@ form > input, label {
 }
 
 .submit input {
-    width: 100px;
-    height: 25px;
+    width: 200px;
+    height: 50px;
     margin-top: 10px;
+    margin-bottom: 20px;
     border: none;
+    background-color: blue;
+    color: white;
+    font-size: 20px;
+}
+
+/*Resource Section*/
+
+#grid {
+    display: inline-block;
+}
+
+.resource {
+    background-color: blue;
+    width: 200px;
+    color: white;
+    display: inline-block;
+    margin: 5px;
+}
+
+.resource span {
+    position: relative;
+    display: block;
 }
