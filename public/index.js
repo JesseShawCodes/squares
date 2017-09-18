@@ -1,3 +1,5 @@
+/*
+
 var MOCK_RESOURCES = {
     "resources": [
         {
@@ -61,3 +63,7 @@ function getAndDisplayReferences() {
 $(function() {
     getAndDisplayReferences();
 })
+
+*/
+
+$("body").css("background-color", "pink");

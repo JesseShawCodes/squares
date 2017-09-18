@@ -1,0 +1,27 @@
+main {
+    margin: auto 0px;
+}
+
+.formsection {
+    margin: auto 0px;
+}
+
+form {
+    display: inline-block;
+}
+
+form input {
+    width: 400px;
+    height: 100px;
+}
+
+form > input, label {
+    display: block;
+}
+
+.submit input {
+    width: 100px;
+    height: 25px;
+    margin-top: 10px;
+    border: none;
+}
