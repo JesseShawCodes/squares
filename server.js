@@ -70,7 +70,7 @@ app.post('/api', function(req, res) {
   res.json(feedbackData);
 });
 
-console.log('todo list RESTful API server started on: ' + port);
+console.log('Capstone 2 server started on: ' + port);
 
 exports.app = app;
 
