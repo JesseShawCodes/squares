@@ -4,7 +4,8 @@
   "description": "Fullstack Capstone Project",
   "main": "server.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "--ignore feedback.json"
   },
   "author": "Jesse Shaw",
   "license": "ISC",
