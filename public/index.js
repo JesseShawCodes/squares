@@ -25,4 +25,6 @@ $("form").on("submit", function(e) {
         success: null,
         dataType: 'json'
     });
+
 })
+
