@@ -21,9 +21,6 @@ var TaskSchema = new Schema({
   // Link to the resources 
   link: {
     type: String
-  },
-  description: {
-    type: String,
   }
 });
 

@@ -63,7 +63,7 @@ app.use(function(req, res) {
 });
 
 
-console.log('Capstone 2 server started on: ' + port);
+console.log('todo list RESTful API server started on: ' + port);
 
 exports.app = app;
 
