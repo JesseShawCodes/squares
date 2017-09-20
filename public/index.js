@@ -2,21 +2,14 @@ $("form").on("submit", function(e) {
     e.preventDefault();
     var title = $(".title").val();
     var description = $(".description").val();
-    var link = $(".link").val();
-<<<<<<< HEAD
-    var dataInput = {
-        name: title,
-        description: description,
-        link: link
-=======
+    var link = $(".link").val()
     var category = $(".category").val();
     var dataInput = {
         name: title,
         description: description,
         link: link,
         category: category
->>>>>>> API
-    };
+    }
     $("#grid").append(`
     <section class="resource">
         <span><h1>${title}</h1></span> 
@@ -32,8 +25,4 @@ $("form").on("submit", function(e) {
         success: null,
         dataType: 'json'
     });
-<<<<<<< HEAD
-});
-=======
-});
->>>>>>> API
+})

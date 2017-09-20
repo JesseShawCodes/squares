@@ -23,8 +23,8 @@ var TaskSchema = new Schema({
     type: String
   },
   description: {
-    type: String,
-  }
+    type: String
+  },
 });
 
 module.exports = mongoose.model('Tasks', TaskSchema);
