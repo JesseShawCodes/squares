@@ -1,16 +1,15 @@
 $("form").on("submit", function(e) {
     e.preventDefault();
-    console.log("Test");
     var title = $(".title").val();
     var description = $(".description").val();
     var link = $(".link").val();
-    var data = [title, description, link];
-    $.post('api', {
-        title: title,
+    var category = $(".category").val();
+    var dataInput = {
+        name: title,
         description: description,
-        link: link
-    });
-    console.log(data);
+        link: link,
+        category: category
+    };
     $("#grid").append(`
     <section class="resource">
         <span><h1>${title}</h1></span> 
@@ -18,4 +17,12 @@ $("form").on("submit", function(e) {
         <span>${link}</span>
     </section>
     `);
-})
+    console.log(dataInput.name);
+    $.ajax({
+        type: "POST",
+        url: "/api",
+        data: dataInput,
+        success: null,
+        dataType: 'json'
+    });
+});
