@@ -56,19 +56,12 @@ app.use(bodyParser.json());
 
 
 var routes = require('./routes/todoListRoutes'); //importing route
-routes(app); //register the route
+// routes(app); //register the route
 
 app.use(function(req, res) {
     res.status(404).send(`We aplogize. But the url ${req.originalUrl} was not found`)
 });
 
-app.post('/api', function(req, res) {
-  feedbackData.unshift(req.body);
-  fs.writeFile('/data/dataset.json', JSON.stringify(feedbackData), 'utf8', function(err) {
-    console.log(err);
-  });
-  res.json(feedbackData);
-});
 
 console.log('Capstone 2 server started on: ' + port);
 

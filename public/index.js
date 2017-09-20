@@ -3,10 +3,12 @@ $("form").on("submit", function(e) {
     var title = $(".title").val();
     var description = $(".description").val();
     var link = $(".link").val();
+    var category = $(".category").val();
     var dataInput = {
         name: title,
         description: description,
-        link: link
+        link: link,
+        category: category
     };
     $("#grid").append(`
     <section class="resource">

@@ -13,3 +13,13 @@ module.exports = function(app) {
     .put(todoList.update_a_task)
     .delete(todoList.delete_a_task);
 };
+
+var express = require('express');
+var router = express.Router();
+var feedbackData = require('../data/dataset.json');
+
+router.get('/api', function(req, res) {
+  res.json(feedbackData);
+});
+
+module.exports = router;
