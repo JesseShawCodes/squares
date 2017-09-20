@@ -3,10 +3,19 @@ $("form").on("submit", function(e) {
     var title = $(".title").val();
     var description = $(".description").val();
     var link = $(".link").val();
+<<<<<<< HEAD
     var dataInput = {
         name: title,
         description: description,
         link: link
+=======
+    var category = $(".category").val();
+    var dataInput = {
+        name: title,
+        description: description,
+        link: link,
+        category: category
+>>>>>>> API
     };
     $("#grid").append(`
     <section class="resource">
@@ -23,4 +32,8 @@ $("form").on("submit", function(e) {
         success: null,
         dataType: 'json'
     });
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> API
