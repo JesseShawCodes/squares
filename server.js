@@ -1,65 +1,29 @@
+//Express
 var express = require('express');
 var app = express();
+
+//Morgan
+var morgan = require('morgan');
+
 var fs = require('fs');
 var http = require('http');
 var path = require('path');
-var port = process.env.PORT || 8080;
+
 app.use(express.static('public'));
-app.listen(process.env.PORT || 8080);
+app.use(morgan('commin'));
+
 mongoose = require('mongoose'),
-Task = require('./model.js'), //created model loading here
+Resource = require('./model.js'), //created model loading here
 bodyParser = require('body-parser');
 
-// mongoose instance connection url connection
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/Tododb', {
-  useMongoClient: true
-}); 
-
-http.createServer(function(req, res) {
-  
-    console.log(`${req.method} request for ${req.url}`);
-  
-    if (req.url === "/") {
-      fs.readFile("./public/index.html", "UTF-8", function(err, html) {
-        res.writeHead(200, {"Content-Type": "text/html"});
-        res.end(html);
-      });
-  
-    } else if (req.url.match(/.css$/)) {
-  
-      var cssPath = path.join(__dirname, 'public', req.url);
-      var fileStream = fs.createReadStream(cssPath, "UTF-8");
-  
-      res.writeHead(200, {"Content-Type": "text/css"});
-  
-      fileStream.pipe(res);
-  
-    } else if (req.url.match(/.jpg$/)) {
-  
-      var imgPath = path.join(__dirname, 'public', req.url);
-      var imgStream = fs.createReadStream(imgPath);
-  
-      res.writeHead(200, {"Content-Type": "image/jpeg"});
-  
-      imgStream.pipe(res);
-  
-    } else {
-      res.writeHead(404, {"Content-Type": "text/plain"});
-      res.end("404 File Not Found");
-    }
-  
-  });
+const jsonParser = bodyParser.json();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
-var routes = require('./routes/todoListRoutes'); //importing route
-routes(app); //register the route
-
-app.use(function(req, res) {
-    res.status(404).send(`We aplogize. But the url ${req.originalUrl} was not found`)
+app.get('/api', function(req, res) {
+  res.json(Resource.get());
+  console.log("A GET request has been made")
 });
 
 app.post('/api', function(req, res) {
@@ -70,6 +34,23 @@ app.post('/api', function(req, res) {
   res.json(feedbackData);
 });
 
+app.put('/api/:id', function(req, res) {
+  console.log("A PUT request has been made");
+})
+
+app.delete('/api/:id', function(req, res) {
+  Resource.delete(req.params.id);
+  console.log(`Deleted resource list item \`${req.params.id}\``);
+  res.status(204).end();
+})
+
+app.use(function(req, res) {
+  res.status(404).send(`We aplogize. But the url ${req.originalUrl} was not found`)
+});
+
+//Port Information
+var port = process.env.PORT || 8080;
+app.listen(process.env.PORT || 8080);
 console.log('todo list RESTful API server started on: ' + port);
 
 exports.app = app;
