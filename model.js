@@ -1,24 +1,23 @@
-const uuid = require('uuid');
-
 const mongoose = require('mongoose');
 
-const resourceListSchema = mongoose.Schema({
-  title: {type: String, require: true},
-  content: {type: String, require: true},
-  link: {type: String, require: true},
-  categroy: {type: String}
+const resourcePostSchema = mongoose.Schema({
+  title: {type: String, required: true},
+  content: {type: String},
+  created: {type: Date, default: Date.now},
+  url: {type: String}
 });
 
-resourceListSchema.methods.apiRepr = function() {
+
+resourcePostSchema.methods.apiRepr = function() {
   return {
     id: this._id,
-    title: this.title,
+    title: this.title,  
     content: this.content,
-    link: this.link,
-    categroy: this.categroy
+    created: this.created,
+    url: this.url
   };
 }
 
-const resourcePost = mongoose.model('resourcePost', resourceListSchema);
+const Resources = mongoose.model('Resources', resourcePostSchema);
 
-module.exports = {resourcePost};
+module.exports = {Resources};

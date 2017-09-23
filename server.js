@@ -1,65 +1,155 @@
-//Express
-var express = require('express');
-var app = express();
+const bodyParser = require('body-parser');
+const express = require('express');
+const mongoose = require('mongoose');
+const morgan = require('morgan');
 
-//Morgan
-var morgan = require('morgan');
+const {DATABASE_URL, PORT} = require('./config');
+const {Resources} = require('./model');
 
-var fs = require('fs');
-var http = require('http');
-var path = require('path');
+const app = express();
 
-app.use(express.static('public'));
-app.use(morgan('commin'));
-
-mongoose = require('mongoose'),
-Resource = require('./model.js'), //created model loading here
-bodyParser = require('body-parser');
-
-const jsonParser = bodyParser.json();
-
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(morgan('common'));
 app.use(bodyParser.json());
 
-app.get('/api', function(req, res) {
-  res.json(Resource.get());
-  console.log("A GET request has been made")
+mongoose.Promise = global.Promise;
+
+app.get('/api', (req, res) => {
+  Resources
+    .find()
+    .then(posts => {
+      res.json(posts.map(post => post.apiRepr()));
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({error: 'something went terribly wrong'});
+    });
 });
 
-app.post('/api', function(req, res) {
-  feedbackData.unshift(req.body);
-  fs.writeFile('/data/dataset.json', JSON.stringify(feedbackData), 'utf8', function(err) {
-    console.log(err);
+app.get('/api/:id', (req, res) => {
+  Resources
+    .findById(req.params.id)
+    .then(post => res.json(post.apiRepr()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({error: 'something went horribly awry'});
+    });
+});
+
+app.post('/api', (req, res) => {
+  const requiredFields = ['title', 'content', 'url'];
+  for (let i=0; i<requiredFields.length; i++) {
+    const field = requiredFields[i];
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`
+      console.error(message);
+      return res.status(400).send(message);
+    }
+  }
+
+  Resources
+    .create({
+      title: req.body.title,
+      content: req.body.content,
+      url: req.body.url
+    })
+    .then(blogPost => res.status(201).json(blogPost.apiRepr()))
+    .catch(err => {
+        console.error(err);
+        res.status(500).json({error: 'Something went wrong'});
+    });
+
+});
+
+app.delete('/api/:id', (req, res) => {
+  Resources
+    .findByIdAndRemove(req.params.id)
+    .then(() => {
+      res.status(204).json({message: 'success'});
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({error: 'something went terribly wrong'});
+    });
+});
+
+app.put('/api/:id', (req, res) => {
+  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+    res.status(400).json({
+      error: 'Request path id and request body id values must match'
+    });
+  }
+
+  const updated = {};
+  const updateableFields = ['title', 'content', 'author'];
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      updated[field] = req.body[field];
+    }
   });
-  res.json(feedbackData);
+
+  Resources
+    .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
+    .then(updatedPost => res.status(204).end())
+    .catch(err => res.status(500).json({message: 'Something went wrong'}));
 });
 
-app.put('/api/:id', function(req, res) {
-  console.log("A PUT request has been made");
-})
-
-app.delete('/api/:id', function(req, res) {
-  Resource.delete(req.params.id);
-  console.log(`Deleted resource list item \`${req.params.id}\``);
-  res.status(204).end();
-})
-
-app.use(function(req, res) {
-  res.status(404).send(`We aplogize. But the url ${req.originalUrl} was not found`)
+app.delete('/:id', (req, res) => {
+  Resourcess
+    .findByIdAndRemove(req.params.id)
+    .then(() => {
+      console.log(`Deleted resource post with id \`${req.params.ID}\``);
+      res.status(204).end();
+    });
 });
 
-//Port Information
-var port = process.env.PORT || 8080;
-app.listen(process.env.PORT || 8080);
-console.log('todo list RESTful API server started on: ' + port);
+app.use('*', function(req, res) {
+  res.status(404).json({message: 'Not Found'});
+});
 
-exports.app = app;
+// closeServer needs access to a server object, but that only
+// gets created when `runServer` runs, so we declare `server` here
+// and then assign a value to it in run
+let server;
 
+// this function connects to our database, then starts the server
+function runServer(databaseUrl=DATABASE_URL, port=PORT) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(databaseUrl, err => {
+      if (err) {
+        return reject(err);
+      }
+      server = app.listen(port, () => {
+        console.log(`Your app is listening on port ${port}`);
+        resolve();
+      })
+      .on('error', err => {
+        mongoose.disconnect();
+        reject(err);
+      });
+    });
+  });
+}
 
+// this function closes the server, and returns a promise. we'll
+// use it in our integration tests later.
+function closeServer() {
+  return mongoose.disconnect().then(() => {
+     return new Promise((resolve, reject) => {
+       console.log('Closing server');
+       server.close(err => {
+           if (err) {
+               return reject(err);
+           }
+           resolve();
+       });
+     });
+  });
+}
 
+// if server.js is called directly (aka, with `node server.js`), this block
+// runs. but we also export the runServer command so other code (for instance, test code) can start the server as needed.
+if (require.main === module) {
+  runServer().catch(err => console.error(err));
+};
 
-
-
-
-
-
+module.exports = {runServer, app, closeServer};
