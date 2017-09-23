@@ -3,6 +3,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 
+//File System
+const fs = require('fs');
+var resourceData = require('./data/dataset.json');
+
 const {DATABASE_URL, PORT} = require('./config');
 const {Resources} = require('./model');
 
@@ -10,6 +14,7 @@ const app = express();
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 mongoose.Promise = global.Promise;
 
@@ -36,6 +41,15 @@ app.get('/api/:id', (req, res) => {
 });
 
 app.post('/api', (req, res) => {
+  let postData = {
+    title: req.body.title,
+    content: req.body.content,
+    url: req.body.url
+  };
+  console.log(postData);
+  fs.appendFileSync('./data/dataset.json', JSON.stringify(postData), function(err) {
+    console.log(err);
+  });
   const requiredFields = ['title', 'content', 'url'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -45,19 +59,17 @@ app.post('/api', (req, res) => {
       return res.status(400).send(message);
     }
   }
-
   Resources
     .create({
       title: req.body.title,
       content: req.body.content,
       url: req.body.url
     })
-    .then(blogPost => res.status(201).json(blogPost.apiRepr()))
+    .then(resourcePost => res.status(201).json(resourcePost.apiRepr()))
     .catch(err => {
         console.error(err);
         res.status(500).json({error: 'Something went wrong'});
     });
-
 });
 
 app.delete('/api/:id', (req, res) => {
@@ -97,8 +109,9 @@ app.delete('/:id', (req, res) => {
   Resourcess
     .findByIdAndRemove(req.params.id)
     .then(() => {
-      console.log(`Deleted resource post with id \`${req.params.ID}\``);
-      res.status(204).end();
+      let message = `Deleted resource post with id \`${req.params.ID}\``
+      console.log(message);
+      return res.status(204).send(message).end();
     });
 });
 

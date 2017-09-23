@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha",
-    "start": "--ignore feedback.json"
+    "start": "--ignore dataset.json"
   },
   "author": "Jesse Shaw",
   "license": "ISC",

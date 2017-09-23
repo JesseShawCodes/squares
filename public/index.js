@@ -1,4 +1,4 @@
-$("form").on("submit", function(e) {
+$(".resoure-submit").on("submit", function(e) {
     e.preventDefault();
     var title = $(".title").val();
     var description = $(".description").val();
@@ -18,11 +18,9 @@ $("form").on("submit", function(e) {
     </section>
     `);
     console.log(dataInput.name);
-    $.ajax({
-        type: "POST",
-        url: "/api",
-        data: dataInput,
-        success: null,
-        dataType: 'json'
-    });
+    $.post('api', {
+        title: $(".title").val(),
+        content: $(".description").val(),
+        url: $(".link").val(),
+    })
 });
