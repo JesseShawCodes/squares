@@ -1,22 +1,22 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 
 //File System
 const fs = require('fs');
-var resourceData = require('./data/dataset.json');
+//var resourceData = require('./data/dataset.json');
 
 const {DATABASE_URL, PORT} = require('./config');
 const {Resources} = require('./model');
 
 const app = express();
 
-app.use(morgan('common'));
+// app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 
 app.get('/api', (req, res) => {
   Resources
@@ -41,15 +41,19 @@ app.get('/api/:id', (req, res) => {
 });
 
 app.post('/api', (req, res) => {
-  let postData = {
-    title: req.body.title,
-    content: req.body.content,
-    url: req.body.url
-  };
-  console.log(postData);
-  fs.appendFileSync('./data/dataset.json', JSON.stringify(postData), function(err) {
+  let postData = `
+  {
+    "title": "${req.body.title}",
+    "content": "${req.body.content}",
+    "url": "${req.body.url}"
+  }`;
+  // console.log(postData);
+  console.log(Resources.id);
+  /*
+  fs.appendFileSync('./data/dataset.json', postData, function(err) {
     console.log(err);
   });
+  */
   const requiredFields = ['title', 'content', 'url'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -92,7 +96,7 @@ app.put('/api/:id', (req, res) => {
   }
 
   const updated = {};
-  const updateableFields = ['title', 'content', 'author'];
+  const updateableFields = ['title', 'content', 'url'];
   updateableFields.forEach(field => {
     if (field in req.body) {
       updated[field] = req.body[field];

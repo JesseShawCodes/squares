@@ -1,36 +1,6 @@
-
-    {
-        "id": "59c6d40a4d4806246070a5fa",
-        "title": "testing",
-        "content": "Javascript Main MDN Resource",
-        "created": "2017-09-23T21:37:14.380Z",
-        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
-    }
-    {
-        "id": "59c6d6b87ca5f5257a7e2861",
-        "title": "testing",
-        "content": "Javascript Main MDN Resource",
-        "created": "2017-09-23T21:48:40.123Z",
-        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
-    }
-    {
-        "id": "59c6d6f49f4bfd2598997373",
-        "title": "testing",
-        "content": "Javascript Main MDN Resource",
-        "created": "2017-09-23T21:49:40.757Z",
-        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
-    }
-    {
-        "id": "59c6d71c25f92e25b2de70d3",
-        "title": "testing",
-        "content": "Javascript Main MDN Resource",
-        "created": "2017-09-23T21:50:20.851Z",
-        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
-    }
-    {
-        "id": "59c6d7426e69e525cbf3979a",
-        "title": "This is another test",
-        "content": "Javascript Main MDN Resource",
-        "created": "2017-09-23T21:50:58.919Z",
-        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
-    }
+{}
+{
+  "title": "Post Test",
+  "content": "Javascript Main MDN Resource",
+  "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+}

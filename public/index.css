@@ -1,13 +1,66 @@
 main {
-    margin: auto 0px;
+    width: 80%;
+    margin: auto;
 }
+
+/*Login Section*/
+.login {
+    background-color: blue;
+    padding-bottom: 100px;
+}
+
+.login h1 {
+    align-content: center;
+    color: white;
+}
+
+.login form {
+    margin: auto 10px;
+}
+
+.username, .password {
+    height: 50px;
+}
+
+.login label {
+    color: white;
+    display: block;
+    font-size: 20px;
+}
+
+.login .submit input {
+    width: 200px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: none;
+    background-color: green;
+    color: white;
+    font-size: 20px;
+}
+
+/*Test Login Information*/
+
+.testlogin {
+    margin: auto;
+}
+
+.testlogin span {
+    display: block;
+    color: white;
+    font-size: 20px;
+}
+
+/*Form Section*/
 
 .formsection {
     margin: auto 0px;
+    background-color: green;
 }
 
-form {
+.formsection form {
     display: inline-block;
+    margin: auto 10px;
 }
 
 form textarea {
@@ -20,11 +73,8 @@ form input {
     height: 100px;
 }
 
-form > input, label {
-    display: block;
-}
 
-.submit input {
+.formsection .submit input {
     width: 200px;
     height: 50px;
     margin-top: 10px;
@@ -33,6 +83,12 @@ form > input, label {
     background-color: blue;
     color: white;
     font-size: 20px;
+}
+
+.formsection label {
+    color: white;
+    font-size: 20px;
+    display: block;
 }
 
 /*Resource Section*/
