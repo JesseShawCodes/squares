@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 //var resourceData = require('./data/dataset.json');
 
+mongoose.Promise = global.Promise;
+
 const {DATABASE_URL, PORT} = require('./config');
 const {Resources} = require('./model');
 
@@ -16,7 +18,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-// mongoose.Promise = global.Promise;
+
 
 app.get('/api', (req, res) => {
   Resources
@@ -48,7 +50,7 @@ app.post('/api', (req, res) => {
     "url": "${req.body.url}"
   }`;
   // console.log(postData);
-  console.log(Resources.id);
+  // console.log(Resources.id);
   /*
   fs.appendFileSync('./data/dataset.json', postData, function(err) {
     console.log(err);
@@ -128,7 +130,7 @@ app.use('*', function(req, res) {
 // and then assign a value to it in run
 let server;
 
-// this function connects to our database, then starts the server
+// this function connects to the database, then starts the server
 function runServer(databaseUrl=DATABASE_URL, port=PORT) {
   return new Promise((resolve, reject) => {
     mongoose.connect(databaseUrl, err => {

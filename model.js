@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const resourcePostSchema = mongoose.Schema({
   title: {type: String, required: true},
-  content: {type: String},
+  content: {type: String, required: true},
   created: {type: Date, default: Date.now},
   url: {type: String}
 });

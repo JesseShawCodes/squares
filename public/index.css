@@ -22,6 +22,10 @@ main {
     height: 50px;
 }
 
+.password {
+    -webkit-text-security: disc;
+}
+
 .login label {
     color: white;
     display: block;
@@ -108,4 +112,10 @@ form input {
 .resource span {
     position: relative;
     display: block;
+}
+
+/*Hidden*/
+
+.hidden {
+    display: none;
 }
