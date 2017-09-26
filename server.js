@@ -1,10 +1,10 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
-// const morgan = require('morgan');
+const morgan = require('morgan');
 
 //File System
-const fs = require('fs');
+// const fs = require('fs');
 //var resourceData = require('./data/dataset.json');
 
 mongoose.Promise = global.Promise;
@@ -14,7 +14,7 @@ const {Resources} = require('./model');
 
 const app = express();
 
-// app.use(morgan('common'));
+app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -24,11 +24,14 @@ app.get('/api', (req, res) => {
   Resources
     .find()
     .then(posts => {
-      res.json(posts.map(post => post.apiRepr()));
+      res.json({
+        posts: posts.map(post => post.apiRepr())
+      });
     })
+
     .catch(err => {
       console.error(err);
-      res.status(500).json({error: 'something went terribly wrong'});
+      res.status(500).json({error: 'Internal Server Error'});
     });
 });
 
@@ -43,19 +46,6 @@ app.get('/api/:id', (req, res) => {
 });
 
 app.post('/api', (req, res) => {
-  let postData = `
-  {
-    "title": "${req.body.title}",
-    "content": "${req.body.content}",
-    "url": "${req.body.url}"
-  }`;
-  // console.log(postData);
-  // console.log(Resources.id);
-  /*
-  fs.appendFileSync('./data/dataset.json', postData, function(err) {
-    console.log(err);
-  });
-  */
   const requiredFields = ['title', 'content', 'url'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -76,6 +66,7 @@ app.post('/api', (req, res) => {
         console.error(err);
         res.status(500).json({error: 'Something went wrong'});
     });
+    console.log("A post has been submitted");
 });
 
 app.delete('/api/:id', (req, res) => {
@@ -86,7 +77,7 @@ app.delete('/api/:id', (req, res) => {
     })
     .catch(err => {
       console.error(err);
-      res.status(500).json({error: 'something went terribly wrong'});
+      res.status(500).json({error: 'Internal Server Error'});
     });
 });
 
