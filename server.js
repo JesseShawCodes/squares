@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 const http = require('http');
+const morgan = require('morgan');
 
 mongoose.Promise = global.Promise;
 
@@ -12,6 +13,7 @@ const {Resources} = require('./models/model');
 
 const app = express();
 
+app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -22,7 +24,46 @@ MongoClient.connect(DATABASE_URL, function(err, db) {
   db.close;
 })
 
+//User Routers /*
+/*
+const {router: usersRouter} = require('./users');
+const {router: authRouter, basicStrategy, jwtStrategy} = require('./auth');
 
+
+// Logging
+app.use(morgan('common'));
+
+// CORS
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
+  if (req.method === 'OPTIONS') {
+      return res.send(204);
+  }
+  next();
+});
+
+app.use(passport.initialize());
+passport.use(basicStrategy);
+passport.use(jwtStrategy);
+
+app.use('/api/users/', usersRouter);
+app.use('/api/auth/', authRouter);
+
+// A protected endpoint which needs a valid JWT to access it
+app.get(
+  '/api/protected',
+  passport.authenticate('jwt', {session: false}),
+  (req, res) => {
+      return res.json({
+          data: 'rosebud'
+      });
+  }
+);
+
+
+*/
 
 app.get('/api', (req, res) => {
   Resources
