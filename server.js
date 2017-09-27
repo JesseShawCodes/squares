@@ -3,6 +3,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
+const http = require('http');
 
 mongoose.Promise = global.Promise;
 
@@ -20,6 +21,8 @@ MongoClient.connect(DATABASE_URL, function(err, db) {
   console.log("Connected succesfully to Mongo server");
   db.close;
 })
+
+
 
 app.get('/api', (req, res) => {
   Resources
@@ -147,6 +150,42 @@ function closeServer() {
      });
   });
 }
+
+http.createServer(function(req, res) {
+  
+    console.log(`${req.method} request for ${req.url}`);
+  
+    if (req.url === "/") {
+      console.log(`Home page should be loaded`);
+      fs.readFile("./public/index.html", "UTF-8", function(err, html) {
+        res.writeHead(200, {"Content-Type": "text/html"});
+        res.end(html);
+      });
+  
+    } else if (req.url.match(/.css$/)) {
+  
+      var cssPath = path.join(__dirname, 'public', req.url);
+      var fileStream = fs.createReadStream(cssPath, "UTF-8");
+  
+      res.writeHead(200, {"Content-Type": "text/css"});
+  
+      fileStream.pipe(res);
+  
+    } else if (req.url.match(/.jpg$/)) {
+  
+      var imgPath = path.join(__dirname, 'public', req.url);
+      var imgStream = fs.createReadStream(imgPath);
+  
+      res.writeHead(200, {"Content-Type": "image/jpeg"});
+  
+      imgStream.pipe(res);
+  
+    } else {
+      res.writeHead(404, {"Content-Type": "text/plain"});
+      res.end("404 File Not Found");
+    }
+  
+});
 
 // if server.js is called directly (aka, with `node server.js`), this block
 // runs. but we also export the runServer command so other code (for instance, test code) can start the server as needed.
