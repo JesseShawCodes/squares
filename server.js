@@ -1,31 +1,32 @@
+'use strict';
+
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
-const morgan = require('morgan');
-
-//File System
-// const fs = require('fs');
-//var resourceData = require('./data/dataset.json');
 
 mongoose.Promise = global.Promise;
 
-const {DATABASE_URL, PORT} = require('./config');
-const {Resources} = require('./model');
+const {DATABASE_URL, PORT} = require('./config/config');
+const {Resources} = require('./models/model');
 
 const app = express();
 
-app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+var MongoClient = require('mongodb').MongoClient;
 
+MongoClient.connect(DATABASE_URL, function(err, db) {
+  console.log("Connected succesfully to Mongo server");
+  db.close;
+})
 
 app.get('/api', (req, res) => {
   Resources
     .find()
     .then(posts => {
       res.json({
-        posts: posts.map(post => post.apiRepr())
+        posts: posts.map(post => post.apiGet())
       });
     })
 
@@ -38,7 +39,7 @@ app.get('/api', (req, res) => {
 app.get('/api/:id', (req, res) => {
   Resources
     .findById(req.params.id)
-    .then(post => res.json(post.apiRepr()))
+    .then(post => res.json(post.apiGet()))
     .catch(err => {
       console.error(err);
       res.status(500).json({error: 'something went horribly awry'});
@@ -61,7 +62,7 @@ app.post('/api', (req, res) => {
       content: req.body.content,
       url: req.body.url
     })
-    .then(resourcePost => res.status(201).json(resourcePost.apiRepr()))
+    .then(resourcePost => res.status(201).json(resourcePost.apiGet()))
     .catch(err => {
         console.error(err);
         res.status(500).json({error: 'Something went wrong'});
@@ -79,6 +80,7 @@ app.delete('/api/:id', (req, res) => {
       console.error(err);
       res.status(500).json({error: 'Internal Server Error'});
     });
+  console.log(`A Delete Request has been made`);
 });
 
 app.put('/api/:id', (req, res) => {
@@ -100,16 +102,6 @@ app.put('/api/:id', (req, res) => {
     .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
     .then(updatedPost => res.status(204).end())
     .catch(err => res.status(500).json({message: 'Something went wrong'}));
-});
-
-app.delete('/:id', (req, res) => {
-  Resourcess
-    .findByIdAndRemove(req.params.id)
-    .then(() => {
-      let message = `Deleted resource post with id \`${req.params.ID}\``
-      console.log(message);
-      return res.status(204).send(message).end();
-    });
 });
 
 app.use('*', function(req, res) {

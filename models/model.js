@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
-const resourcePostSchema = mongoose.Schema({
+const resourcePostSchema = new mongoose.Schema({
   title: {type: String, required: true},
   content: {type: String, required: true},
   created: {type: Date, default: Date.now},
@@ -8,7 +9,7 @@ const resourcePostSchema = mongoose.Schema({
 });
 
 
-resourcePostSchema.methods.apiRepr = function() {
+resourcePostSchema.methods.apiGet = function() {
   return {
     id: this._id,
     title: this.title,  
