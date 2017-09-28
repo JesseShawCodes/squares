@@ -20,9 +20,6 @@ MongoClient.connect(DATABASE_URL, function(err, db) {
 
 const app = express();
 
-
-
-
 //User Routers 
 
 const {router: usersRouter} = require('./users');

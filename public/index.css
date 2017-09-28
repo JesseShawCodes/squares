@@ -118,6 +118,10 @@ form input {
     display: block;
 }
 
+#grid a {
+    color: white;
+}
+
 /*Hidden*/
 
 .hidden {
