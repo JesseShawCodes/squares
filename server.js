@@ -1,31 +1,30 @@
 'use strict';
 
+require('dotenv').config();
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 const http = require('http');
 const morgan = require('morgan');
-
-mongoose.Promise = global.Promise;
+const passport = require('passport');
 
 const {DATABASE_URL, PORT} = require('./config/config');
 const {Resources} = require('./models/model');
 
-const app = express();
-
-app.use(express.static('public'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-
+mongoose.Promise = global.Promise;
 var MongoClient = require('mongodb').MongoClient;
-
 MongoClient.connect(DATABASE_URL, function(err, db) {
   console.log("Connected succesfully to Mongo server");
   db.close;
 })
 
-//User Routers /*
-/*
+const app = express();
+
+
+
+
+//User Routers 
+
 const {router: usersRouter} = require('./users');
 const {router: authRouter, basicStrategy, jwtStrategy} = require('./auth');
 
@@ -62,8 +61,9 @@ app.get(
   }
 );
 
-
-*/
+app.use(express.static('public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/api', (req, res) => {
   Resources
