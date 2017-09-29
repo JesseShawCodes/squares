@@ -27,6 +27,32 @@
             <span>Login: demo</span>
             <span>Password: p@$$word</span>
             </div>
+            <div class="newuser">
+                <span>New User? Click Below to Register</span>
+                <button class="registerbutton">Register</button>
+            </div>
+        </div>
+        <div class="register hidden">
+            <h1>Register</h1>
+            <form class="registerform">
+                <label>Login</label>
+                <input type="text" class="usernameregister">
+                <label>Password</label>
+                <input type="text" class="passwordregister">
+                <label>First Name</label>
+                <input type="text" class="firstname">
+                <label>Last Name</label>
+                <input type="text" class="lastname">
+                <div class="submit">
+                <input type="submit">
+                </div>
+            </form>
+            <div class="loginerror hidden">You did not enter a correct username</div>
+            <div class="testlogin">
+            <span>To test this application, use the following:</span>
+            <span>Login: demo</span>
+            <span>Password: p@$$word</span>
+            </div>
         </div>
         <div class="formsection hidden">
         <form class="resoure-submit">
@@ -41,8 +67,7 @@
             </div>
         </form>
         </div>
-        <div id="grid">
-        </div>
+        <div id="grid"></div>
         </main>
         <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
         <script src="index.js"></script>
