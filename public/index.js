@@ -1,15 +1,85 @@
 //Login//
 
+function loginTest(user, pw) {
+    console.log(`username: ${user} password: ${pw}`);
+    $.ajax('/api/auth/login', {
+        method: 'POST',
+        dataType: 'json',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Basic " + btoa(user + ":" + pw));
+        },
+        data: {
+            username: user,
+            password: pw
+        },
+        success: function() {
+            console.log("The Request was succesful!");
+        },
+        error: function() {
+            console.log("THERE WAS AN ERROR");
+        }
+    })
+}
+
 $(".loginform").on("submit", function(e) {
     e.preventDefault();
     var username = $(".username").val();
     var password = $(".password").val();
     console.log(`Username: ${username}. Password: ${password}`);
+    $.ajax('/api/auth/login', {
+        method: 'POST',
+        dataType: 'json',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+        },
+        data: {
+            username: username,
+            password: password
+        },
+        success: function() {
+            console.log("The Request was succesful!");
+        },
+        error: function() {
+            console.log("THERE WAS AN ERROR");
+        }
+    });
+    console.log("A User has attempted to Login");
     //Login at api/auth/login
 })
 
-//Register//
+////////////////
+////Register////
+////////////////
 
+///////////////
+////Get JWT////
+///////////////
+
+function getJwt(user, pw) {
+    var request = new XMLHttpRequest();
+    console.log("Getting JWT");
+    $.ajax('api/auth/login', {
+        method: 'POST',
+        crossDomain: true,
+        headers: {
+            "Content-Type": "application/json"
+        },
+        data: {
+            username: user,
+            password: pw
+        },
+        success: function() {
+            console.log("THE REQUEST IS COMPLETE");
+        },
+        error: function() {
+            console.log("THERE WAS AN ERROR WITH YOUR REQUEST");
+        } 
+    })
+}
+
+//////////////////////
+//SHOW Register Form//
+//////////////////////
 $(".registerbutton").on("click", function(e) {
     e.preventDefault();
     console.log("Register Button was clicked");
@@ -17,20 +87,38 @@ $(".registerbutton").on("click", function(e) {
     $(".login").addClass("hidden");
 })
 
+////////////////////////////////////////////////////////////////////////////////////
+//Submit Username, Password, First Name and Last Name to register //////////////////
+////////////////////////////////////////////////////////////////////////////////////
+
 $(".registerform").on("submit", function(e) {
     e.preventDefault();
     let user = $(".usernameregister").val();
     let pw = $(".passwordregister").val();
     let firstName = $(".firstname").val();
     let lastName = $(".lastname").val();
-    console.log(`${user}, ${pw}, ${firstName}, ${lastName}`);
-    $.post('api/users', {
-        username: $(".usernameregister").val(),
-        password: $(".passwordregister").val(),
-        firstName: $(".firstname").val(),
-        lastName: $(".lastname").val()
+    $.ajax('/api/users/', {
+        method: 'POST',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader ("Authorization", "Basic " + btoa(user + ":" + pw));
+        },
+        data: {
+            username: user,
+            password: pw,
+            firstName: firstName,
+            lastName: lastName
+        },
+        success: function() {
+            console.log("SUCESS!!");
+        },
+        error: function() {
+            console.log("THERE WAS AN ERROR!");
+        },
+        "content-type": "application/json"
     });
+
     console.log("New User has been registered POST REQUEST");
+
 })
 
 var id = [];
@@ -41,7 +129,7 @@ $(".loginform").on("submit", function(e) {
     $("#grid").html('');
     var username = $(".username").val();
     var pw = $(".password").val();
-    if (username === "demo" && pw === "p@$$word") {
+    if (username === "demo" && pw === "p@$$word2017") {
         $(".formsection").removeClass("hidden");
         $(".login").addClass("hidden");
         loadData();
