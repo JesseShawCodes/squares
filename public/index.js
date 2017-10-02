@@ -38,6 +38,7 @@ $(".loginform").on("submit", function(e) {
         },
         success: function() {
             console.log("The Request was succesful!");
+
         },
         error: function() {
             console.log("THERE WAS AN ERROR");
@@ -50,32 +51,6 @@ $(".loginform").on("submit", function(e) {
 ////////////////
 ////Register////
 ////////////////
-
-///////////////
-////Get JWT////
-///////////////
-
-function getJwt(user, pw) {
-    var request = new XMLHttpRequest();
-    console.log("Getting JWT");
-    $.ajax('api/auth/login', {
-        method: 'POST',
-        crossDomain: true,
-        headers: {
-            "Content-Type": "application/json"
-        },
-        data: {
-            username: user,
-            password: pw
-        },
-        success: function() {
-            console.log("THE REQUEST IS COMPLETE");
-        },
-        error: function() {
-            console.log("THERE WAS AN ERROR WITH YOUR REQUEST");
-        } 
-    })
-}
 
 //////////////////////
 //SHOW Register Form//
@@ -100,21 +75,24 @@ $(".registerform").on("submit", function(e) {
     $.ajax('/api/users/', {
         method: 'POST',
         beforeSend: function (xhr) {
-            xhr.setRequestHeader ("Authorization", "Basic " + btoa(user + ":" + pw));
+            xhr.setRequestHeader("Authorization", "Basic " + btoa(user + ":" + pw));
+            // xhr.setRequestHeader("Content-Type5", "application/json");
         },
-        data: {
+        contentType: "application/json; charset=UTF-8",
+        dataType: "json",
+        data: JSON.stringify({
             username: user,
             password: pw,
             firstName: firstName,
             lastName: lastName
-        },
+        }, false),
         success: function() {
             console.log("SUCESS!!");
         },
         error: function() {
             console.log("THERE WAS AN ERROR!");
         },
-        "content-type": "application/json"
+        // "content-type": "application/json"
     });
 
     console.log("New User has been registered POST REQUEST");
@@ -124,6 +102,7 @@ $(".registerform").on("submit", function(e) {
 var id = [];
 
 //This function is used to demo the project. Users can submit a demo login
+
 $(".loginform").on("submit", function(e) {
     e.preventDefault();
     $("#grid").html('');
@@ -166,11 +145,11 @@ function deleteResource() {
         url: 'api/' + id[0],
         type: 'DELETE',
         success: loadData()
-    })
+    });
     $(".resource").click(function(e) {
         e.preventDefault();
         console.log("Deleting...");
-    })
+    });
 }
 
 $(".resoure-submit").on("submit", function(e) {
