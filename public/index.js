@@ -1,31 +1,13 @@
-//Login//
-
-function loginTest(user, pw) {
-    console.log(`username: ${user} password: ${pw}`);
-    $.ajax('/api/auth/login', {
-        method: 'POST',
-        dataType: 'json',
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader ("Authorization", "Basic " + btoa(user + ":" + pw));
-        },
-        data: {
-            username: user,
-            password: pw
-        },
-        success: function() {
-            console.log("The Request was succesful!");
-        },
-        error: function() {
-            console.log("THERE WAS AN ERROR");
-        }
-    })
-}
+///////////////////////////////
+/////////////Login/////////////
+///////////////////////////////
 
 $(".loginform").on("submit", function(e) {
     e.preventDefault();
     var username = $(".username").val();
     var password = $(".password").val();
     console.log(`Username: ${username}. Password: ${password}`);
+    window.alert = function() {};
     $.ajax('/api/auth/login', {
         method: 'POST',
         dataType: 'json',
@@ -38,14 +20,15 @@ $(".loginform").on("submit", function(e) {
         },
         success: function() {
             console.log("The Request was succesful!");
-
+            showResourceInput();
+            loadData();
         },
         error: function() {
             console.log("THERE WAS AN ERROR");
+            $(".loginerror").removeClass("hidden");
         }
     });
     console.log("A User has attempted to Login");
-    //Login at api/auth/login
 })
 
 ////////////////
@@ -54,7 +37,7 @@ $(".loginform").on("submit", function(e) {
 
 //////////////////////
 //SHOW Register Form//
-//////////////////////
+
 $(".registerbutton").on("click", function(e) {
     e.preventDefault();
     console.log("Register Button was clicked");
@@ -101,24 +84,18 @@ $(".registerform").on("submit", function(e) {
 
 var id = [];
 
-//This function is used to demo the project. Users can submit a demo login
+/////////////////////////////////
+////Show Resource Input Form/////
+/////////////////////////////////
 
-$(".loginform").on("submit", function(e) {
-    e.preventDefault();
-    $("#grid").html('');
-    var username = $(".username").val();
-    var pw = $(".password").val();
-    if (username === "demo" && pw === "p@$$word2017") {
-        $(".formsection").removeClass("hidden");
-        $(".login").addClass("hidden");
-        loadData();
-    } else {
-        $(".loginerror").removeClass("hidden");
-    }
-});
+function showResourceInput() {
+    $(".formsection").removeClass("hidden");
+    $(".login").addClass("hidden");
+}
 
-//Submit a post to the server
-
+////////////////////////////
+////Data Rendering//////////
+////////////////////////////
 
 function loadData() {
     $.get( 'api', function( data ) {
@@ -128,9 +105,12 @@ function loadData() {
             $("#grid").append(`
             <section class="resource" id="${data.posts[i].id}">
                 <span><h1>${data.posts[i].title}</h1></span> 
-                <span>${data.posts[i].content}</span>  
-                <span><a href='${data.posts[i].url}' target="_blank">Click Here</a></span>
+                <span>${data.posts[i].content}</span>
+                <section class="clickableitems">
+                <span class="link"><a href='${data.posts[i].url}' target="_blank"><button>Click Here</button></a></span>
                 <section class="delete-request" onclick="deleteResource();"><button>Delete</button></section>
+                <section class="edit-request" onclick="editResource();"><button>Edit</button></section>
+                </section class="clickableitems
             </section>
             `);
             id[i] = `${data.posts[i].id}`;
@@ -138,6 +118,10 @@ function loadData() {
         };
     });
 }
+
+/////////////////////////////
+////Delete Resource//////////
+/////////////////////////////
 
 function deleteResource() {
     console.log(id);
@@ -151,6 +135,18 @@ function deleteResource() {
         console.log("Deleting...");
     });
 }
+
+/////////////////////////////
+////Edit Resource///////////
+
+function editResource() {
+    console.log("Attempting to Edit a resource");
+
+}
+
+/////////////////////////////
+////Submit Resource//////////
+/////////////////////////////
 
 $(".resoure-submit").on("submit", function(e) {
     e.preventDefault();
@@ -167,9 +163,12 @@ $(".resoure-submit").on("submit", function(e) {
     $("#grid").append(`
     <section class="resource">
         <span><h1>${title}</h1></span> 
-        <span>${description}</span>  
-        <span><a href='${link}' target="_blank">Click Here</a></span>
+        <span>${description}</span>
+        <section class="clickableitems">
+        <span class="link"><a href='${link}' target="_blank"><button>Click Here</button></a></span>
         <section class="delete-request" onclick="deleteResource();"><button>Delete</button></section>
+        <section class="edit-request" onclick="editResource();"><button>Edit</button></section>
+        </section class="clickableitems>
     </section>
     `);
     $.post('api', {

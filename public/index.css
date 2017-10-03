@@ -138,6 +138,25 @@ form input {
     color: white;
 }
 
+.delete-request button, .edit-request button, .link button {
+    width: 50%;
+    border: none;
+    background-color: #088001;
+    color: white;
+}
+
+.delete-request button:hover, .edit-request button:hover, .link button:hover {
+    width: 50%;
+    border: none;
+    background-color: blue;
+    color: white;
+}
+
+.clickableitems {
+    text-align: center;
+    padding-top: 10px;
+}
+
 /*Hidden*/
 
 .hidden {
