@@ -12,7 +12,9 @@ $(".loginform").on("submit", function(e) {
         method: 'POST',
         dataType: 'json',
         beforeSend: function (xhr) {
-            xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+            xhr.withCredentials = true;
+            xhr.setRequestHeader("authorization", "Basic ZHNoYXc6cGFzc3dvcmQyMDE3IQ==");
+            xhr.setRequestHeader("cache-control", "no-cache");
         },
         data: {
             username: username,
@@ -59,7 +61,6 @@ $(".registerform").on("submit", function(e) {
         method: 'POST',
         beforeSend: function (xhr) {
             xhr.setRequestHeader("Authorization", "Basic " + btoa(user + ":" + pw));
-            // xhr.setRequestHeader("Content-Type5", "application/json");
         },
         contentType: "application/json; charset=UTF-8",
         dataType: "json",
@@ -71,6 +72,10 @@ $(".registerform").on("submit", function(e) {
         }, false),
         success: function() {
             console.log("SUCESS!!");
+            alert("You have succesfully Registered a user");
+            $(".register").addClass("hidden");
+            showResourceInput();
+            loadData();
         },
         error: function() {
             console.log("THERE WAS AN ERROR!");
@@ -141,7 +146,6 @@ function deleteResource() {
 
 function editResource() {
     console.log("Attempting to Edit a resource");
-
 }
 
 /////////////////////////////
@@ -154,12 +158,19 @@ $(".resoure-submit").on("submit", function(e) {
     var description = $(".description").val();
     var link = $(".link").val();
     var category = $(".category").val();
+    /*
     var dataInput = {
         name: title,
         description: description,
         link: link,
         category: category
     };
+    */
+    $.post('api', {
+        title: $(".title").val(),
+        content: $(".description").val(),
+        url: $(".link").val()
+    })
     $("#grid").append(`
     <section class="resource">
         <span><h1>${title}</h1></span> 
@@ -171,9 +182,4 @@ $(".resoure-submit").on("submit", function(e) {
         </section class="clickableitems>
     </section>
     `);
-    $.post('api', {
-        title: $(".title").val(),
-        content: $(".description").val(),
-        url: $(".link").val()
-    })
 });
