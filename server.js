@@ -10,6 +10,7 @@ const passport = require('passport');
 
 const {DATABASE_URL, PORT} = require('./config/config');
 const {Resources} = require('./models/model');
+const {User} = require('./users/models')
 
 mongoose.Promise = global.Promise;
 var MongoClient = require('mongodb').MongoClient;
@@ -62,32 +63,45 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.get('/api', (req, res) => {
-  Resources
-    .find()
-    .then(posts => {
-      res.json({
-        posts: posts.map(post => post.apiGet())
-      });
-    })
+/////////
+///api/users/resources/:userid
+///
 
+app.get('/api/users/', (req, res) => {
+  User
+    .find()
+    .then(post => {
+      res.json(post.apiGet());
+    })
     .catch(err => {
       console.error(err);
       res.status(500).json({error: 'Internal Server Error'});
     });
 });
 
-app.get('/api/:id', (req, res) => {
-  Resources
+
+app.get('/api/users/:id', (req, res) => {
+  User
     .findById(req.params.id)
-    .then(post => res.json(post.apiGet()))
+    .then(post => res.json(post))
     .catch(err => {
       console.error(err);
       res.status(500).json({error: 'something went horribly awry'});
     });
 });
 
-app.post('/api', (req, res) => {
+
+app.get('/api/users/:id/resources', (req, res) => {
+  Resources
+    .find()
+    .then(post => res.json(post))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({error: 'something went horribly awry'});
+    });
+});
+
+app.post('/api/users/:id', (req, res) => {
   const requiredFields = ['title', 'content', 'url'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -149,6 +163,8 @@ app.put('/api/:id', (req, res) => {
 app.use('*', function(req, res) {
   res.status(404).json({message: 'Not Found'});
 });
+
+app.post('/users')
 
 // closeServer needs access to a server object, but that only
 // gets created when `runServer` runs, so we declare `server` here

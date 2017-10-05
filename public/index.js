@@ -13,7 +13,7 @@ $(".loginform").on("submit", function(e) {
         dataType: 'json',
         beforeSend: function (xhr) {
             xhr.withCredentials = true;
-            xhr.setRequestHeader("authorization", "Basic ZHNoYXc6cGFzc3dvcmQyMDE3IQ==");
+            // xhr.setRequestHeader("authorization", "Basic ZHNoYXc6cGFzc3dvcmQyMDE3IQ==");
             xhr.setRequestHeader("cache-control", "no-cache");
         },
         data: {

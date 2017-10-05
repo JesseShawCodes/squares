@@ -18,12 +18,15 @@ const UserSchema = mongoose.Schema({
 });
 
 UserSchema.methods.apiRepr = function() {
+    
     return {
         username: this.username || '',
         firstName: this.firstName || '',
         lastName: this.lastName || ''
     };
 };
+
+//Password Encryption//
 
 UserSchema.methods.validatePassword = function(password) {
     return bcrypt.compare(password, this.password);
