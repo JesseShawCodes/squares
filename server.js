@@ -87,16 +87,16 @@ app.get('/api/users/', (req, res) => {
 app.get('/api/users/:id', (req, res) => {
   User
     .findById(req.params.id)
-    .then(post => res.json(post))
+    .then(post => res.json({userInformation: 'Sorry, you are not allowed access to this information'}))
     .catch(err => {
       console.error(err);
       res.status(500).json({error: 'Sorry. That user could not be located'});
     });
 });
 
-//////////////////////////////
-//////User Links Submitted////
-//////////////////////////////
+////////////////////////////////
+//////User Links Get Request////
+////////////////////////////////
 
 app.get('/api/users/:id/links', (req, res) => {
   var id = req.params.id;
@@ -115,41 +115,27 @@ app.get('/api/users/:id/links', (req, res) => {
     });
 });
 
-// We find the current logged user in our database
-User.findById((err, user) => {
-  
-   if (err) throw new Error(err);
-
-   // We create an object containing the data from our post request
-   const newPost = {
-      title: req.body.title,
-      content: req.body.content,
-      // in the author field we add our current user id as a reference
-      author: req.user._id
-   };
-
-   // we create our new post in our database
-   Post.create(newPost, (err, post) => {
-      if (err) {
-         res.redirect('/');
-         throw new Error(err);
-      }
-
-      // we insert our newpost in our posts field corresponding to the user we found in our database call
-      user.posts.push(newPost);
-      // we save our user with our new data (our new post).
-      user.save((err) => {
-         return res.redirect(`/posts/${post.id}`);
-      });
-   })
-   User.findById(req.user.id).populate('posts').exec((err, user) => {
-    console.log(user.posts);
+app.get('/api/users/:id/test', (req, res) => {
+  var id = req.params.id;
+  User
+  .findById(id)
+  .then(Resources
+    .find()
+    .then(post => res.json(post))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({error: 'something went wrong'});
+    }))
+  .catch(err => {
+    console.error(err);
+    res.status(404).json({error: 'Sorry. That user ID could not be found.'});
   })
 });
 
 
 
-app.post('/api/users/:id', (req, res) => {
+app.post('/api/users/:id/', (req, res) => {
+  let id = req.params.id;
   const requiredFields = ['title', 'content', 'url'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -163,7 +149,8 @@ app.post('/api/users/:id', (req, res) => {
     .create({
       title: req.body.title,
       content: req.body.content,
-      url: req.body.url
+      url: req.body.url,
+      author: id
     })
     .then(resourcePost => res.status(201).json(resourcePost.apiGet()))
     .catch(err => {
