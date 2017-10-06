@@ -79,6 +79,7 @@ $(".registerform").on("submit", function(e) {
         },
         error: function() {
             console.log("THERE WAS AN ERROR!");
+            alert("This Username has already been taken");
         },
         // "content-type": "application/json"
     });

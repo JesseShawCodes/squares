@@ -48,6 +48,7 @@ passport.use(jwtStrategy);
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
 
+
 // A protected endpoint which needs a valid JWT to access it
 app.get(
   '/api/protected',
@@ -63,9 +64,9 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-/////////
-///api/users/resources/:userid
-///
+////////////////////////////////
+////////List of Users///////////
+////////////////////////////////
 
 app.get('/api/users/', (req, res) => {
   User
@@ -79,6 +80,9 @@ app.get('/api/users/', (req, res) => {
     });
 });
 
+////////////////////////////////
+////////User by ID//////////////
+////////////////////////////////
 
 app.get('/api/users/:id', (req, res) => {
   User
@@ -86,12 +90,22 @@ app.get('/api/users/:id', (req, res) => {
     .then(post => res.json(post))
     .catch(err => {
       console.error(err);
-      res.status(500).json({error: 'something went horribly awry'});
+      res.status(500).json({error: 'Sorry. That user could not be located'});
     });
 });
 
+//////////////////////////////
+//////User Links Submitted////
+//////////////////////////////
 
-app.get('/api/users/:id/resources', (req, res) => {
+app.get('/api/users/:id/links', (req, res) => {
+  var id = req.params.id;
+  User
+    .findById(id)
+    .catch(err => {
+      console.error(err);
+      res.status(404).json({error: 'Sorry. That user ID could not be found.'});
+    })
   Resources
     .find()
     .then(post => res.json(post))
@@ -100,6 +114,40 @@ app.get('/api/users/:id/resources', (req, res) => {
       res.status(500).json({error: 'something went horribly awry'});
     });
 });
+
+// We find the current logged user in our database
+User.findById((err, user) => {
+  
+   if (err) throw new Error(err);
+
+   // We create an object containing the data from our post request
+   const newPost = {
+      title: req.body.title,
+      content: req.body.content,
+      // in the author field we add our current user id as a reference
+      author: req.user._id
+   };
+
+   // we create our new post in our database
+   Post.create(newPost, (err, post) => {
+      if (err) {
+         res.redirect('/');
+         throw new Error(err);
+      }
+
+      // we insert our newpost in our posts field corresponding to the user we found in our database call
+      user.posts.push(newPost);
+      // we save our user with our new data (our new post).
+      user.save((err) => {
+         return res.redirect(`/posts/${post.id}`);
+      });
+   })
+   User.findById(req.user.id).populate('posts').exec((err, user) => {
+    console.log(user.posts);
+  })
+});
+
+
 
 app.post('/api/users/:id', (req, res) => {
   const requiredFields = ['title', 'content', 'url'];
