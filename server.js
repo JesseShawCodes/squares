@@ -68,12 +68,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 ////////List of Users///////////
 ////////////////////////////////
 
-app.get('/api/users/', (req, res) => {
+app.get('/api/users', (req, res) => {
   User
     .find()
-    .then(post => {
-      res.json(post.apiGet());
-    })
+    .then(post => res.json({sorry: 'Users do not have access to this page'}))
     .catch(err => {
       console.error(err);
       res.status(500).json({error: 'Internal Server Error'});
@@ -99,39 +97,40 @@ app.get('/api/users/:id', (req, res) => {
 ////////////////////////////////
 
 app.get('/api/users/:id/links', (req, res) => {
-  var id = req.params.id;
+  let userId = req.params.id;
+  let ret = [];
+  let rej = [];
+  // console.log(`User with ID ${userId} is attempting to Post`);
   User
-    .findById(id)
+    .findById(userId)
     .catch(err => {
       console.error(err);
       res.status(404).json({error: 'Sorry. That user ID could not be found.'});
     })
   Resources
     .find()
-    .then(post => res.json(post))
+    .then(post => {
+      for (var i = 0; i < post.length; i++) {
+        console.log(post[i].author);
+        if (post[i].author = userId) {
+          // console.log(`${post[i].author} is the author id`);
+          // console.log(`${userId} is the author ID post`);
+          // console.log(`value added`);
+          ret.push(post[i]);
+        }
+        else {
+          // console.log('value rejected');
+          rej.push(post[i]);
+        }
+      }
+      // console.log(ret);
+      res.json(ret);
+    })
     .catch(err => {
       console.error(err);
       res.status(500).json({error: 'something went horribly awry'});
     });
 });
-
-app.get('/api/users/:id/test', (req, res) => {
-  var id = req.params.id;
-  User
-  .findById(id)
-  .then(Resources
-    .find()
-    .then(post => res.json(post))
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({error: 'something went wrong'});
-    }))
-  .catch(err => {
-    console.error(err);
-    res.status(404).json({error: 'Sorry. That user ID could not be found.'});
-  })
-});
-
 
 
 app.post('/api/users/:id/', (req, res) => {
