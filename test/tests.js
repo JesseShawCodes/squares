@@ -1,9 +1,9 @@
-var chai = require('chai');
-var chaiHttp = require('chai-http');
-var server = require('../server.js');
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const server = require('../server.js');
 
 var should = chai.should();
-var app = server.app;
+const {app, runServer, closeServer} = require('../server');
 var storage = server.storage;
 
 chai.use(chaiHttp);

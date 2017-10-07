@@ -68,6 +68,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 ////////List of Users///////////
 ////////////////////////////////
 
+////Remove this function////
+/*
 app.get('/api/users', (req, res) => {
   User
     .find()
@@ -77,6 +79,7 @@ app.get('/api/users', (req, res) => {
       res.status(500).json({error: 'Internal Server Error'});
     });
 });
+*/
 
 ////////////////////////////////
 ////////User by ID//////////////
@@ -100,7 +103,6 @@ app.get('/api/users/:id/links', (req, res) => {
   let userId = req.params.id;
   let ret = [];
   let rej = [];
-  // console.log(`User with ID ${userId} is attempting to Post`);
   User
     .findById(userId)
     .catch(err => {
@@ -112,18 +114,13 @@ app.get('/api/users/:id/links', (req, res) => {
     .then(post => {
       for (var i = 0; i < post.length; i++) {
         console.log(post[i].author);
-        if (post[i].author = userId) {
-          // console.log(`${post[i].author} is the author id`);
-          // console.log(`${userId} is the author ID post`);
-          // console.log(`value added`);
+        if (post[i].author == userId) {
           ret.push(post[i]);
         }
         else {
-          // console.log('value rejected');
           rej.push(post[i]);
         }
       }
-      // console.log(ret);
       res.json(ret);
     })
     .catch(err => {

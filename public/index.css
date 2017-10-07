@@ -18,12 +18,14 @@ main {
     margin: auto 10px;
 }
 
-.username, .password {
-    height: 50px;
+.username, .password, .usernameregister, .firstname, .lastname {
+    height: 30px;
 }
 
-.password, .passwordregister  {
+.password, .passwordregister, .passwordconfirm {
     -webkit-text-security: disc;
+    height: 30px;
+    font-size: 20px;
 }
 
 .login label, .register label {

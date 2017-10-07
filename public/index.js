@@ -57,6 +57,14 @@ $(".registerform").on("submit", function(e) {
     let pw = $(".passwordregister").val();
     let firstName = $(".firstname").val();
     let lastName = $(".lastname").val();
+    let pass2 = $(".passwordconfirm").val();
+    if (pw != pass2) {
+        alert("Passwords do not match");
+        return;
+    }
+    else {
+        console.log("Passwords Match");
+    }
     $.ajax('/api/users/', {
         method: 'POST',
         beforeSend: function (xhr) {
