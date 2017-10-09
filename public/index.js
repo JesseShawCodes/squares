@@ -11,10 +11,15 @@ $(".loginform").on("submit", function(e) {
     $.ajax('/api/auth/login', {
         method: 'POST',
         dataType: 'json',
+        async: true,
+        crossDomain: true,
         beforeSend: function (xhr) {
             xhr.withCredentials = true;
-            // xhr.setRequestHeader("authorization", "Basic ZHNoYXc6cGFzc3dvcmQyMDE3IQ==");
-            xhr.setRequestHeader("cache-control", "no-cache");
+            xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+        },
+        headers: {
+            authorization: "Basic",
+            "cache-control": "no-cache"
         },
         data: {
             username: username,
@@ -22,6 +27,7 @@ $(".loginform").on("submit", function(e) {
         },
         success: function() {
             console.log("The Request was succesful!");
+            getUserID(username, password);
             showResourceInput();
             loadData();
         },
@@ -32,6 +38,19 @@ $(".loginform").on("submit", function(e) {
     });
     console.log("A User has attempted to Login");
 })
+
+///////////////////////////
+//Obtain User Information//
+///////////////////////////
+
+function getUserID(user, password) {
+    console.log(`User ID Atempted to be retrieved using ${user}`);
+    $.get('api/users', function(data) {
+        success: {
+            console.log(`${data}`);
+        }
+    })
+}
 
 ////////////////
 ////Register////

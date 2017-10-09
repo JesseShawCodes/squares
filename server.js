@@ -68,8 +68,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 ////////List of Users///////////
 ////////////////////////////////
 
-////Remove this function////
-/*
+
 app.get('/api/users', (req, res) => {
   User
     .find()
@@ -79,7 +78,7 @@ app.get('/api/users', (req, res) => {
       res.status(500).json({error: 'Internal Server Error'});
     });
 });
-*/
+
 
 ////////////////////////////////
 ////////User by ID//////////////
