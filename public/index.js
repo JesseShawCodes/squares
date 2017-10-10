@@ -119,7 +119,7 @@ $(".registerform").on("submit", function(e) {
         },
         error: function() {
             console.log("THERE WAS AN ERROR!");
-            alert("This Username has already been taken");
+            alert("Sorry. This Username has already been taken");
         }
     });
 })
@@ -166,12 +166,17 @@ function loadData(userId) {
 
 function deleteResource(id, author) {
     console.log(`Delete resource ${id}`);
-    $("#grid").empty();
-    $.ajax({
-        url: `api/${id}`,
-        type: 'DELETE',
-    });
-    loadData(author);
+    if (confirm('This action will permanently delete this item from your resource list. If you are certain you\'d like to continue, press OK')) {
+        $("#grid").empty();
+        $.ajax({
+            url: `api/${id}`,
+            type: 'DELETE',
+        });
+        loadData(author);
+    }
+    else {
+        return
+    }
 }
 
 /////////////////////////////
@@ -204,20 +209,20 @@ function editIt(resourceId, title, content, url) {
     console.log(`User has attempted an edit of ${resourceId}`);
     $.put(`api/${resourceId}`, {
         id: resourceId,
-        title: title2,
+        title: title,
         content: content,
         url: url
     })
 }
-
 
 /////////////////////////////
 ////Submit Resource//////////
 /////////////////////////////
 
 function submitIt(userId) {
-    $("#grid").empty();
-    $('.resoure-submit').submit(function () {
+    $('.resoure-submit').submit(function (e) {
+        e.preventDefault();
+        $("#grid").empty();
         var title = $(".title").val();
         var description = $(".description").val();
         var link = $(".link").val();
@@ -228,7 +233,7 @@ function submitIt(userId) {
             url: $(".link").val()
         });
         loadData(userId);
-        return false;
+        $("form").reset();
+        // return false;
     });
 }
-

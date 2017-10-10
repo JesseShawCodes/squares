@@ -125,7 +125,6 @@ app.get('/api/users/:id/links', (req, res) => {
     .find()
     .then(post => {
       for (var i = 0; i < post.length; i++) {
-        console.log(post[i].author);
         if (post[i].author == userId) {
           ret.push(post[i]);
         }
