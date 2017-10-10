@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha",
-    "start": "--ignore dataset.json"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "author": "Jesse Shaw",
   "license": "ISC",
