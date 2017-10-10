@@ -79,6 +79,19 @@ app.get('/api/users', (req, res) => {
     });
 });
 
+app.get('/api/links', (req, res) => {
+  Resources
+  .find()
+  .then(posts => {
+    res.json({
+      posts: posts.map(post => post.apiGet())
+    });
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({error: 'Internal Server Error'});
+  });
+});
 
 ////////////////////////////////
 ////////User by ID//////////////
@@ -87,11 +100,11 @@ app.get('/api/users', (req, res) => {
 app.get('/api/users/:id', (req, res) => {
   User
     .findById(req.params.id)
-    .then(post => res.json({userInformation: 'Sorry, you are not allowed access to this information'}))
+    .then(post => res.json(post.apiRepr()))
     .catch(err => {
       console.error(err);
       res.status(500).json({error: 'Sorry. That user could not be located'});
-    });
+    })
 });
 
 ////////////////////////////////
@@ -127,6 +140,7 @@ app.get('/api/users/:id/links', (req, res) => {
       res.status(500).json({error: 'something went horribly awry'});
     });
 });
+
 
 
 app.post('/api/users/:id/', (req, res) => {

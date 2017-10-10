@@ -83,11 +83,16 @@ main {
 .formsection {
     margin: auto 0px;
     background-color: green;
+    padding-top: 1px;
 }
 
 .formsection form {
     display: inline-block;
     margin: auto 10px;
+}
+
+.greeting {
+    color: white;
 }
 
 form textarea {
@@ -112,6 +117,40 @@ form input {
 }
 
 .formsection label {
+    color: white;
+    font-size: 20px;
+    display: block;
+}
+
+/*Edit Resource*/
+
+.editformsection {
+    margin-top: 15px;
+}
+
+.editform {
+    margin: auto 10px;
+    background-color: orange;
+    padding-top: 1px;
+}
+
+.editform form {
+    display: inline-block;
+    margin: auto 10px;
+}
+
+.editform .submit input {
+    width: 200px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: none;
+    background-color: green;
+    color: white;
+    font-size: 20px;
+}
+
+.editform label {
     color: white;
     font-size: 20px;
     display: block;

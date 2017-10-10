@@ -6,7 +6,6 @@ $(".loginform").on("submit", function(e) {
     e.preventDefault();
     var username = $(".username").val();
     var password = $(".password").val();
-    console.log(`Username: ${username}. Password: ${password}`);
     window.alert = function() {};
     $.ajax('/api/auth/login', {
         method: 'POST',
@@ -26,17 +25,20 @@ $(".loginform").on("submit", function(e) {
             password: password
         },
         success: function() {
-            console.log("The Request was succesful!");
             getUserID(username, password);
-            showResourceInput();
-            loadData();
         },
         error: function() {
             console.log("THERE WAS AN ERROR");
             $(".loginerror").removeClass("hidden");
         }
     });
-    console.log("A User has attempted to Login");
+    $.get('api/users', function(data) {
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].username == username) {
+                $(".greeting").html(`Hi ${data[i].firstName}!`);
+            }
+        }
+    });
 })
 
 ///////////////////////////
@@ -44,10 +46,12 @@ $(".loginform").on("submit", function(e) {
 ///////////////////////////
 
 function getUserID(user, password) {
-    console.log(`User ID Atempted to be retrieved using ${user}`);
     $.get('api/users', function(data) {
-        success: {
-            console.log(`${data}`);
+        for (var i = 0; i < data.length; i++) {
+            if (user == data[i].username) {
+                loadData(data[i]._id);
+                showResourceInput(data[i]._id);
+            }
         }
     })
 }
@@ -58,13 +62,23 @@ function getUserID(user, password) {
 
 //////////////////////
 //SHOW Register Form//
+//////////////////////
 
 $(".registerbutton").on("click", function(e) {
     e.preventDefault();
-    console.log("Register Button was clicked");
     $(".register").removeClass("hidden");
     $(".login").addClass("hidden");
 })
+
+/////////////////////////////////
+////Show Resource Input Form/////
+/////////////////////////////////
+
+function showResourceInput(userId) {
+    $(".formsection").removeClass("hidden");
+    $(".login").addClass("hidden");
+    $(".formsection input[type=\"submit\"]").attr("onclick", `submitIt('${userId}')`);
+}
 
 ////////////////////////////////////////////////////////////////////////////////////
 //Submit Username, Password, First Name and Last Name to register //////////////////
@@ -100,54 +114,48 @@ $(".registerform").on("submit", function(e) {
         success: function() {
             console.log("SUCESS!!");
             alert("You have succesfully Registered a user");
+            newUserForm(user);
             $(".register").addClass("hidden");
-            showResourceInput();
-            loadData();
         },
         error: function() {
             console.log("THERE WAS AN ERROR!");
             alert("This Username has already been taken");
-        },
-        // "content-type": "application/json"
+        }
     });
-
-    console.log("New User has been registered POST REQUEST");
-
 })
 
-var id = [];
-
-/////////////////////////////////
-////Show Resource Input Form/////
-/////////////////////////////////
-
-function showResourceInput() {
-    $(".formsection").removeClass("hidden");
-    $(".login").addClass("hidden");
+function newUserForm(user) {
+    $.get('api/users', function(data) {
+        for (var i = 0; i < data.length; i++) {
+            if (user == data[i].username) {
+                console.log(data[i]._id);
+                showResourceInput(data[i]._id);
+                $(".greeting").html(`Hi ${data[i].firstName}!`);
+            }
+        }
+    })
 }
+
 
 ////////////////////////////
 ////Data Rendering//////////
 ////////////////////////////
 
-function loadData() {
-    $.get( 'api', function( data ) {
+function loadData(userId) {
+    $.get( `api/users/${userId}/links`, function( data ) {
         $("#grid").removeClass("hidden");
-        // console.log(data.posts[0].id);
-        for (var i = 0; i < data.posts.length; i++) {
+        for (var i = 0; i < data.length; i++) {
             $("#grid").append(`
-            <section class="resource" id="${data.posts[i].id}">
-                <span><h1>${data.posts[i].title}</h1></span> 
-                <span>${data.posts[i].content}</span>
+            <section class="resource" id="${data[i]._id}">
+                <span><h1>${data[i].title}</h1></span> 
+                <span>${data[i].content}</span>
                 <section class="clickableitems">
-                <span class="link"><a href='${data.posts[i].url}' target="_blank"><button>Click Here</button></a></span>
-                <section class="delete-request" onclick="deleteResource();"><button>Delete</button></section>
-                <section class="edit-request" onclick="editResource();"><button>Edit</button></section>
+                <span class="link"><a href='${data[i].url}' target="_blank"><button>Click Here</button></a></span>
+                <section class="delete-request" onclick="deleteResource('${data[i]._id}', '${data[i].author}');"><button>Delete</button></section>
+                <section class="edit-request" onclick="editResource('${data[i]._id}');"><button>Edit</button></section>
                 </section class="clickableitems
             </section>
             `);
-            id[i] = `${data.posts[i].id}`;
-            // console.log(id[i]);
         };
     });
 }
@@ -156,58 +164,69 @@ function loadData() {
 ////Delete Resource//////////
 /////////////////////////////
 
-function deleteResource() {
-    console.log(id);
+function deleteResource(id, author) {
+    console.log(`Delete resource ${id}`);
+    $("#grid").empty();
     $.ajax({
-        url: 'api/' + id[0],
+        url: `api/${id}`,
         type: 'DELETE',
-        success: loadData()
     });
-    $(".resource").click(function(e) {
-        e.preventDefault();
-        console.log("Deleting...");
-    });
+    loadData(author);
 }
 
 /////////////////////////////
 ////Edit Resource///////////
 
-function editResource() {
-    console.log("Attempting to Edit a resource");
+function editResource(resourceId) {
+    $(".editform").removeClass("hidden");
+    $.get(`/api/links`, function(data) {
+        for (var i = 0; i < data.posts.length; i++) {
+            // console.log(data.posts[i].id);
+            if (data.posts[i].id == resourceId) {
+                $(".edit-title").attr("value", `${data.posts[i].title}`);
+                $(".edit-description").attr("value", `${data.posts[i].content}`);
+                $(".edit-link").attr("value", `${data.posts[i].url}`);
+                let id = data.posts[i].id
+                // $(".editformsection input[type=\"submit\"]").attr("onclick", `editIt('${data.posts[i].id}')`);
+                $(".editform").submit(function(e){
+                    e.preventDefault();
+                    console.log("Form has been submitted");
+                    console.log(id);
+                    editIt(id, title, content, url);
+                })
+            }
+        };
+    });
+};
+
+function editIt(resourceId) {
+    // resourceId.preventDefault();
+    console.log(`User has attempted an edit of ${resourceId}`);
+    $.put(`api/${resourceId}`, {
+        id: resourceId,
+
+    })
 }
+
 
 /////////////////////////////
 ////Submit Resource//////////
 /////////////////////////////
 
-$(".resoure-submit").on("submit", function(e) {
-    e.preventDefault();
-    var title = $(".title").val();
-    var description = $(".description").val();
-    var link = $(".link").val();
-    var category = $(".category").val();
-    /*
-    var dataInput = {
-        name: title,
-        description: description,
-        link: link,
-        category: category
-    };
-    */
-    $.post('api', {
-        title: $(".title").val(),
-        content: $(".description").val(),
-        url: $(".link").val()
-    })
-    $("#grid").append(`
-    <section class="resource">
-        <span><h1>${title}</h1></span> 
-        <span>${description}</span>
-        <section class="clickableitems">
-        <span class="link"><a href='${link}' target="_blank"><button>Click Here</button></a></span>
-        <section class="delete-request" onclick="deleteResource();"><button>Delete</button></section>
-        <section class="edit-request" onclick="editResource();"><button>Edit</button></section>
-        </section class="clickableitems>
-    </section>
-    `);
-});
+function submitIt(userId) {
+    $("#grid").empty();
+    $('.resoure-submit').submit(function () {
+        var title = $(".title").val();
+        var description = $(".description").val();
+        var link = $(".link").val();
+        var category = $(".category").val();
+        $.post(`api/users/${userId}`, {
+            title: $(".title").val(),
+            content: $(".description").val(),
+            url: $(".link").val()
+        });
+        loadData(userId);
+        return false;
+    });
+}
+

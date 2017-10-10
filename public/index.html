@@ -8,8 +8,7 @@
     </head>
     <body>
         <main>
-        <h1>Project Title</h1>
-        
+        <h1><a class="home">Project Title</a></h1>
         <div class="login">
             <h1>Login</h1>
             <form class="loginform">
@@ -51,17 +50,31 @@
             </form>
         </div>
         <div class="formsection hidden">
-        <form class="resoure-submit">
-            <label>Title</label>
-            <input type="text" class="title">
-            <label>Description</label>
-            <textarea type="text" class="description"></textarea>
-            <label>Link</label>
-            <input type="text" class="link">
-            <div class="submit">
-            <input type="submit">
-            </div>
-        </form>
+                <h1 class="greeting"></h1>
+            <form class="resoure-submit">
+                <label>Title</label>
+                <input type="text" class="title">
+                <label>Description</label>
+                <textarea type="text" class="description"></textarea>
+                <label>Link</label>
+                <input type="text" class="link">
+                <div class="submit">
+                <input type="submit">
+                </div>
+            </form>
+        </div>
+        <div class="editformsection">
+            <form class="editform hidden">
+                <label>Title</label>
+                <input type="text" class="title edit-title">
+                <label>Description</label>
+                <input type="text" class="description edit-description">
+                <label>Link</label>
+                <input type="text" class="link edit-link">
+                <div class="submit">
+                <input type="submit">
+            </form>
+        </div>
         </div>
         <div id="grid"></div>
         </main>
