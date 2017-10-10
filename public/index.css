@@ -45,6 +45,12 @@ main {
     font-size: 20px;
 }
 
+/*Password Confirmation*/
+.passwarning1, .passwarning2 {
+    color: red;
+    display: inherit;
+}
+
 /*Test Login Information*/
 
 .testlogin {
@@ -148,6 +154,21 @@ form input {
     background-color: green;
     color: white;
     font-size: 20px;
+}
+
+.editform .close input {
+    width: 200px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: none;
+    background-color: green;
+    color: white;
+    font-size: 20px;
+}
+
+input[type="close"] {
+    text-align: center;
 }
 
 .editform label {

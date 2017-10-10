@@ -38,8 +38,10 @@
                 <input type="text" class="usernameregister">
                 <label>Password</label>
                 <input type="text" class="passwordregister">
+                <span class="passwarning1 hidden">Password must have a minimum of 10 characters</span>
                 <label>Confirm Password</label>
                 <input type="text" class="passwordconfirm">
+                <span class="passwarning2 hidden">Your passwords do not match</span>
                 <label>First Name</label>
                 <input type="text" class="firstname">
                 <label>Last Name</label>
@@ -73,6 +75,8 @@
                 <input type="text" class="link edit-link">
                 <div class="submit">
                 <input type="submit">
+                <input type="button" value="Close" onclick="closeEdit()">
+                </div>
             </form>
         </div>
         </div>

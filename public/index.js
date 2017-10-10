@@ -80,6 +80,35 @@ function showResourceInput(userId) {
     $(".formsection input[type=\"submit\"]").attr("onclick", `submitIt('${userId}')`);
 }
 
+$(".passwordregister").blur(function(){
+    console.log($(".passwordregister").val());
+    if ($(".passwordregister").val().length < 10) {
+        // alert("Password word must be at least 10 characters and include");
+        $(".passwarning1").removeClass("hidden");
+        $(".passwordregister").css("background-color", "red");
+        stop();
+    }
+    else {
+        $(".passwarning1").addClass("hidden");
+    }
+})
+
+$(".passwordconfirm").blur(function() {
+    var regPass = $(".passwordregister").val();
+    var conPass = $(".passwordconfirm").val()
+    if (regPass != conPass) {
+        // alert("your passwords do not match");
+        $(".passwarning2").removeClass("hidden");
+        $(".passwordregister, .passwordconfirm").css("background-color", "red");
+        return
+    }
+    else if (regPass == conPass && regPass.length >= 10 && conPass.length >= 10) {
+        $(".passwordregister, .passwordconfirm").css("background-color", "green");
+        $(".passwarning2").addClass("hidden");
+    }
+})
+
+
 ////////////////////////////////////////////////////////////////////////////////////
 //Submit Username, Password, First Name and Last Name to register //////////////////
 ////////////////////////////////////////////////////////////////////////////////////
@@ -215,6 +244,12 @@ function editIt(resourceId, title, content, url) {
     })
 }
 
+///Close Edit Form////
+
+function closeEdit() {
+    $(".editform").addClass("hidden");
+}
+
 /////////////////////////////
 ////Submit Resource//////////
 /////////////////////////////
@@ -233,7 +268,6 @@ function submitIt(userId) {
             url: $(".link").val()
         });
         loadData(userId);
-        $("form").reset();
-        // return false;
+        $(".title").attr('value', '');
     });
 }
