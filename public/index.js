@@ -199,12 +199,14 @@ function editResource(resourceId) {
     });
 };
 
-function editIt(resourceId) {
+function editIt(resourceId, title, content, url) {
     // resourceId.preventDefault();
     console.log(`User has attempted an edit of ${resourceId}`);
     $.put(`api/${resourceId}`, {
         id: resourceId,
-
+        title: title2,
+        content: content,
+        url: url
     })
 }
 
