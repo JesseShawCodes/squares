@@ -174,10 +174,14 @@ function loadData(userId) {
     $.get( `api/users/${userId}/links`, function( data ) {
         $("#grid").removeClass("hidden");
         for (var i = 0; i < data.length; i++) {
+            let string = data[i].content
+            console.log(string);
+            let abrContent = string.substring(0, 140);
+            console.log(abrContent);
             $("#grid").append(`
             <section class="resource" id="${data[i]._id}">
                 <span><h1>${data[i].title}</h1></span> 
-                <span>${data[i].content}</span>
+                <span>${abrContent}...</span>
                 <section class="clickableitems">
                 <span class="link"><button onclick="readMore('${data[i]._id}')">Click Here To Read More</button></span>
                 <span class="link"><a href='${data[i].link}' target="_blank"><button>Click Here</button></a></span>
@@ -240,9 +244,9 @@ function editResource(resourceId) {
         for (var i = 0; i < data.posts.length; i++) {
             // console.log(data.posts[i].id);
             if (data.posts[i].id == resourceId) {
-                $(".edit-title").attr("value", `${data.posts[i].title}`);
-                $(".edit-description").attr("value", `${data.posts[i].content}`);
-                $(".edit-link").attr("value", `${data.posts[i].link}`);
+                $(".edit-title").attr("placeholder", `${data.posts[i].title}`);
+                $(".edit-description").attr("placeholder", `${data.posts[i].content}`);
+                $(".edit-link").attr("placeholder", `${data.posts[i].link}`);
                 let title = $(".edit-title").val();
                 let content = $(".edit-description").val();
                 let url = $(".edit-link").val();
