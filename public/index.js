@@ -175,7 +175,7 @@ function loadData(userId) {
         $("#grid").removeClass("hidden");
         for (var i = 0; i < data.length; i++) {
             let string = data[i].content
-            console.log(string);
+            // console.log(string);
             let abrContent = string.substring(0, 140);
             console.log(abrContent);
             $("#grid").append(`
@@ -244,22 +244,23 @@ function editResource(resourceId) {
         for (var i = 0; i < data.posts.length; i++) {
             // console.log(data.posts[i].id);
             if (data.posts[i].id == resourceId) {
-                $(".edit-title").attr("placeholder", `${data.posts[i].title}`);
-                $(".edit-description").attr("placeholder", `${data.posts[i].content}`);
-                $(".edit-link").attr("placeholder", `${data.posts[i].link}`);
-                let title = $(".edit-title").val();
-                let content = $(".edit-description").val();
-                let url = $(".edit-link").val();
-                let id = data.posts[i].id
+                $(".edit-title").attr("value", `${data.posts[i].title}`);
+                $(".edit-description").attr("value", `${data.posts[i].content}`);
+                $(".edit-link").attr("value", `${data.posts[i].link}`);
+                let id = data.posts[i].id;
                 // $(".editformsection input[type=\"submit\"]").attr("onclick", `editIt('${data.posts[i].id}')`);
                 $(".editform").submit(function(e){
                     e.preventDefault();
+                    let title = $(".edit-title").val();
+                    let content = $(".edit-description").val();
+                    let url = $(".edit-link").val();
+                    let idPlaceholder = id;
                     // $(".edit-title, .edit-description, .edit-link").attr("value", " ");
                     // alert("Check if value attribue changed");
                     // console.log("Form has been submitted");
                     // console.log(id);
                     console.log(title);
-                    editIt(id, title, content, url);
+                    editIt(idPlaceholder, title, content, url);
                 })
             }
         };
@@ -269,14 +270,16 @@ function editResource(resourceId) {
 function editIt(resourceId, title, content, url) {
     // resourceId.preventDefault();
     console.log(`User has attempted an edit of ${resourceId}`);
-    console.log(`${resourceId}, ${title}, ${content}, ${url}`)
+    console.log(`${resourceId}, ${title}, ${content}, ${url}`);
     $.ajax({
         url: `api/${resourceId}`,
         method: 'PUT',
-        id: resourceId,
-        title: title,
-        content: content,
-        link: url
+        data: {
+                id: resourceId,
+                title: title,
+                content: content,
+                link: url
+            }
     })
 };
 
