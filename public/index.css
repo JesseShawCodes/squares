@@ -128,6 +128,28 @@ form input {
     display: block;
 }
 
+/*read more*/
+
+.readmore {
+    margin-top: 10px;
+    background-color: orange;
+    min-height: 200px;
+    width: 50%;
+}
+
+.readmore > form > input[type="button"] {
+    border: none;
+    width: 200px;
+    height: 50px;
+    background-color: blue;
+    color: white;
+    font-size: 20px;
+}
+
+.readmorecontent {
+    padding: 10px;
+}
+
 /*Edit Resource*/
 
 .editformsection {

@@ -144,7 +144,7 @@ app.get('/api/users/:id/links', (req, res) => {
 
 app.post('/api/users/:id/', (req, res) => {
   let id = req.params.id;
-  const requiredFields = ['title', 'content', 'url'];
+  const requiredFields = ['title', 'content', 'link'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -157,7 +157,7 @@ app.post('/api/users/:id/', (req, res) => {
     .create({
       title: req.body.title,
       content: req.body.content,
-      url: req.body.url,
+      link: req.body.link,
       author: id
     })
     .then(resourcePost => res.status(201).json(resourcePost.apiGet()))
@@ -190,7 +190,7 @@ app.put('/api/:id', (req, res) => {
   }
 
   const updated = {};
-  const updateableFields = ['title', 'content', 'url'];
+  const updateableFields = ['title', 'content', 'link'];
   updateableFields.forEach(field => {
     if (field in req.body) {
       updated[field] = req.body[field];
