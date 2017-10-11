@@ -80,6 +80,8 @@ function showResourceInput(userId) {
     $(".formsection input[type=\"submit\"]").attr("onclick", `submitIt('${userId}')`);
 }
 
+///Password formating///
+
 $(".passwordregister").blur(function(){
     console.log($(".passwordregister").val());
     if ($(".passwordregister").val().length < 10) {
@@ -175,9 +177,7 @@ function loadData(userId) {
         $("#grid").removeClass("hidden");
         for (var i = 0; i < data.length; i++) {
             let string = data[i].content
-            // console.log(string);
             let abrContent = string.substring(0, 140);
-            console.log(abrContent);
             $("#grid").append(`
             <section class="resource" id="${data[i]._id}">
                 <span><h1>${data[i].title}</h1></span> 
@@ -186,7 +186,7 @@ function loadData(userId) {
                 <span class="link"><button onclick="readMore('${data[i]._id}')">Click Here To Read More</button></span>
                 <span class="link"><a href='${data[i].link}' target="_blank"><button>Click Here</button></a></span>
                 <section class="delete-request" onclick="deleteResource('${data[i]._id}', '${data[i].author}');"><button>Delete</button></section>
-                <section class="edit-request" onclick="editResource('${data[i]._id}');"><button>Edit</button></section>
+                <section class="edit-request" onclick="editResource('${data[i]._id}', '${data[i].author}');"><button>Edit</button></section>
                 </section class="clickableitems
             </section>
             `);
@@ -238,39 +238,30 @@ function deleteResource(id, author) {
 /////////////////////////////
 ////Edit Resource///////////
 
-function editResource(resourceId) {
+function editResource(resourceId, userId) {
     $(".editform").removeClass("hidden");
     $.get(`/api/links`, function(data) {
         for (var i = 0; i < data.posts.length; i++) {
-            // console.log(data.posts[i].id);
             if (data.posts[i].id == resourceId) {
                 $(".edit-title").attr("value", `${data.posts[i].title}`);
-                $(".edit-description").attr("value", `${data.posts[i].content}`);
+                $(".edit-description").html(`${data.posts[i].content}`);
                 $(".edit-link").attr("value", `${data.posts[i].link}`);
                 let id = data.posts[i].id;
-                // $(".editformsection input[type=\"submit\"]").attr("onclick", `editIt('${data.posts[i].id}')`);
                 $(".editform").submit(function(e){
                     e.preventDefault();
                     let title = $(".edit-title").val();
                     let content = $(".edit-description").val();
                     let url = $(".edit-link").val();
                     let idPlaceholder = id;
-                    // $(".edit-title, .edit-description, .edit-link").attr("value", " ");
-                    // alert("Check if value attribue changed");
-                    // console.log("Form has been submitted");
-                    // console.log(id);
-                    console.log(title);
-                    editIt(idPlaceholder, title, content, url);
+                    let userIdPlaceholder = userId;
+                    editIt(idPlaceholder, title, content, url, userIdPlaceholder);
                 })
             }
         };
     });
 };
 
-function editIt(resourceId, title, content, url) {
-    // resourceId.preventDefault();
-    console.log(`User has attempted an edit of ${resourceId}`);
-    console.log(`${resourceId}, ${title}, ${content}, ${url}`);
+function editIt(resourceId, title, content, url, userId) {
     $.ajax({
         url: `api/${resourceId}`,
         method: 'PUT',
@@ -279,7 +270,12 @@ function editIt(resourceId, title, content, url) {
                 title: title,
                 content: content,
                 link: url
-            }
+            },
+        success: function() {
+            closeEdit();
+            $("#grid").empty();
+            loadData(userId);
+        }
     })
 };
 
