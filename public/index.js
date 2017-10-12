@@ -213,6 +213,10 @@ function closeReadMore() {
     $(".readmore").addClass("hidden");
 }
 
+function clearForm() {
+    $('.resoure-submit').find("input[type=text], textarea").val("");
+}
+
 //////////////////////////////
 ////
 
@@ -303,6 +307,7 @@ function submitIt(userId) {
             content: $(".description").val(),
             link: $(".link").val()
         });
+        // clearForm();
         loadData(userId);
         $(".title").attr('value', '');
     });
