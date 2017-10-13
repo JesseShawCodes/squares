@@ -178,6 +178,13 @@ function loadData(userId) {
         for (var i = 0; i < data.length; i++) {
             let string = data[i].content
             let abrContent = string.substring(0, 140);
+            if (string.length < 140) {
+                console.log(string.length);
+                abrContent = string;
+            }
+            else {
+                abrContent = string.substring(0, 140);
+            }
             $("#grid").append(`
             <section class="resource" id="${data[i]._id}">
                 <span><h1>${data[i].title}</h1></span> 
@@ -215,6 +222,7 @@ function closeReadMore() {
 
 function clearForm() {
     $('.resoure-submit').find("input[type=text], textarea").val("");
+    $(".title, .description, .link").val('');
 }
 
 //////////////////////////////
@@ -309,6 +317,8 @@ function submitIt(userId) {
         });
         // clearForm();
         loadData(userId);
-        $(".title").attr('value', '');
+        clearForm();
     });
 }
+
+

@@ -205,10 +205,11 @@ img {
 
 #contact h2 {
     color: black;
+    text-align: center;
 }
 
 .contactp {
-    align-content: center;
+    text-align: center;
     margin: auto;
 }
 
@@ -333,7 +334,7 @@ footer a:hover {
     margin-top: 10px;
     margin-bottom: 20px;
     border: none;
-    background-color: green;
+    background-color: #ff5102;
     color: white;
     font-size: 20px;
 }
@@ -372,7 +373,7 @@ footer a:hover {
     margin-top: 10px;
     margin-bottom: 20px;
     border: none;
-    background-color: green;
+    background-color: #ff5102;
     color: white;
     font-size: 20px;
 }
@@ -381,7 +382,7 @@ footer a:hover {
 
 .formsection {
     margin: auto 0px;
-    background-color: green;
+    background-color: #ff5102;
     padding-top: 1px;
 }
 
@@ -410,7 +411,7 @@ form input {
     margin-top: 10px;
     margin-bottom: 20px;
     border: none;
-    background-color: blue;
+    background-color: #4bbdac;
     color: white;
     font-size: 20px;
 }
@@ -425,22 +426,24 @@ form input {
 
 .readmore {
     margin-top: 10px;
-    background-color: orange;
+    background-color: #ff5102;
     min-height: 200px;
-    width: 50%;
+    width: 70%;
+    margin: 0px auto;
+    color: white;
 }
 
 .readmore > form > input[type="button"] {
     border: none;
     width: 200px;
     height: 50px;
-    background-color: blue;
+    background-color: #4dbdac;
     color: white;
     font-size: 20px;
 }
 
 .readmorecontent {
-    padding: 10px;
+    padding: 40px;
 }
 
 /*Edit Resource*/
@@ -451,7 +454,7 @@ form input {
 
 .editform {
     margin: auto 10px;
-    background-color: orange;
+    background-color: #ff5201;
     padding-top: 1px;
 }
 
@@ -466,7 +469,7 @@ form input {
     margin-top: 10px;
     margin-bottom: 20px;
     border: none;
-    background-color: green;
+    background-color: #4cbdac;
     color: white;
     font-size: 20px;
 }
@@ -499,7 +502,7 @@ input[type="close"] {
 }
 
 .resource {
-    background-color: blue;
+    background-color: #ff5102;
     width: 200px;
     color: white;
     display: inline-block;
@@ -508,7 +511,6 @@ input[type="close"] {
 
 .resource span {
     position: relative;
-    display: block;
 }
 
 #grid a {
@@ -518,7 +520,7 @@ input[type="close"] {
 .delete-request button, .edit-request button, .link button {
     width: 50%;
     border: none;
-    background-color: #088001;
+    background-color: #4cbdac;
     color: white;
 }
 
@@ -531,7 +533,7 @@ input[type="close"] {
 
 .clickableitems {
     text-align: center;
-    padding-top: 10px;
+    padding: 10px;
 }
 
 /*Additional Media Queries*/
