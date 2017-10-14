@@ -99,7 +99,7 @@ header.masthead{
 
 header.masthead .header-content{
     position:relative;
-    width:100%;
+    /* width:100%; */
     padding:150px 15px 100px;
     text-align:center
 }
