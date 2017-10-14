@@ -16,7 +16,7 @@ mongoose.Promise = global.Promise;
 var MongoClient = require('mongodb').MongoClient;
 MongoClient.connect(DATABASE_URL, function(err, db) {
   console.log("Connected succesfully to Mongo server");
-  db.close;
+  // db.close;
 })
 
 const app = express();

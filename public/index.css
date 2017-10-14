@@ -539,13 +539,31 @@ input[type="close"] {
     padding: 10px;
 }
 
-/*Additional Media Queries*/
+/*Main Media Queries*/
 
 
 @media screen and (max-width: 1000px) {
     
     }
     
+    @media screen and (max-width: 800px) {
+        /*Login */
+        button.registerbutton, div.login > form > div > input[type="submit"], .testlogin span, .newuser span, .username, .password, .usernameregister, .firstname, .lastname   {
+            font-size: 28px;
+        }
+        .login label, .register label {
+            font-size: 28px;
+        }
+        /*Contact Form*/
+        .contactp {
+            font-size: 24px;
+        }
+
+        .contactpoints p {
+            font-size: 24px;
+        }
+    }
+
     @media screen and (max-width: 700px) {
         #homeheading {
             background-color: #FC4A1A;
@@ -567,11 +585,30 @@ input[type="close"] {
         }
         .login input {
             width: 80%;
+            font-size: 20px;
         }
         .title, .description, .link {
             width: 300px;
             font-size: 18px;
         }
+        /*Banner*/
+        header.masthead .header-content {
+            padding: 50px 10px 10px;
+        }
+        /*Register*/
+        form.registerform input {
+            width: 80%;
+            font-size: 20px;
+        }
+        /* Resource Section*/
+        .resource {
+            width: 300px;
+        }
+        span button, section button {
+            font-size: 20px;
+            margin: 5px;
+        }
+
     }
     
     .minimize {
