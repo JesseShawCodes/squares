@@ -8,7 +8,7 @@ html, body {
 
 
 body {
-    background-color: #4ABDAC;
+    background-color: #062f4f;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -27,21 +27,22 @@ main {
 
 
 hr {
-    max-width:50px;
+    max-width:200px;
     border-width:3px;
-    border-color:#f05f40
+    border-color:#813772;
+    background-color: #813772;
 }
 
 
 a {
-    color:#f05f40;
+    color:#813772;
     -webkit-transition:all .2s;
     -moz-transition:all .2s;
     transition:all .2s
 }
 
 a:focus,a:hover{
-    color:#f05f40
+    color:#813772;
 }
 
 h1,h2,h3,h4,h5,h6{
@@ -55,7 +56,7 @@ p {
 }
 
 .bg-primary {
-    background-color:#FC4A1A!important
+    background-color:#062f4f!important
 }
 
 .bg-dark{
@@ -88,7 +89,7 @@ header.masthead{
     min-height:auto;
     text-align:center;
     color:#fff;
-    background-image:url("/Images/Banner2.jpg");
+    background-image:url("/Images/Banner3.jpg");
     background-position:center;
     -webkit-background-size:cover;
     -moz-background-size:cover;
@@ -182,11 +183,6 @@ img {
     .header-content img {
         width: 250px;
     }
-}
-
-/*Screen shots*/
-.screenshots {
-    
 }
 
 .images {
@@ -290,7 +286,7 @@ footer img {
 }
 
 footer a:hover {
-    color: #FC4A1A;
+    color: #062f4f;
     text-decoration: underline;
 }
 
@@ -334,7 +330,7 @@ footer a:hover {
     margin-top: 10px;
     margin-bottom: 20px;
     border: none;
-    background-color: #ff5102;
+    background-color: #813772;
     color: white;
     font-size: 20px;
 }
@@ -343,6 +339,30 @@ footer a:hover {
 .passwarning1, .passwarning2 {
     color: red;
     display: inherit;
+}
+
+/*Register*/
+
+section {
+    color: white;
+    font-size: 20px;
+}
+
+.submit {
+    margin-top: 10px;
+}
+
+button.showlogin {
+    background-color: #813772;
+    border: none;
+    color: white;
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    margin: 0px auto;
+    display: block;
+    margin-top: 20px;
+    align-content: center;
 }
 
 /*Test Login Information*/
@@ -373,7 +393,7 @@ footer a:hover {
     margin-top: 10px;
     margin-bottom: 20px;
     border: none;
-    background-color: #ff5102;
+    background-color: #813772;
     color: white;
     font-size: 20px;
 }
@@ -382,7 +402,7 @@ footer a:hover {
 
 .formsection {
     margin: auto 0px;
-    background-color: #ff5102;
+    background-color: #062f4f;
     padding-top: 1px;
 }
 
@@ -411,7 +431,7 @@ form input {
     margin-top: 10px;
     margin-bottom: 20px;
     border: none;
-    background-color: #4bbdac;
+    background-color: #813772;
     color: white;
     font-size: 20px;
 }
@@ -426,7 +446,7 @@ form input {
 
 .readmore {
     margin-top: 10px;
-    background-color: #ff5102;
+    background-color: #813772;
     min-height: 200px;
     width: 70%;
     margin: 0px auto;
@@ -437,7 +457,7 @@ form input {
     border: none;
     width: 200px;
     height: 50px;
-    background-color: #4dbdac;
+    background-color: #813772;
     color: white;
     font-size: 20px;
 }
@@ -454,11 +474,11 @@ form input {
 
 .editform {
     margin: auto 10px;
-    background-color: #4abdac;
+    background-color: #062f4f;
     padding-top: 1px;
     border-bottom-width: 1px;
     border-bottom-style: solid;
-    border-bottom-color: #ff5201;
+    border-bottom-color: #B82601;
 }
 
 .editform form {
@@ -472,7 +492,7 @@ form input {
     margin-top: 10px;
     margin-bottom: 20px;
     border: none;
-    background-color: #ff5102;
+    background-color: #813772;
     color: white;
     font-size: 20px;
 }
@@ -483,7 +503,7 @@ form input {
     margin-top: 10px;
     margin-bottom: 20px;
     border: none;
-    background-color: green;
+    background-color: #813772;
     color: white;
     font-size: 20px;
 }
@@ -505,11 +525,12 @@ input[type="close"] {
 }
 
 .resource {
-    background-color: #ff5102;
-    width: 200px;
+    background-color: #B82601;
+    width: 300px;
     color: white;
     display: inline-block;
     margin: 5px;
+    font-size: 20px;
 }
 
 .resource span {
@@ -523,14 +544,16 @@ input[type="close"] {
 .delete-request button, .edit-request button, .link button {
     width: 50%;
     border: none;
-    background-color: #4cbdac;
+    background-color: #813772;
     color: white;
+    font-size: 20px;
+    margin: 4px;
 }
 
 .delete-request button:hover, .edit-request button:hover, .link button:hover {
     width: 50%;
     border: none;
-    background-color: blue;
+    background-color: #062f4f;
     color: white;
 }
 
@@ -566,7 +589,7 @@ input[type="close"] {
 
     @media screen and (max-width: 700px) {
         #homeheading {
-            background-color: #FC4A1A;
+            background-color: #813772;
             width: 80%;
             margin: auto;
         } 
