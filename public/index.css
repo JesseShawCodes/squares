@@ -219,7 +219,8 @@ header {
 }
 
 header img {
-    width: 200px;
+    width: 750px;
+    background-color: #D4DCE3;
 }
 
 .resize img {
@@ -333,6 +334,10 @@ footer a:hover {
     background-color: #813772;
     color: white;
     font-size: 20px;
+}
+
+.testlogin span {
+    display: inline-block;
 }
 
 /*Password Confirmation*/
@@ -564,79 +569,79 @@ input[type="close"] {
 
 /*Main Media Queries*/
 
-
-@media screen and (max-width: 1000px) {
-    
+@media screen and (max-width: 800px) {
+    /**/
+    .header-content img {
+        width: 90%;
     }
-    
-    @media screen and (max-width: 800px) {
-        /*Login */
-        button.registerbutton, div.login > form > div > input[type="submit"], .testlogin span, .newuser span, .username, .password, .usernameregister, .firstname, .lastname   {
-            font-size: 28px;
-        }
-        .login label, .register label {
-            font-size: 28px;
-        }
-        /*Contact Form*/
-        .contactp {
-            font-size: 24px;
-        }
-
-        .contactpoints p {
-            font-size: 24px;
-        }
+    /*Login */
+    button.registerbutton, div.login > form > div > input[type="submit"], .testlogin span, .newuser span, .username, .password, .usernameregister, .firstname, .lastname   {
+        font-size: 28px;
+    }
+    .login label, .register label {
+        font-size: 28px;
+    }
+    /*Contact Form*/
+    .contactp {
+        font-size: 24px;
     }
 
-    @media screen and (max-width: 700px) {
-        #homeheading {
-            background-color: #813772;
-            width: 80%;
-            margin: auto;
-        } 
+    .contactpoints p {
+        font-size: 24px;
     }
-    
-    @media screen and (max-width: 600px) {
-        /*Landing Page*/
-        .linktoapp {
-            margin: auto 0px;
-        }
-        .projdescription {
-            font-size: 22px;
-        }
-        .landinglogo img {
-            width: 200px;
-        }
-        .login input {
-            width: 80%;
-            font-size: 20px;
-        }
-        .title, .description, .link {
-            width: 300px;
-            font-size: 18px;
-        }
-        /*Banner*/
-        header.masthead .header-content {
-            padding: 50px 10px 10px;
-        }
-        /*Register*/
-        form.registerform input {
-            width: 80%;
-            font-size: 20px;
-        }
-        /* Resource Section*/
-        .resource {
-            width: 300px;
-        }
-        span button, section button {
-            font-size: 20px;
-            margin: 5px;
-        }
+}
 
+@media screen and (max-width: 700px) {
+
+    #homeheading {
+        background-color: #813772;
+        width: 80%;
+        margin: auto;
+    } 
+}
+
+@media screen and (max-width: 600px) {
+    /*Landing Page*/
+    .linktoapp {
+        margin: auto 0px;
     }
-    
-    .minimize {
-        height: 200px;
+    .projdescription {
+        font-size: 22px;
     }
+    .landinglogo img {
+        width: 200px;
+    }
+    .login input {
+        width: 80%;
+        font-size: 20px;
+    }
+    .title, .description, .link {
+        width: 300px;
+        font-size: 18px;
+    }
+    /*Banner*/
+    header.masthead .header-content {
+        padding: 50px 10px 10px;
+    }
+    /*Register*/
+    form.registerform input {
+        width: 80%;
+        font-size: 20px;
+    }
+    /* Resource Section*/
+    .resource {
+        width: 300px;
+    }
+    span button, section button {
+        font-size: 20px;
+        margin: 5px;
+    }
+
+}
+
+.minimize {
+    height: 200px;
+}
 
 /*Hidden*/
 
