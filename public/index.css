@@ -454,8 +454,11 @@ form input {
 
 .editform {
     margin: auto 10px;
-    background-color: #ff5201;
+    background-color: #4abdac;
     padding-top: 1px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #ff5201;
 }
 
 .editform form {
@@ -469,7 +472,7 @@ form input {
     margin-top: 10px;
     margin-bottom: 20px;
     border: none;
-    background-color: #4cbdac;
+    background-color: #ff5102;
     color: white;
     font-size: 20px;
 }

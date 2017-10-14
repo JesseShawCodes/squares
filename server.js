@@ -212,6 +212,7 @@ app.post('/users')
 // closeServer needs access to a server object, but that only
 // gets created when `runServer` runs, so we declare `server` here
 // and then assign a value to it in run
+
 let server;
 
 // this function connects to the database, then starts the server

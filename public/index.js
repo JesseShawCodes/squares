@@ -30,6 +30,7 @@ $(".loginform").on("submit", function(e) {
         error: function() {
             console.log("THERE WAS AN ERROR");
             $(".loginerror").removeClass("hidden");
+            return;
         }
     });
     $.get('api/users', function(data) {
@@ -249,9 +250,11 @@ function deleteResource(id, author) {
 
 /////////////////////////////
 ////Edit Resource///////////
+/////////////////////////////
 
 function editResource(resourceId, userId) {
     $(".editform").removeClass("hidden");
+    $(".formsection").slideUp();
     $.get(`/api/links`, function(data) {
         for (var i = 0; i < data.posts.length; i++) {
             if (data.posts[i].id == resourceId) {
@@ -289,6 +292,7 @@ function editIt(resourceId, title, content, url, userId) {
             loadData(userId);
         }
     })
+    $(".formsection").slideDown();
 };
 
 
@@ -296,6 +300,7 @@ function editIt(resourceId, title, content, url, userId) {
 
 function closeEdit() {
     $(".editform").addClass("hidden");
+    $(".formsection").slideDown();
 }
 
 /////////////////////////////
