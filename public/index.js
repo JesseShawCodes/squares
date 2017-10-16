@@ -4,6 +4,7 @@
 
 $(".loginform").on("submit", function(e) {
     e.preventDefault();
+    $(".submit, .testuser, .newuser").addClass("hidden");
     var username = $(".username").val();
     var password = $(".password").val();
     window.alert = function() {};
