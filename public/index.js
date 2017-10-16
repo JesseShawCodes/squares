@@ -180,7 +180,6 @@ function loadData(userId) {
             let string = data[i].content
             let abrContent = string.substring(0, 140);
             if (string.length < 140) {
-                console.log(string.length);
                 abrContent = string;
             }
             else {
@@ -192,7 +191,7 @@ function loadData(userId) {
                 <span>${abrContent}...</span>
                 <section class="clickableitems">
                 <span class="link"><button onclick="readMore('${data[i]._id}')">Click Here To Read More</button></span>
-                <span class="link"><a href='${data[i].link}' target="_blank"><button>Click Here</button></a></span>
+                <span class="link"><a href='${data[i].link}' target="_blank"><button>Visit Resource</button></a></span>
                 <section class="delete-request" onclick="deleteResource('${data[i]._id}', '${data[i].author}');"><button>Delete</button></section>
                 <section class="edit-request" onclick="editResource('${data[i]._id}', '${data[i].author}');"><button>Edit</button></section>
                 </section class="clickableitems
@@ -307,18 +306,41 @@ function closeEdit() {
 ////Submit Resource//////////
 /////////////////////////////
 
+$(".title").blur(function() {
+    title = $(this).val();
+    console.log(title);
+    if (title == "") {
+        alert("Don't Forget a title");
+    }
+})
+
+
 function submitIt(userId) {
     $('.resoure-submit').submit(function (e) {
+        var title = $(".title").val();
+        if (title == null || title == "") {
+            alert("Please Input a Title");
+        }
         e.preventDefault();
         $("#grid").empty();
-        var title = $(".title").val();
         var description = $(".description").val();
         var link = $(".link").val();
         var category = $(".category").val();
+        if (link.startsWith("http://") || link.startsWith("https://")) {
+            console.log("Success!");
+        }
+        else if (link == null || link == "") {
+            console.log("There is no link");
+        }
+        else {
+            console.log("Need to add http");
+            link = "http://" + link;
+        }
+        console.log(link);
         $.post(`api/users/${userId}`, {
             title: $(".title").val(),
             content: $(".description").val(),
-            link: $(".link").val()
+            link: link
         });
         // clearForm();
         loadData(userId);
