@@ -310,6 +310,7 @@ function editIt(resourceId, title, content, url, userId) {
 
 
 ///Close Edit Form////
+///Update Close Edit Form******
 
 function closeEdit() {
     $(".editform").addClass("hidden");
@@ -329,6 +330,7 @@ $(".title").blur(function() {
 
 
 function submitIt(userId) {
+    $("#grid").empty();
     $('.resoure-submit').submit(function (e) {
         var title = $(".title").val();
         if (title == null || title == "") {
@@ -360,4 +362,15 @@ function submitIt(userId) {
     });
 }
 
+//Directions for App//
+
+$("#about > div > div > div > h2").on("click", function(e) {
+    console.log("Show Directios");
+    if( $('.directions').css('display') == 'none' ) {
+        $(".directions").slideDown();
+     } 
+     else {
+        $(".directions").slideUp();
+     }
+})
 

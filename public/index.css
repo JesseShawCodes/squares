@@ -165,12 +165,21 @@ header.masthead .header-content .header-content-inner p{
     color: white;
 }
 
+.bg-primary h2:hover {
+    color: white;
+    font-weight: bold;
+    text-decoration: underline;
+}
 
 .bg-primary ol {
     margin-bottom: 30px;
     text-align: left;
 }
 
+ol.text-faded {
+    width: 50%;
+    margin: 0px auto;
+}
 
 .bg-primary ol a {
     color: #fff;
@@ -539,6 +548,7 @@ input[type="close"] {
 
 #grid {
     display: inline-block;
+    margin-bottom: 20px;
 }
 
 .resource {
