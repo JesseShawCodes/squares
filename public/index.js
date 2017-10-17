@@ -41,6 +41,7 @@ $(".loginform").on("submit", function(e) {
             }
         }
     });
+    $(".submit").removeClass("hidden");
 })
 
 ///////////////////////////
@@ -80,7 +81,9 @@ function showResourceInput(userId) {
     $(".formsection").removeClass("hidden");
     $(".login").addClass("hidden");
     $(".formsection input[type=\"submit\"]").attr("onclick", `submitIt('${userId}')`);
+    $("div.refresh > button").attr("onclick", `refreshData('${userId}')`);
 }
+
 
 ///Password formating///
 
@@ -175,6 +178,8 @@ function newUserForm(user) {
 ////////////////////////////
 
 function loadData(userId) {
+    // userId.preventDefault();
+    $("#grid").empty();
     $.get( `api/users/${userId}/links`, function( data ) {
         $("#grid").removeClass("hidden");
         for (var i = 0; i < data.length; i++) {
@@ -202,8 +207,14 @@ function loadData(userId) {
     });
 }
 
+function refreshData(userId) {
+    preventDefault();
+    console.log("Data has been refreshed");
+}
+
 function readMore(userId) {
     console.log(`Read More for ${userId}`);
+    $("#grid, .formsection").slideUp();
     $(".readmore").removeClass("hidden");
     $.get('api/links', function(data) {
         for (var i = 0; i < data.posts.length; i++) {
@@ -219,6 +230,7 @@ function readMore(userId) {
 
 function closeReadMore() {
     $(".readmore").addClass("hidden");
+    $("#grid, .formsection").slideDown();
 }
 
 function clearForm() {
@@ -242,6 +254,7 @@ function deleteResource(id, author) {
             type: 'DELETE',
         });
         loadData(author);
+        $("#grid").slideDown();
     }
     else {
         return
@@ -254,7 +267,7 @@ function deleteResource(id, author) {
 
 function editResource(resourceId, userId) {
     $(".editform").removeClass("hidden");
-    $(".formsection").slideUp();
+    $(".formsection, #grid").slideUp();
     $.get(`/api/links`, function(data) {
         for (var i = 0; i < data.posts.length; i++) {
             if (data.posts[i].id == resourceId) {
@@ -292,7 +305,7 @@ function editIt(resourceId, title, content, url, userId) {
             loadData(userId);
         }
     })
-    $(".formsection").slideDown();
+    $(".formsection, #grid").slideDown();
 };
 
 
@@ -309,7 +322,6 @@ function closeEdit() {
 
 $(".title").blur(function() {
     title = $(this).val();
-    console.log(title);
     if (title == "") {
         alert("Don't Forget a title");
     }
@@ -323,7 +335,7 @@ function submitIt(userId) {
             alert("Please Input a Title");
         }
         e.preventDefault();
-        $("#grid").empty();
+        // $("#grid").empty();
         var description = $(".description").val();
         var link = $(".link").val();
         var category = $(".category").val();
@@ -334,16 +346,15 @@ function submitIt(userId) {
             console.log("There is no link");
         }
         else {
-            console.log("Need to add http");
             link = "http://" + link;
         }
-        console.log(link);
         $.post(`api/users/${userId}`, {
             title: $(".title").val(),
             content: $(".description").val(),
             link: link
         });
         // clearForm();
+        // $("#grid").empty();
         loadData(userId);
         clearForm();
     });

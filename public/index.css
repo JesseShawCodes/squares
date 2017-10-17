@@ -35,14 +35,15 @@ hr {
 
 
 a {
-    color:#813772;
+    color:white;
     -webkit-transition:all .2s;
     -moz-transition:all .2s;
     transition:all .2s
 }
 
-a:focus,a:hover{
-    color:#813772;
+a:hover, a:focus {
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 h1,h2,h3,h4,h5,h6{
@@ -445,6 +446,17 @@ form input {
     color: white;
     font-size: 20px;
     display: block;
+}
+
+.refreshbutton {
+    width: 200px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: none;
+    background-color: #813772;
+    color: white;
+    font-size: 20px; 
 }
 
 /*read more*/
