@@ -27,6 +27,7 @@ $(".loginform").on("submit", function(e) {
         },
         success: function() {
             getUserID(username, password);
+            $(".masthead").addClass("hidden");
         },
         error: function() {
             console.log("THERE WAS AN ERROR");
@@ -41,8 +42,31 @@ $(".loginform").on("submit", function(e) {
             }
         }
     });
-    $(".submit").removeClass("hidden");
+    $(".submit, #contact").removeClass("hidden");
+    $(".login-here").addClass("hidden");
 })
+
+//Show Login Form//
+
+$("section.small-header > span").on("click", function(e) {
+    e.preventDefault();
+    $(".login").removeClass("hidden");
+    $(".bg-primary, .masthead, #contact").addClass("hidden");
+    $("")
+    console.log("Show Login!!");
+})
+
+/////Hide on Scroll///////
+$(window).scroll(function() {
+        if ($(this).scrollTop()>10)
+         {
+            $('.small-header').slideUp();
+         }
+        else
+         {
+          $('.small-header').slideDown();
+         }
+     });
 
 ///////////////////////////
 //Obtain User Information//
@@ -374,3 +398,10 @@ $("#about > div > div > div > h2").on("click", function(e) {
      }
 })
 
+//Masonry//
+
+$('#grid').masonry({
+    // options
+    itemSelector: '.resource',
+    columnWidth: 200
+  });

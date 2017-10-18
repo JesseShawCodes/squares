@@ -17,6 +17,7 @@
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
     "jsonwebtoken": "^8.0.1",
+    "masonry-layout": "^4.2.0",
     "mocha": "^3.5.3",
     "mongoose": "^4.12.1",
     "morgan": "^1.8.2",

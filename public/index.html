@@ -7,14 +7,22 @@
         <script src="https://use.fontawesome.com/568687e6c4.js"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-        <!-- Custom styles for this template -->
+        <!-- Masonry -->
+        <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
         <link href="index.css" rel="stylesheet" type="text/css" />
         <link rel="icon" type="image/png" href="myicon.png">
     </head>
     <body id="page-top">
         <main>
+            <!--Header-->
+        <section class="small-header">
+            <section class="small-header-logo">
+            <img src="/Images/Logo/LogoText2.png">
+            </section>
+            <span class="login-here">Login</span>
+        </section>
             <!--Masthead-->
-        <header class="masthead">
+        <section class="masthead">
             <div class="header-content">
               <div class="header-content-inner">
                   <img src="/Images/Logo/LogoText2.png">
@@ -25,7 +33,7 @@
                 <p></p>
               </div>
             </div>
-          </header>
+        </section>
           <!--About Section-->
           <section class="bg-primary" id="about">
                 <div class="container">
@@ -33,7 +41,7 @@
                     <div class="col-lg-8 mx-auto text-center">
                       <h2 class="section-heading text-white">How to use the application</h2>
                       <hr class="light">
-                      <div class="directions" style="display:none">
+                      <div class="directions">
                       <p class="text-faded">This App is a music search engine where you type in the name of an artist, and in return, the user will see: </p>
                       <ol class="text-faded">
                           <li>The three most popular albums from that artist (according to <a href="https://www.last.fm/">last.fm</a>);</li>
@@ -49,7 +57,7 @@
                 </div>
               </section>
         <!--Login Form-->
-        <div class="login">
+        <div class="login hidden">
             <h1>Login</h1>
             <form class="loginform">
                 <label>Username</label>

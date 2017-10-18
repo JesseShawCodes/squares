@@ -84,8 +84,7 @@ p {
     text-shadow:none
 }
 
-header.masthead{
-    position:relative;
+section.masthead{
     width:100%;
     min-height:auto;
     text-align:center;
@@ -98,14 +97,12 @@ header.masthead{
     background-size:cover
 }
 
-header.masthead .header-content{
-    position:relative;
-    /* width:100%; */
+section.masthead .header-content{
     padding:150px 15px 100px;
     text-align:center
 }
 
-header.masthead .header-content .header-content-inner h1{
+section.masthead .header-content .header-content-inner h1{
     font-size:30px;
     font-weight:700;
     margin-top:0;
@@ -113,11 +110,11 @@ header.masthead .header-content .header-content-inner h1{
     text-transform:uppercase
 }
 
-header.masthead .header-content .header-content-inner hr{
+section.masthead .header-content .header-content-inner hr{
     margin:30px auto
 }
 
-header.masthead .header-content .header-content-inner p{
+section.masthead .header-content .header-content-inner p{
     font-size:16px;
     font-weight:300;
     margin-bottom:50px;
@@ -126,13 +123,13 @@ header.masthead .header-content .header-content-inner p{
 
 @media (min-width:768px){
     
-    header.masthead .header-content .header-content-inner{
+    section.masthead .header-content .header-content-inner{
         max-width:1000px;
         margin-right:auto;
         margin-left:auto
     }
 
-    header.masthead .header-content .header-content-inner h1{
+    section.masthead .header-content .header-content-inner h1{
         font-size:50px
     }
 
@@ -190,7 +187,7 @@ img {
 }
 
 @media screen and (max-width: 600px) {
-    .header-content img {
+    .section-content img {
         width: 250px;
     }
 }
@@ -224,11 +221,11 @@ img {
 }
 
 /*Page Header*/
-header {
+section {
     text-align: center;
 }
 
-header img {
+.masthead img {
     width: 750px;
     background-color: #D4DCE3;
 }
@@ -302,12 +299,37 @@ footer a:hover {
 }
 
 
+/*Small Header*/
+
+.small-header {
+    width: 100%;
+    max-height: 130px;
+    background-color: #062f4f;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+}
+
+.small-header img {
+    width: 300px;
+    margin: 20px;
+    background-color: #d4dce3;
+    float: left;
+}
+
+span.login-here {
+    font-size: 40px;
+    float: right;
+    margin: 20px;
+    padding: 10px;
+}
 
 
 
 /*Login Section*/
 .login, .register {
     padding-bottom: 100px;
+    margin-top: 180px;
 }
 
 .login h1, .register h1 {
@@ -418,7 +440,7 @@ button.showlogin {
 .formsection {
     margin: auto 0px;
     background-color: #062f4f;
-    padding-top: 1px;
+    margin-top: 180px
 }
 
 .formsection form {
@@ -490,6 +512,7 @@ form input {
 
 .readmorecontent {
     padding: 40px;
+    margin-top: 170px;
 }
 
 /*Edit Resource*/
@@ -505,6 +528,7 @@ form input {
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: #B82601;
+    margin-top: 150px;
 }
 
 .editform form {
@@ -642,7 +666,7 @@ input[type="close"] {
         font-size: 18px;
     }
     /*Banner*/
-    header.masthead .header-content {
+    section.masthead .header-content {
         padding: 50px 10px 10px;
     }
     /*Register*/
