@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const http = require('http');
 const morgan = require('morgan');
 const passport = require('passport');
+const metaget = require('metaget');
 
 const {DATABASE_URL, PORT} = require('./config/config');
 const {Resources} = require('./models/model');
@@ -47,6 +48,33 @@ passport.use(jwtStrategy);
 
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
+
+//Metaget
+/*
+metaget.fetch('http://www.espn.com/', function (err, meta_response) {
+    if(err){
+        console.log(err);
+    }
+    else{
+        console.log(meta_response['og:image']);
+    }
+});
+*/
+
+function getImage(url) {
+  metaget.fetch(url, function (err, meta_response) {
+    if(err){
+        console.log(err);
+    }
+    else{
+        let imgageLink = meta_response['og:image'];
+        console.log(imgageLink);
+        return imgageLink;
+    }
+  });
+}
+
+// getImage('http://www.nfl.com/');
 
 
 // A protected endpoint which needs a valid JWT to access it
@@ -153,19 +181,35 @@ app.post('/api/users/:id/', (req, res) => {
       return res.status(400).send(message);
     }
   }
-  Resources
+  // getImage(req.body.link);
+  let link = req.body.link;
+  console.log(link)
+  var imageLink = "Empty Link";
+  metaget.fetch(req.body.link, function (err, meta_response) {
+    if(err){
+        console.log(err);
+    }
+    else {
+        // let imgageLink = meta_response['og:image'];
+        imageLink = meta_response['og:image'];
+        console.log(`The picture can be found here: ${imageLink}`);
+    }
+    Resources
     .create({
       title: req.body.title,
       content: req.body.content,
       link: req.body.link,
-      author: id
+      author: id,
+      image: imageLink
     })
     .then(resourcePost => res.status(201).json(resourcePost.apiGet()))
     .catch(err => {
         console.error(err);
         res.status(500).json({error: 'Something went wrong'});
     });
-    console.log("A post has been submitted");
+    console.log(`Here is the image link: ${imageLink}`)
+  });
+  console.log("A post has been submitted");
 });
 
 app.delete('/api/:id', (req, res) => {

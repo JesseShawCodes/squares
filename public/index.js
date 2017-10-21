@@ -3,11 +3,10 @@
 ///////////////////////////////
 
 $(".loginform").on("submit", function(e) {
+    console.log("login form has been submitted");
     e.preventDefault();
-    $(".submit, .testuser, .newuser").addClass("hidden");
     var username = $(".username").val();
     var password = $(".password").val();
-    window.alert = function() {};
     $.ajax('/api/auth/login', {
         method: 'POST',
         dataType: 'json',
@@ -42,18 +41,17 @@ $(".loginform").on("submit", function(e) {
             }
         }
     });
-    $(".submit, #contact").removeClass("hidden");
-    $(".login-here").addClass("hidden");
+    $("#contact, section.right-elements > i").removeClass("hidden");
+    $(".login-here, .formsection").addClass("hidden");
 })
 
 //Show Login Form//
 
-$("section.small-header > span").on("click", function(e) {
+$("span.login-here").on("click", function(e) {
+    console.log("show login form");
     e.preventDefault();
     $(".login").removeClass("hidden");
     $(".bg-primary, .masthead, #contact").addClass("hidden");
-    $("")
-    console.log("Show Login!!");
 })
 
 /////Hide on Scroll///////
@@ -73,6 +71,7 @@ $(window).scroll(function() {
 ///////////////////////////
 
 function getUserID(user, password) {
+    console.log("getUserID function has run");
     $.get('api/users', function(data) {
         for (var i = 0; i < data.length; i++) {
             if (user == data[i].username) {
@@ -92,9 +91,18 @@ function getUserID(user, password) {
 //////////////////////
 
 $(".registerbutton").on("click", function(e) {
+    console.log("register button was clicked");
     e.preventDefault();
     $(".register").removeClass("hidden");
     $(".login").addClass("hidden");
+})
+
+////Hide Register Form. Show Login form/////
+$(".showlogin").on("click", function(e) {
+    console.log("hide register form, show login form");
+    e.preventDefault()
+    $(".register").addClass("hidden");
+    $(".login").removeClass("hidden");
 })
 
 /////////////////////////////////
@@ -112,7 +120,6 @@ function showResourceInput(userId) {
 ///Password formating///
 
 $(".passwordregister").blur(function(){
-    console.log($(".passwordregister").val());
     if ($(".passwordregister").val().length < 10) {
         // alert("Password word must be at least 10 characters and include");
         $(".passwarning1").removeClass("hidden");
@@ -176,6 +183,7 @@ $(".registerform").on("submit", function(e) {
             alert("You have succesfully Registered a user");
             newUserForm(user);
             $(".register").addClass("hidden");
+            $("#contact").removeClass("hidden");
         },
         error: function() {
             console.log("THERE WAS AN ERROR!");
@@ -185,11 +193,13 @@ $(".registerform").on("submit", function(e) {
 })
 
 function newUserForm(user) {
+
     $.get('api/users', function(data) {
         for (var i = 0; i < data.length; i++) {
             if (user == data[i].username) {
                 console.log(data[i]._id);
                 showResourceInput(data[i]._id);
+                $(".contact").removeClass("hidden");
                 $(".greeting").html(`Hi ${data[i].firstName}!`);
             }
         }
@@ -219,6 +229,7 @@ function loadData(userId) {
             <section class="resource" id="${data[i]._id}">
                 <span><h1>${data[i].title}</h1></span> 
                 <span>${abrContent}...</span>
+                <img src="${data[i].image}" alt="${data[i].title} resource">
                 <section class="clickableitems">
                 <span class="link"><button onclick="readMore('${data[i]._id}')">Click Here To Read More</button></span>
                 <span class="link"><a href='${data[i].link}' target="_blank"><button>Visit Resource</button></a></span>
@@ -229,6 +240,7 @@ function loadData(userId) {
             `);
         };
     });
+    startMasonry();
 }
 
 function refreshData(userId) {
@@ -245,6 +257,9 @@ function readMore(userId) {
             if (userId == data.posts[i].id) {
                 $(".title").text(data.posts[i].title);
                 $(".description-readmore").text(data.posts[i].content);
+                $(".sourceimage").attr('src', `${data.posts[i].image}`);
+                $(".sourceimage").attr('alt', `${data.posts[i].title} image`);
+                console.log(data.posts[i]);
                 $(".link-readmore").text(data.posts[i].link);
                 $(".link-readmore").attr('href', `${data.posts[i].link}`);
             }
@@ -253,11 +268,13 @@ function readMore(userId) {
 }
 
 function closeReadMore() {
+    console.log("closeReadMore function was executed");
     $(".readmore").addClass("hidden");
     $("#grid, .formsection").slideDown();
 }
 
 function clearForm() {
+    console.log("clearFrom function was executed");
     $('.resoure-submit').find("input[type=text], textarea").val("");
     $(".title, .description, .link").val('');
 }
@@ -270,6 +287,7 @@ function clearForm() {
 /////////////////////////////
 
 function deleteResource(id, author) {
+    console.log("deleteResource function has run");
     console.log(`Delete resource ${id}`);
     if (confirm('This action will permanently delete this item from your resource list. If you are certain you\'d like to continue, press OK')) {
         $("#grid").empty();
@@ -290,6 +308,7 @@ function deleteResource(id, author) {
 /////////////////////////////
 
 function editResource(resourceId, userId) {
+    console.log("editResource function has run");
     $(".editform").removeClass("hidden");
     $(".formsection, #grid").slideUp();
     $.get(`/api/links`, function(data) {
@@ -314,6 +333,7 @@ function editResource(resourceId, userId) {
 };
 
 function editIt(resourceId, title, content, url, userId) {
+    console.log("editIt function has run");
     $.ajax({
         url: `api/${resourceId}`,
         method: 'PUT',
@@ -337,6 +357,7 @@ function editIt(resourceId, title, content, url, userId) {
 ///Update Close Edit Form******
 
 function closeEdit() {
+    console.log("closeEdit function has run");
     $(".editform").addClass("hidden");
     $(".formsection").slideDown();
 }
@@ -348,17 +369,23 @@ function closeEdit() {
 $(".title").blur(function() {
     title = $(this).val();
     if (title == "") {
-        alert("Don't Forget a title");
+        $(".title").css("background-color", "red");
+    }
+    else {
+        $(".title").css("background-color", "green");
     }
 })
 
+///Main function to submit User Data///
 
 function submitIt(userId) {
+    console.log("submitIt function has run");
     $("#grid").empty();
     $('.resoure-submit').submit(function (e) {
         var title = $(".title").val();
         if (title == null || title == "") {
             alert("Please Input a Title");
+            return
         }
         e.preventDefault();
         // $("#grid").empty();
@@ -386,6 +413,13 @@ function submitIt(userId) {
     });
 }
 
+//Show Submit function. this function shows the submit form when user clicks on (+) in header
+
+function showSubmit() {
+    console.log("showSubmit function has run");
+    $(".formsection").toggleClass("hidden");
+}
+
 //Directions for App//
 
 $("#about > div > div > div > h2").on("click", function(e) {
@@ -400,8 +434,18 @@ $("#about > div > div > div > h2").on("click", function(e) {
 
 //Masonry//
 
-$('#grid').masonry({
-    // options
-    itemSelector: '.resource',
-    columnWidth: 200
-  });
+function startMasonry() {
+    console.log("Masonry is running");
+    $('#grid').masonry({
+        // options
+        itemSelector: '.resource',
+        // columnWidth: 200,
+        horizontalOrder: true,
+        fitWidth: true
+    });
+}
+
+
+
+
+

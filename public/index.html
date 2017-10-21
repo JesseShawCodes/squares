@@ -1,31 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <title>Squares - Your projects resource storage database</title>
         <script src="https://use.fontawesome.com/568687e6c4.js"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <!--
         <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-        <!-- Masonry -->
-        <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+        -->
         <link href="index.css" rel="stylesheet" type="text/css" />
         <link rel="icon" type="image/png" href="myicon.png">
     </head>
     <body id="page-top">
         <main>
             <!--Header-->
-        <section class="small-header">
+        <section class="small-header" style="">
             <section class="small-header-logo">
-            <img src="/Images/Logo/LogoText2.png">
+                <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
             </section>
-            <span class="login-here">Login</span>
+            <section class="right-elements">
+                <span class="login-here">Login</span>
+                <i class="fa fa-plus-circle hidden" aria-hidden="true" onclick="showSubmit()"></i>
+            </section>
         </section>
             <!--Masthead-->
         <section class="masthead">
             <div class="header-content">
               <div class="header-content-inner">
-                  <img src="/Images/Logo/LogoText2.png">
+                  <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
                   <div id="headingbackground">
                       <h1 id="homeheading">Your projects resource storage database</h1>
                   </div>
@@ -58,6 +61,7 @@
               </section>
         <!--Login Form-->
         <div class="login hidden">
+            <label>
             <h1>Login</h1>
             <form class="loginform">
                 <label>Username</label>
@@ -68,6 +72,7 @@
                 <input type="submit" value="Login">
                 </div>
             </form>
+            </label>
             <div class="loginerror hidden">You did not enter a correct username and/or password</div>
             <div class="testlogin">
             <span>To test this application, use the following:</span>
@@ -106,23 +111,20 @@
         </div>
         <!--Input Form-->
         <div class="formsection hidden">
+            <label>
                 <h1 class="greeting"></h1>
             <form class="resoure-submit">
-                <label>Title</label>
+                <label for="title">Title</label>
                 <input type="text" class="title">
-                <label>Description</label>
+                <label for="description">Description</label>
                 <textarea type="text" class="description"></textarea>
-                <label>Link</label>
+                <label for="link">Link</label>
                 <input type="text" class="link">
                 <div class="submit">
                 <input type="submit">
                 </div>
-                <!--
-                <div class="refresh">
-                    <button class="refreshbutton">Refresh Results</button>
-                </div>
-                -->
             </form>
+            </label>
         </div>
         <!--Readmore Form-->
         <div class="readmore hidden">
@@ -130,6 +132,7 @@
                 <section class="readmorecontent">
                     <h2 class="title"></h2>
                     <p class="description-readmore"></p>
+                    <img class="sourceimage">
                     <a class="link-readmore"></a>
                 </section>
                     <input type="button" value="Close" onclick="closeReadMore()">
@@ -147,7 +150,9 @@
                 <input type="text" class="link edit-link" type="url">
                 <div class="submit">
                 <input type="submit" type="url">
+                <!--
                 <input type="button" value="Close" onclick="closeEdit()">
+                -->
                 </div>
             </form>
         </div>
@@ -183,15 +188,17 @@
                     </div>  
                     <div class="col-lg-4 mr-auto text-center">
                         <a href="index.html">
-                            <img src="/Images/Logo/JPG/Logo3.jpg">
+                            <img src="/Images/Logo/JPG/Logo3.jpg" alt="Squares Logo">
                         </a>
                     </div>
                 </div>
                 </div>
             </footer>
         </section>
-
+        <!--jQuery-->
         <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+         <!-- Masonry -->
+        <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
         <script src="index.js"></script>
     </body>
 </html>

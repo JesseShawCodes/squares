@@ -6,7 +6,8 @@ const resourcePostSchema = new mongoose.Schema({
   content: {type: String, required: true},
   created: {type: Date, default: Date.now},
   link: {type: String},
-  author: {type: String}
+  author: {type: String},
+  image: {type: String}
 });
 
 
@@ -16,7 +17,8 @@ resourcePostSchema.methods.apiGet = function() {
     title: this.title,  
     content: this.content,
     created: this.created,
-    link: this.link
+    link: this.link,
+    image: this.image
   };
 }
 

@@ -204,6 +204,7 @@ img {
 
 #contact {
     background-color: white;
+    margin-top: 100px;
 }
 
 #contact h2 {
@@ -232,6 +233,10 @@ section {
 
 .resize img {
     width: 50px;
+}
+
+h1#homeheading {
+    background-color: #053050;
 }
 
 
@@ -308,6 +313,7 @@ footer a:hover {
     overflow: hidden;
     position: fixed;
     top: 0;
+    margin-bottom: 150px;
 }
 
 .small-header img {
@@ -322,6 +328,26 @@ span.login-here {
     float: right;
     margin: 20px;
     padding: 10px;
+    cursor: pointer;
+    cursor: hand;
+}
+
+i.fa.fa-plus-circle {
+    float: right;
+    position: absolute;
+    top: 40px;
+    font-size: 40px;
+}
+
+i.fa.fa-plus-circle:hover {
+    cursor: pointer;
+    cursor: hand;
+}
+
+section.right-elements {
+    width: 200px;
+    float: right;
+    display: inline-flex;
 }
 
 
@@ -573,6 +599,7 @@ input[type="close"] {
 #grid {
     display: inline-block;
     margin-bottom: 20px;
+    margin-top: 150px;
 }
 
 .resource {
@@ -610,7 +637,7 @@ input[type="close"] {
 
 .clickableitems {
     text-align: center;
-    padding: 10px;
+    padding-bottom: 10px;
 }
 
 /*Main Media Queries*/

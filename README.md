@@ -19,3 +19,4 @@ This application was designed as a capstone project while studying at Thinkful.
 - TravisCI
 - Heroku
 - jQuery
+- Masonry
