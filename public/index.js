@@ -25,8 +25,9 @@ $(".loginform").on("submit", function(e) {
             password: password
         },
         success: function() {
+            window.location.href = "app.html";
             getUserID(username, password);
-            $(".masthead").addClass("hidden");
+            // $(".masthead").addClass("hidden");
         },
         error: function() {
             console.log("THERE WAS AN ERROR");
@@ -45,30 +46,11 @@ $(".loginform").on("submit", function(e) {
     $(".login-here, .formsection").addClass("hidden");
 })
 
-//Show Login Form//
-
-$("span.login-here").on("click", function(e) {
-    console.log("show login form");
-    e.preventDefault();
-    $(".login").removeClass("hidden");
-    $(".bg-primary, .masthead, #contact").addClass("hidden");
-})
-
-/////Hide on Scroll///////
-$(window).scroll(function() {
-        if ($(this).scrollTop()>10)
-         {
-            $('.small-header').slideUp();
-         }
-        else
-         {
-          $('.small-header').slideDown();
-         }
-     });
-
 ///////////////////////////
 //Obtain User Information//
 ///////////////////////////
+
+
 
 function getUserID(user, password) {
     console.log("getUserID function has run");
@@ -81,6 +63,80 @@ function getUserID(user, password) {
         }
     })
 }
+
+////////////////////////////
+////Data Rendering//////////
+////////////////////////////
+
+function loadData(userId) {
+    // userId.preventDefault();
+    
+    console.log("App page has loaded");
+    $("#grid").empty();
+    $.get( `api/users/${userId}/links`, function( data ) {
+        $("#grid").removeClass("hidden");
+        for (var i = 0; i < data.length; i++) {
+            let string = data[i].content
+            let abrContent = string.substring(0, 140);
+            if (string.length < 140) {
+                abrContent = string;
+            }
+            else {
+                abrContent = string.substring(0, 140);
+            }
+            $("#grid").append(`
+            <section class="resource" id="${data[i]._id}">
+                <span><h1>${data[i].title}</h1></span> 
+                <span>${abrContent}...</span>
+                <img src="${data[i].image}" alt="${data[i].title} resource">
+                <section class="clickableitems">
+                <span class="link"><button onclick="readMore('${data[i]._id}')">Click Here To Read More</button></span>
+                <span class="link"><a href='${data[i].link}' target="_blank"><button>Visit Resource</button></a></span>
+                <section class="delete-request" onclick="deleteResource('${data[i]._id}', '${data[i].author}');"><button>Delete</button></section>
+                <section class="edit-request" onclick="editResource('${data[i]._id}', '${data[i].author}');"><button>Edit</button></section>
+                </section class="clickableitems
+            </section>
+            `);
+        };
+    });
+    startMasonry();
+}
+
+//Show Login Form//
+/*
+$("span.login-here").on("click", function(e) {
+    console.log("show login form");
+    e.preventDefault();
+    $(".login").removeClass("hidden");
+    $(".bg-primary, .masthead, #contact").addClass("hidden");
+})
+*/
+/////////////////////////////////////////////
+/////Hide on Scroll Top Menu on Scroll///////
+/////////////////////////////////////////////
+
+$(window).scroll(function() {
+        if ($(this).scrollTop()>10)
+         {
+            $('.small-header').slideUp();
+         }
+        else
+         {
+          $('.small-header').slideDown();
+         }
+});
+
+
+
+///////////////////////////
+//Load App Page////////////
+///////////////////////////
+
+function loadAppPage() {
+    console.log("App Page is loading");
+}
+
+
 
 ////////////////
 ////Register////
@@ -207,41 +263,7 @@ function newUserForm(user) {
 }
 
 
-////////////////////////////
-////Data Rendering//////////
-////////////////////////////
 
-function loadData(userId) {
-    // userId.preventDefault();
-    $("#grid").empty();
-    $.get( `api/users/${userId}/links`, function( data ) {
-        $("#grid").removeClass("hidden");
-        for (var i = 0; i < data.length; i++) {
-            let string = data[i].content
-            let abrContent = string.substring(0, 140);
-            if (string.length < 140) {
-                abrContent = string;
-            }
-            else {
-                abrContent = string.substring(0, 140);
-            }
-            $("#grid").append(`
-            <section class="resource" id="${data[i]._id}">
-                <span><h1>${data[i].title}</h1></span> 
-                <span>${abrContent}...</span>
-                <img src="${data[i].image}" alt="${data[i].title} resource">
-                <section class="clickableitems">
-                <span class="link"><button onclick="readMore('${data[i]._id}')">Click Here To Read More</button></span>
-                <span class="link"><a href='${data[i].link}' target="_blank"><button>Visit Resource</button></a></span>
-                <section class="delete-request" onclick="deleteResource('${data[i]._id}', '${data[i].author}');"><button>Delete</button></section>
-                <section class="edit-request" onclick="editResource('${data[i]._id}', '${data[i].author}');"><button>Edit</button></section>
-                </section class="clickableitems
-            </section>
-            `);
-        };
-    });
-    startMasonry();
-}
 
 function refreshData(userId) {
     preventDefault();

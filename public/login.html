@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Squares - Your projects resource storage database</title>
+        <script src="https://use.fontawesome.com/568687e6c4.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <!--
+        <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+        -->
+        <link href="index.css" rel="stylesheet" type="text/css" />
+        <link rel="icon" type="image/png" href="myicon.png">
+    </head>
+    <body id="page-top">
+        <main>
+            <!--Header-->
+        <section class="small-header">
+            <section class="small-header-logo">
+                <a href="index.html">
+                <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
+                </a>
+            </section>
+            <section class="right-elements">
+                <span class="login-here">Login</span>
+                <i class="fa fa-plus-circle hidden" aria-hidden="true" onclick="showSubmit()"></i>
+            </section>
+        </section>
+        <!--Login Form-->
+        <div class="login">
+            <label>
+            <h1>Login</h1>
+            <form class="loginform">
+                <label>Username</label>
+                <input type="text" class="username">
+                <label>Password</label>
+                <input type="text" class="password">
+                <div class="submit">
+                <input type="submit" value="Login">
+                </div>
+            </form>
+            </label>
+            <div class="loginerror hidden">You did not enter a correct username and/or password</div>
+            <div class="testlogin">
+            <span>To test this application, use the following:</span>
+            <span>Login: demo</span>
+            <span>Password: p@$$word2017</span>
+            </div>
+            <div class="newuser">
+                <span>New User? Click Below to Register</span>
+                <button class="registerbutton">Register</button>
+            </div>
+        </div>
+        <!--Register Form-->
+        <div class="register hidden">
+            <h1>Register</h1>
+            <form class="registerform">
+                <label>Username</label>
+                <input type="text" class="usernameregister">
+                <label>Password</label>
+                <input type="text" class="passwordregister">
+                <span class="passwarning1 hidden">Password must have a minimum of 10 characters</span>
+                <label>Confirm Password</label>
+                <input type="text" class="passwordconfirm">
+                <span class="passwarning2 hidden">Your passwords do not match</span>
+                <label>First Name</label>
+                <input type="text" class="firstname">
+                <label>Last Name</label>
+                <input type="text" class="lastname">
+                <div class="submit">
+                <input type="submit">
+                </div>
+            </form>
+            <section>
+                <span>Already registered? Click below to login</span>
+                <button class="showlogin">Login</button>
+            </section>
+        </div>
+        </main>
+        <!--jQuery-->
+        <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+         <!-- Masonry -->
+        <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+        <script src="index.js"></script>
+    </body>
+</html>

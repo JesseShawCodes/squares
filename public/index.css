@@ -348,9 +348,14 @@ section.right-elements {
     width: 200px;
     float: right;
     display: inline-flex;
+    margin-right: 20px;
 }
 
-
+section.plus-sign {
+    margin-right: 40p;
+    padding: 20px;
+    position: relative;
+}
 
 /*Login Section*/
 .login, .register {

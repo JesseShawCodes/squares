@@ -14,105 +14,26 @@
     </head>
     <body id="page-top">
         <main>
-            <!--Header-->
+        <!--Header-->
         <section class="small-header" style="">
             <section class="small-header-logo">
+                <a href="index.html">
                 <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
-            </section>
-            <section class="right-elements">
-                <a href="login.html">
-                <span class="login-here">Login</span>
-                <i class="fa fa-plus-circle hidden" aria-hidden="true" onclick="showSubmit()"></i>
                 </a>
             </section>
-        </section>
-            <!--Masthead-->
-        <section class="masthead">
-            <div class="header-content">
-              <div class="header-content-inner">
-                  <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
-                  <div id="headingbackground">
-                      <h1 id="homeheading">Your projects resource storage database</h1>
-                  </div>
-                <hr>
-                <p></p>
-              </div>
-            </div>
-        </section>
-          <!--About Section-->
-          <section class="bg-primary" id="about">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-lg-8 mx-auto text-center">
-                      <h2 class="section-heading text-white">How to use the application</h2>
-                      <hr class="light">
-                      <div class="directions">
-                      <p class="text-faded">This App is a music search engine where you type in the name of an artist, and in return, the user will see: </p>
-                      <ol class="text-faded">
-                          <li>The three most popular albums from that artist (according to <a href="https://www.last.fm/">last.fm</a>);</li>
-                          <li>Youtube links to listen to that album; and</li>
-                          <li>A short artist biography.</li>
-                      </ol>
-                      </div>
-                      <!--
-                      <a class="btn btn-default btn-xl js-scroll-trigger" href="app.html">Click Here to try out the app!</a>
-                      -->
-                    </div>
-                  </div>
-                </div>
-              </section>
-        <!--Login Form-->
-        <div class="login hidden">
-            <label>
-            <h1>Login</h1>
-            <form class="loginform">
-                <label>Username</label>
-                <input type="text" class="username">
-                <label>Password</label>
-                <input type="text" class="password">
-                <div class="submit">
-                <input type="submit" value="Login">
-                </div>
-            </form>
-            </label>
-            <div class="loginerror hidden">You did not enter a correct username and/or password</div>
-            <div class="testlogin">
-            <span>To test this application, use the following:</span>
-            <span>Login: demo</span>
-            <span>Password: p@$$word2017</span>
-            </div>
-            <div class="newuser">
-                <span>New User? Click Below to Register</span>
-                <button class="registerbutton">Register</button>
-            </div>
-        </div>
-        <!--Register Form-->
-        <div class="register hidden">
-            <h1>Register</h1>
-            <form class="registerform">
-                <label>Username</label>
-                <input type="text" class="usernameregister">
-                <label>Password</label>
-                <input type="text" class="passwordregister">
-                <span class="passwarning1 hidden">Password must have a minimum of 10 characters</span>
-                <label>Confirm Password</label>
-                <input type="text" class="passwordconfirm">
-                <span class="passwarning2 hidden">Your passwords do not match</span>
-                <label>First Name</label>
-                <input type="text" class="firstname">
-                <label>Last Name</label>
-                <input type="text" class="lastname">
-                <div class="submit">
-                <input type="submit">
-                </div>
-            </form>
-            <section>
-                <span>Already registered? Click below to login</span>
-                <button class="showlogin">Login</button>
+            <section class="right-elements">
+                <section class="plus-sign">
+                        <i class="fa fa-plus-circle" aria-hidden="true" onclick="showSubmit()"></i>
+                </section>
+                <a href="login.html">
+                <span class="login-here">Logout</span>
+                </a>
+
+                
             </section>
-        </div>
+        </section>
         <!--Input Form-->
-        <div class="formsection hidden">
+        <div class="formsection">
             <label>
                 <h1 class="greeting"></h1>
             <form class="resoure-submit">
