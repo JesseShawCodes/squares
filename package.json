@@ -16,6 +16,7 @@
     "chai-http": "^3.0.0",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
+    "jade": "^1.11.0",
     "jsonwebtoken": "^8.0.1",
     "masonry-layout": "^4.2.0",
     "metaget": "^1.0.3",
@@ -26,6 +27,7 @@
     "passport-facebook": "^2.1.1",
     "passport-http": "^0.3.0",
     "passport-jwt": "^3.0.0",
+    "pug": "^2.0.0-rc.4",
     "travis": "^0.1.1",
     "uuid": "^3.1.0"
   },

@@ -25,9 +25,8 @@ $(".loginform").on("submit", function(e) {
             password: password
         },
         success: function() {
-            window.location.href = "app.html";
+            // window.location.href = "app.html";
             getUserID(username, password);
-            // $(".masthead").addClass("hidden");
         },
         error: function() {
             console.log("THERE WAS AN ERROR");
@@ -57,8 +56,11 @@ function getUserID(user, password) {
     $.get('api/users', function(data) {
         for (var i = 0; i < data.length; i++) {
             if (user == data[i].username) {
-                loadData(data[i]._id);
-                showResourceInput(data[i]._id);
+                var userParam = data[i]._id;
+                console.log(userParam);
+                console.log(`app/${userParam}`);
+                // loadData(data[i]._id);
+                // showResourceInput(data[i]._id);
             }
         }
     })

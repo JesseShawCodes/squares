@@ -8,6 +8,8 @@ const http = require('http');
 const morgan = require('morgan');
 const passport = require('passport');
 const metaget = require('metaget');
+const fs = require('fs');
+const path = require('path');
 
 const {DATABASE_URL, PORT} = require('./config/config');
 const {Resources} = require('./models/model');
@@ -49,18 +51,6 @@ passport.use(jwtStrategy);
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
 
-//Metaget
-/*
-metaget.fetch('http://www.espn.com/', function (err, meta_response) {
-    if(err){
-        console.log(err);
-    }
-    else{
-        console.log(meta_response['og:image']);
-    }
-});
-*/
-
 function getImage(url) {
   metaget.fetch(url, function (err, meta_response) {
     if(err){
@@ -73,8 +63,6 @@ function getImage(url) {
     }
   });
 }
-
-// getImage('http://www.nfl.com/');
 
 
 // A protected endpoint which needs a valid JWT to access it
@@ -96,7 +84,40 @@ app.use(bodyParser.urlencoded({extended: false}));
 ////////List of Users///////////
 ////////////////////////////////
 
-
+app.get('/app/testing', (req, res) => {
+  console.log(`${req.method} request for ${req.url}`);
+  res.sendFile(path.join(__dirname+'/public/index.html'));
+});
+/*
+app.get('/app/:id', (req, res) => {
+  let userId = req.params.id;
+  let ret = [];
+  let rej = [];
+  User
+    .findById(userId)
+    .catch(err => {
+      console.error(err);
+      res.status(404).json({error: 'Sorry. That user ID could not be found.'});
+    })
+  Resources
+    .find()
+    .then(post => {
+      for (var i = 0; i < post.length; i++) {
+        if (post[i].author == userId) {
+          ret.push(post[i]);
+        }
+        else {
+          rej.push(post[i]);
+        }
+      }
+      res.json(ret);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({error: 'something went horribly awry'});
+    });
+})
+*/
 app.get('/api/users', (req, res) => {
   User
     .find()
