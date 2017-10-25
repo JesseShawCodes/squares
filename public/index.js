@@ -59,6 +59,7 @@ function getUserID(user, password) {
                 var userParam = data[i]._id;
                 console.log(userParam);
                 console.log(`app/${userParam}`);
+                // window.location.href = `app/${userParam}`;
                 // loadData(data[i]._id);
                 // showResourceInput(data[i]._id);
             }
@@ -405,7 +406,7 @@ $(".title").blur(function() {
 function submitIt(userId) {
     console.log("submitIt function has run");
     $("#grid").empty();
-    $('.resoure-submit').submit(function (e) {
+    $('.resource-submit').submit(function (e) {
         var title = $(".title").val();
         if (title == null || title == "") {
             alert("Please Input a Title");

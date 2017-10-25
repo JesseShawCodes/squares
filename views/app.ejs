@@ -27,16 +27,14 @@
                 </section>
                 <a href="login.html">
                 <span class="login-here">Logout</span>
-                </a>
-
-                
+                </a>  
             </section>
         </section>
         <!--Input Form-->
         <div class="formsection">
             <label>
-                <h1 class="greeting"></h1>
-            <form class="resoure-submit">
+                <h1 class="greeting"><%- content%></h1>
+            <form class="resource-submit">
                 <label for="title">Title</label>
                 <input type="text" class="title">
                 <label for="description">Description</label>
@@ -79,7 +77,10 @@
                 </div>
             </form>
         </div>
-        <div id="grid"></div>
+        <!--Grid-->
+        <div id="grid">
+          <%- GridContent%>
+        </div>
         </main>
         <!--Contact Section-->
         <section id="contact">

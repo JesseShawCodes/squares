@@ -10,6 +10,7 @@ const passport = require('passport');
 const metaget = require('metaget');
 const fs = require('fs');
 const path = require('path');
+const jade = require('jade');
 
 const {DATABASE_URL, PORT} = require('./config/config');
 const {Resources} = require('./models/model');
@@ -51,20 +52,6 @@ passport.use(jwtStrategy);
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
 
-function getImage(url) {
-  metaget.fetch(url, function (err, meta_response) {
-    if(err){
-        console.log(err);
-    }
-    else{
-        let imgageLink = meta_response['og:image'];
-        console.log(imgageLink);
-        return imgageLink;
-    }
-  });
-}
-
-
 // A protected endpoint which needs a valid JWT to access it
 app.get(
   '/api/protected',
@@ -77,18 +64,17 @@ app.get(
 );
 
 app.use(express.static('public'));
+app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+
+
 
 ////////////////////////////////
 ////////List of Users///////////
 ////////////////////////////////
 
-app.get('/app/testing', (req, res) => {
-  console.log(`${req.method} request for ${req.url}`);
-  res.sendFile(path.join(__dirname+'/public/index.html'));
-});
-/*
+
 app.get('/app/:id', (req, res) => {
   let userId = req.params.id;
   let ret = [];
@@ -110,14 +96,33 @@ app.get('/app/:id', (req, res) => {
           rej.push(post[i]);
         }
       }
-      res.json(ret);
+
+      // console.log(ret);
+      res.render('./app', {
+        content: `Hi user number ${req.params.id}`,
+        GridContent: `        
+        <section class="resource" id="${ret[0]._id}">
+          <span><h1>${ret[0].title}</h1></span> 
+          <span>${ret[0].content}...</span>
+          <img src="${ret[0].image}" alt="${ret[0].title} resource">
+          <section class="clickableitems">
+          <span class="link"><button onclick="readMore('${ret[0]._id}')">Click Here To Read More</button></span>
+          <span class="link"><a href='${ret[0].link}' target="_blank"><button>Visit Resource</button></a></span>
+          <section class="delete-request" onclick="deleteResource('${ret[0]._id}', '${ret[0].author}');"><button>Delete</button></section>
+          <section class="edit-request" onclick="editResource('${ret[0]._id}', '${ret[0].author}');"><button>Edit</button></section>
+          </section class="clickableitems">
+        </section>
+        `
+      })
+      // res.json(ret);
+      // res.render('./app.ejs');
     })
     .catch(err => {
       console.error(err);
       res.status(500).json({error: 'something went horribly awry'});
     });
 })
-*/
+
 app.get('/api/users', (req, res) => {
   User
     .find()
@@ -272,7 +277,7 @@ app.use('*', function(req, res) {
   res.status(404).json({message: 'Not Found'});
 });
 
-app.post('/users')
+// app.post('/users')
 
 // closeServer needs access to a server object, but that only
 // gets created when `runServer` runs, so we declare `server` here
