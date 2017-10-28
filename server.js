@@ -68,12 +68,172 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-
-
 ////////////////////////////////
 ////////List of Users///////////
 ////////////////////////////////
 
+app.get('/', (req, res) => {
+  res.render('./app', {
+    smallheader: `
+      <section class="small-header-logo">
+          <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
+      </section>
+      <section class="right-elements">
+          <a href="/login">
+          <span class="login-here">Login</span>
+          <i class="fa fa-plus-circle hidden" aria-hidden="true" onclick="showSubmit()"></i>
+          </a>
+      </section>
+    `,
+    masthead: `
+      <section class="masthead">
+          <div class="header-content">
+            <div class="header-content-inner">
+                <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
+                <div id="headingbackground">
+                    <h1 id="homeheading">Your projects resource storage database</h1>
+                </div>
+              <hr>
+              <p></p>
+            </div>
+          </div>
+      </section>
+    `,
+    bgprimary: `
+        <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-heading text-white">How to use the application</h2>
+            <hr class="light">
+            <div class="directions">
+            <p class="text-faded">This app is an online resource database to save resources for your project team and yourself.</p>
+            </div>
+            <!--
+            <a class="btn btn-default btn-xl js-scroll-trigger" href="app.html">Click Here to try out the app!</a>
+            -->
+          </div>
+        </div>
+      </div>
+    `,
+    login: ``,
+    register: ``,
+    inputform: ``,
+    readmore: ``,
+    editform: ``,
+    GridContent: ``,
+    contact: `
+        <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading">Questions about the App?</h2>
+                    <hr class="primary">
+                    <p class="contactp">If you have any questions regarding this project, feel free to contact Jesse Shaw at any of the points of contact below:</p>
+                </div>
+            </div>
+        <div class="contactpoints">
+            <div class="col-lg-4 ml-auto text-center">
+                <i class="fa fa-phone fa-3x sr-contact"></i>
+                <p><a href="tel:410-703-6125">410-703-6125</a></p>
+            </div>
+            <div class="col-lg-4 mr-auto text-center">
+                <i class="fa fa-envelope-o fa-3x sr-contact"></i>
+                    <p>
+                        <a href="mailto:your-email@your-domain.com">jdshaw1987@gmail.com</a>
+                    </p>
+            </div>
+            <div class="col-lg-4 mr-auto text-center">
+                <i class="fa fa-github fa-3x sr-contact"></i>
+                    <p>
+                        <a href="https://github.com/thejesseshaw">GitHub</a>
+                    </p>
+            </div>  
+            <div class="col-lg-4 mr-auto text-center">
+                <a href="index.html">
+                    <img src="/Images/Logo/JPG/Logo3.jpg" alt="Squares Logo">
+                </a>
+            </div>
+        </div>
+        </div>
+    </footer>
+    `
+  })
+})
+
+app.get('/login', (req, res) => {
+  res.render('./app', {
+    smallheader: `
+    <section class="small-header-logo">
+        <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
+    </section>
+    <section class="right-elements">
+        <a href="login.html">
+        <span class="login-here">Login</span>
+        <i class="fa fa-plus-circle hidden" aria-hidden="true" onclick="showSubmit()"></i>
+        </a>
+    </section>
+  `,
+    masthead: ``,
+    bgprimary: ``,
+    login: `
+        <div class="login">
+        <label>
+        <h1>Login</h1>
+        <form class="loginform">
+            <label>Username</label>
+            <input type="text" class="username">
+            <label>Password</label>
+            <input type="text" class="password">
+            <div class="submit">
+            <input type="submit" value="Login">
+            </div>
+        </form>
+        </label>
+        <div class="loginerror hidden">You did not enter a correct username and/or password</div>
+        <div class="testlogin">
+        <span>To test this application, use the following:</span>
+        <span>Login: demo</span>
+        <span>Password: p@$$word2017</span>
+        </div>
+        <div class="newuser">
+            <span>New User? Click Below to Register</span>
+            <button class="registerbutton">Register</button>
+        </div>
+        </div>
+    `,
+    register: `
+    <div class="register hidden">
+      <h1>Register</h1>
+      <form class="registerform">
+          <label>Username</label>
+          <input type="text" class="usernameregister">
+          <label>Password</label>
+          <input type="text" class="passwordregister">
+          <span class="passwarning1 hidden">Password must have a minimum of 10 characters</span>
+          <label>Confirm Password</label>
+          <input type="text" class="passwordconfirm">
+          <span class="passwarning2 hidden">Your passwords do not match</span>
+          <label>First Name</label>
+          <input type="text" class="firstname">
+          <label>Last Name</label>
+          <input type="text" class="lastname">
+          <div class="submit">
+          <input type="submit">
+          </div>
+      </form>
+      <section>
+          <span>Already registered? Click below to login</span>
+          <button class="showlogin">Login</button>
+      </section>
+    </div>
+    `,
+    inputform: ``,
+    readmore: ``,
+    editform: ``,
+    GridContent: ``,
+    contact: ``
+  })
+})
 
 app.get('/app/:id', (req, res) => {
   let userId = req.params.id;
@@ -89,29 +249,140 @@ app.get('/app/:id', (req, res) => {
     .find()
     .then(post => {
       for (var i = 0; i < post.length; i++) {
+        if (post[i].image == undefined) {
+          post[i].image = "/Images/Logo/JPG/Logo3.jpg";
+        }
         if (post[i].author == userId) {
-          ret.push(post[i]);
+          let postSection = `
+        <section class="resource" id="${post[i]._id}">
+          <span><h1>${post[i].title}</h1></span> 
+          <span>${post[i].content}...</span>
+          <img src="${post[i].image}" alt="${post[i].title} resource">
+          <section class="clickableitems">
+          <span class="link"><button onclick="readMore('${post[i]._id}')">Click Here To Read More</button></span>
+          <span class="link"><a href='${post[i].link}' target="_blank"><button>Visit Resource</button></a></span>
+          <section class="delete-request" onclick="deleteResource('${post[i]._id}', '${post[i].author}');"><button>Delete</button></section>
+          <section class="edit-request" onclick="editResource('${post[i]._id}', '${post[i].author}');"><button>Edit</button></section>
+          </section class="clickableitems">
+        </section>
+        `
+          ret.push(postSection);
         }
         else {
           rej.push(post[i]);
         }
       }
-
       // console.log(ret);
+      var gridItems = ret.join('');
       res.render('./app', {
-        content: `Hi user number ${req.params.id}`,
-        GridContent: `        
-        <section class="resource" id="${ret[0]._id}">
-          <span><h1>${ret[0].title}</h1></span> 
-          <span>${ret[0].content}...</span>
-          <img src="${ret[0].image}" alt="${ret[0].title} resource">
-          <section class="clickableitems">
-          <span class="link"><button onclick="readMore('${ret[0]._id}')">Click Here To Read More</button></span>
-          <span class="link"><a href='${ret[0].link}' target="_blank"><button>Visit Resource</button></a></span>
-          <section class="delete-request" onclick="deleteResource('${ret[0]._id}', '${ret[0].author}');"><button>Delete</button></section>
-          <section class="edit-request" onclick="editResource('${ret[0]._id}', '${ret[0].author}');"><button>Edit</button></section>
-          </section class="clickableitems">
+        masthead: ``,
+        bgprimary: ``,
+        login: ``,
+        register: ``,
+        GridContent: `
+        <div class="grid" onload="startMasonry()">
+        ${gridItems}
+        </div>
+        `,
+        smallheader: `            
+        <section class="small-header-logo">
+            <a href="/index.html">
+            <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
+            </a>
         </section>
+        <section class="right-elements">
+            <section class="plus-sign">
+                    <i class="fa fa-plus-circle" aria-hidden="true" onclick="showSubmit()"></i>
+            </section>
+            <a href="/">
+            <span class="login-here">Logout</span>
+            </a>  
+        </section>`,
+        inputform: `            
+        <div class="formsection">
+        <label>
+            <h1 class="greeting"></h1>
+        <form class="resoure-submit" onsubmit="submitIt(event, '${userId}')">
+            <label for="title">Title</label>
+            <input type="text" class="title">
+            <label for="description">Description</label>
+            <textarea type="text" class="description"></textarea>
+            <label for="link">Link</label>
+            <input type="text" class="link">
+            <div class="submit">
+            <input type="submit">
+            </div>
+        </form>
+        </label>
+        </div>
+            `,
+        readmore: `            
+          <div class="readmore hidden">
+          <form>
+              <section class="readmorecontent">
+                  <h2 class="title"></h2>
+                  <p class="description-readmore"></p>
+                  <img class="sourceimage">
+                  <a class="link-readmore"></a>
+              </section>
+                  <input type="button" value="Close" onclick="closeReadMore()">
+          </form>
+          </div>
+        `,
+        contact: `            
+          <footer>
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-8 mx-auto text-center">
+                      <h2 class="section-heading">Questions about the App?</h2>
+                      <hr class="primary">
+                      <p class="contactp">If you have any questions regarding this project, feel free to contact Jesse Shaw at any of the points of contact below:</p>
+                  </div>
+              </div>
+          <div class="contactpoints">
+              <div class="col-lg-4 ml-auto text-center">
+                  <i class="fa fa-phone fa-3x sr-contact"></i>
+                  <p><a href="tel:410-703-6125">410-703-6125</a></p>
+              </div>
+              <div class="col-lg-4 mr-auto text-center">
+                  <i class="fa fa-envelope-o fa-3x sr-contact"></i>
+                      <p>
+                          <a href="mailto:your-email@your-domain.com">jdshaw1987@gmail.com</a>
+                      </p>
+              </div>
+              <div class="col-lg-4 mr-auto text-center">
+                  <i class="fa fa-github fa-3x sr-contact"></i>
+                      <p>
+                          <a href="https://github.com/thejesseshaw">GitHub</a>
+                      </p>
+              </div>  
+              <div class="col-lg-4 mr-auto text-center">
+                  <a href="index.html">
+                      <img src="/Images/Logo/JPG/Logo3.jpg" alt="Squares Logo">
+                  </a>
+              </div>
+          </div>
+          </div>
+          </footer>
+          `,
+        editform: `            
+          <div class="editformsection">
+          <form class="editform hidden">
+              <h1>Edit Resource</h1>
+              <label>Title</label>
+              <input type="text" class="title edit-title">
+              <label>Description</label>
+              <textarea type="text" class="description edit-description"></textarea>
+              <label>Link</label>
+              <input type="text" class="link edit-link">
+              <div class="submit">
+              <input type="submit">
+              <!--
+              <input type="button" value="Close" onclick="closeEdit()">
+              -->
+              </div>
+          </form>
+          </div>
         `
       })
       // res.json(ret);
@@ -218,7 +489,6 @@ app.post('/api/users/:id/', (req, res) => {
     else {
         // let imgageLink = meta_response['og:image'];
         imageLink = meta_response['og:image'];
-        console.log(`The picture can be found here: ${imageLink}`);
     }
     Resources
     .create({
@@ -233,7 +503,6 @@ app.post('/api/users/:id/', (req, res) => {
         console.error(err);
         res.status(500).json({error: 'Something went wrong'});
     });
-    console.log(`Here is the image link: ${imageLink}`)
   });
   console.log("A post has been submitted");
 });
@@ -277,7 +546,6 @@ app.use('*', function(req, res) {
   res.status(404).json({message: 'Not Found'});
 });
 
-// app.post('/users')
 
 // closeServer needs access to a server object, but that only
 // gets created when `runServer` runs, so we declare `server` here

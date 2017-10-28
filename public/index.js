@@ -59,8 +59,7 @@ function getUserID(user, password) {
                 var userParam = data[i]._id;
                 console.log(userParam);
                 console.log(`app/${userParam}`);
-                // window.location.href = `app/${userParam}`;
-                // loadData(data[i]._id);
+                window.location.href = `app/${userParam}`;
                 // showResourceInput(data[i]._id);
             }
         }
@@ -72,22 +71,20 @@ function getUserID(user, password) {
 ////////////////////////////
 
 function loadData(userId) {
-    // userId.preventDefault();
-    
-    console.log("App page has loaded");
-    $("#grid").empty();
-    $.get( `api/users/${userId}/links`, function( data ) {
-        $("#grid").removeClass("hidden");
+    $(".grid").empty();
+    $.get( `/api/users/${userId}/links`, function( data ) {
+        // $("#grid").removeClass("hidden");
         for (var i = 0; i < data.length; i++) {
             let string = data[i].content
             let abrContent = string.substring(0, 140);
+            console.log(string);
             if (string.length < 140) {
                 abrContent = string;
             }
             else {
                 abrContent = string.substring(0, 140);
             }
-            $("#grid").append(`
+            $(".grid").append(`
             <section class="resource" id="${data[i]._id}">
                 <span><h1>${data[i].title}</h1></span> 
                 <span>${abrContent}...</span>
@@ -97,7 +94,7 @@ function loadData(userId) {
                 <span class="link"><a href='${data[i].link}' target="_blank"><button>Visit Resource</button></a></span>
                 <section class="delete-request" onclick="deleteResource('${data[i]._id}', '${data[i].author}');"><button>Delete</button></section>
                 <section class="edit-request" onclick="editResource('${data[i]._id}', '${data[i].author}');"><button>Edit</button></section>
-                </section class="clickableitems
+                </section class="clickableitems">
             </section>
             `);
         };
@@ -275,9 +272,9 @@ function refreshData(userId) {
 
 function readMore(userId) {
     console.log(`Read More for ${userId}`);
-    $("#grid, .formsection").slideUp();
+    $(".grid, .formsection").slideUp();
     $(".readmore").removeClass("hidden");
-    $.get('api/links', function(data) {
+    $.get('/api/links', function(data) {
         for (var i = 0; i < data.posts.length; i++) {
             if (userId == data.posts[i].id) {
                 $(".title").text(data.posts[i].title);
@@ -295,7 +292,7 @@ function readMore(userId) {
 function closeReadMore() {
     console.log("closeReadMore function was executed");
     $(".readmore").addClass("hidden");
-    $("#grid, .formsection").slideDown();
+    $(".grid, .formsection").slideDown();
 }
 
 function clearForm() {
@@ -317,10 +314,9 @@ function deleteResource(id, author) {
     if (confirm('This action will permanently delete this item from your resource list. If you are certain you\'d like to continue, press OK')) {
         $("#grid").empty();
         $.ajax({
-            url: `api/${id}`,
+            url: `/api/${id}`,
             type: 'DELETE',
         });
-        loadData(author);
         $("#grid").slideDown();
     }
     else {
@@ -360,7 +356,7 @@ function editResource(resourceId, userId) {
 function editIt(resourceId, title, content, url, userId) {
     console.log("editIt function has run");
     $.ajax({
-        url: `api/${resourceId}`,
+        url: `/api/${resourceId}`,
         method: 'PUT',
         data: {
                 id: resourceId,
@@ -370,8 +366,7 @@ function editIt(resourceId, title, content, url, userId) {
             },
         success: function() {
             closeEdit();
-            $("#grid").empty();
-            loadData(userId);
+            // $("#grid").empty();
         }
     })
     $(".formsection, #grid").slideDown();
@@ -398,43 +393,38 @@ $(".title").blur(function() {
     }
     else {
         $(".title").css("background-color", "green");
+        console.log(title);
     }
 })
 
 ///Main function to submit User Data///
 
-function submitIt(userId) {
+
+function submitIt(event, userId) {
+    event.preventDefault();
     console.log("submitIt function has run");
-    $("#grid").empty();
-    $('.resource-submit').submit(function (e) {
-        var title = $(".title").val();
-        if (title == null || title == "") {
-            alert("Please Input a Title");
-            return
-        }
-        e.preventDefault();
-        // $("#grid").empty();
-        var description = $(".description").val();
-        var link = $(".link").val();
-        var category = $(".category").val();
-        if (link.startsWith("http://") || link.startsWith("https://")) {
-            console.log("Success!");
-        }
-        else if (link == null || link == "") {
-            console.log("There is no link");
-        }
-        else {
-            link = "http://" + link;
-        }
-        $.post(`api/users/${userId}`, {
-            title: $(".title").val(),
-            content: $(".description").val(),
-            link: link
-        });
-        // clearForm();
-        // $("#grid").empty();
-        loadData(userId);
-        clearForm();
+    
+    // var title = $(".title").val();
+    if ($(".title").val() == null || $(".title").val() == "") {
+        console.log("Please Input a Title");
+    }
+    // $("#grid").empty();
+    var description = $(".description").val();
+    var link = $(".link").val();
+    var category = $(".category").val();
+    if (link.startsWith("http://") || link.startsWith("https://")) {
+        console.log("Success!");
+    }
+    else if (link == null || link == "") {
+        console.log("There is no link");
+    }
+    else {
+        link = "http://" + link;
+    }
+    $.post(`/api/users/${userId}`, {
+        title: $(".title").val(),
+        content: $(".description").val(),
+        link: link
     });
 }
 
@@ -461,7 +451,7 @@ $("#about > div > div > div > h2").on("click", function(e) {
 
 function startMasonry() {
     console.log("Masonry is running");
-    $('#grid').masonry({
+    $('.grid').masonry({
         // options
         itemSelector: '.resource',
         // columnWidth: 200,
@@ -470,7 +460,9 @@ function startMasonry() {
     });
 }
 
-
+$(document).ready(function(){
+    startMasonry();
+});
 
 
 
