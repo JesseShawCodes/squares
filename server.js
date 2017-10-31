@@ -6,7 +6,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const http = require('http');
 const morgan = require('morgan');
-const passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const metaget = require('metaget');
 const fs = require('fs');
 const path = require('path');
@@ -60,6 +61,7 @@ app.get(
   '/api/protected',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
+    console.log(req);
       return res.json({
           data: 'rosebud'
       });
@@ -482,8 +484,6 @@ app.get('/api/users/:id/links', (req, res) => {
       res.status(500).json({error: 'something went horribly awry'});
     });
 });
-
-
 
 app.post('/api/users/:id/', (req, res) => {
   let id = req.params.id;
