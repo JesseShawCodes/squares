@@ -6,7 +6,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const http = require('http');
 const morgan = require('morgan');
-const passport = require('passport');
+const passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
 const metaget = require('metaget');
 const fs = require('fs');
 const path = require('path');
@@ -46,8 +46,11 @@ app.use(function(req, res, next) {
 });
 
 app.use(passport.initialize());
+app.use(passport.session());
 passport.use(basicStrategy);
 passport.use(jwtStrategy);
+
+
 
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
@@ -62,6 +65,21 @@ app.get(
       });
   }
 );
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function(err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
 
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
@@ -179,13 +197,13 @@ app.get('/login', (req, res) => {
         <div class="login">
         <label>
         <h1>Login</h1>
-        <form class="loginform">
+        <form class="loginform" action="/login" method="post">
             <label>Username</label>
-            <input type="text" class="username">
+            <input type="text" class="username" name="username"/>
             <label>Password</label>
-            <input type="text" class="password">
+            <input type="text" class="password" name="password"/>
             <div class="submit">
-            <input type="submit" value="Login">
+            <input type="submit" value="Log In">
             </div>
         </form>
         </label>
@@ -286,7 +304,7 @@ app.get('/app/:id', (req, res) => {
         `,
         smallheader: `            
         <section class="small-header-logo">
-            <a href="/index.html">
+            <a href="/">
             <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
             </a>
         </section>
@@ -302,7 +320,7 @@ app.get('/app/:id', (req, res) => {
         <div class="formsection">
         <label>
             <h1 class="greeting"></h1>
-        <form class="resoure-submit" onsubmit="submitIt(event, '${userId}')">
+        <form class="resoure-submit" onsubmit="submitIt(event, '${userId}') & setTimeout(function () { window.location.reload(); }, 1000)">
             <label for="title">Title</label>
             <input type="text" class="title">
             <label for="description">Description</label>

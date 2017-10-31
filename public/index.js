@@ -34,6 +34,7 @@ $(".loginform").on("submit", function(e) {
             return;
         }
     });
+    /*
     $.get('api/users', function(data) {
         for (var i = 0; i < data.length; i++) {
             if (data[i].username == username) {
@@ -41,6 +42,7 @@ $(".loginform").on("submit", function(e) {
             }
         }
     });
+    */
     $("#contact, section.right-elements > i").removeClass("hidden");
     $(".login-here, .formsection").addClass("hidden");
 })
