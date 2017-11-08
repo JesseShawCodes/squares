@@ -86,7 +86,7 @@ app.listen(app.get('port'), function() {
 
 
 
-/*
+
 
 const {DATABASE_URL, PORT} = require('./config/config');
 const {Resources} = require('./models/model');
@@ -99,12 +99,7 @@ MongoClient.connect(DATABASE_URL, function(err, db) {
   // db.close;
 })
 
-const app = express();
-
 //User Routers 
-
-const routes = require('./auth/index');
-const users = require('./auth/users');
 
 
 // Logging
@@ -200,7 +195,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 ////////////////////////////////
 
 /*Simple User Get Requests*/
-/*
+
 
 app.get('/', (req, res) => {
   res.render('./app', {

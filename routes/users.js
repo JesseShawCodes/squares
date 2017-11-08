@@ -16,10 +16,75 @@ router.get('/register', function(req, res) {
 
 //login route
 
-router.get('/login', function(req, res) {
-    console.log("Login page was rendered");
-    res.render('login');
+router.get('/login', (req, res) => {
+    res.render('./app', {
+      smallheader: `
+      <section class="small-header-logo">
+          <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
+      </section>
+    `,
+      masthead: ``,
+      bgprimary: ``,
+      login: `
+          <div class="login">
+          <label>
+          <h1>Login</h1>
+          <form class="loginform" action="/login" method="post">
+              <label>Username</label>
+              <input class="form-control" placeholder="username" name="username" type="text">
+              <label>Password</label>
+              <input class="form-control" placeholder="password" name="password" type="password" value="">
+              <div class="submit">
+              <input type="submit" value="Log In">
+              </div>
+          </form>
+          </label>
+          <div class="loginerror hidden">You did not enter a correct username and/or password</div>
+          <div class="testlogin">
+          <span>To test this application, use the following:</span>
+          <span>Login: demo</span>
+          <span>Password: p@$$word2017</span>
+          </div>
+          <div class="newuser">
+              <span>New User? Click Below to Register</span>
+              <button class="registerbutton">Register</button>
+          </div>
+          </div>
+      `,
+      register: `
+      <div class="register hidden">
+        <h1>Register</h1>
+        <form class="registerform">
+            <label>Username</label>
+            <input type="text" class="usernameregister" name="username">
+            <label>Password</label>
+            <input type="text" class="passwordregister" name="password">
+            <span class="passwarning1 hidden">Password must have a minimum of 10 characters</span>
+            <label>Confirm Password</label>
+            <input type="text" class="passwordconfirm" name="passwordconfirm">
+            <span class="passwarning2 hidden">Your passwords do not match</span>
+            <label>First Name</label>
+            <input type="text" class="firstname" name="firstname">
+            <label>Last Name</label>
+            <input type="text" class="lastname" name="lastname">
+            <div class="submit">
+            <input type="submit">
+            </div>
+        </form>
+        <section>
+            <span>Already registered? Click below to login</span>
+            <button class="showlogin">Login</button>
+        </section>
+      </div>
+      `,
+      inputform: ``,
+      readmore: ``,
+      editform: ``,
+      GridContent: ``,
+      contact: ``
+    })
 });
+  
 
 //register route
 router.post('/register', function(req, res) {
