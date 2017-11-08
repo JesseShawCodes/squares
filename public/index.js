@@ -5,6 +5,7 @@
 $(".loginform").on("submit", function(e) {
     console.log("login form has been submitted");
     e.preventDefault();
+    /*
     var username = $(".username").val();
     var password = $(".password").val();
     $.ajax('/api/auth/login', {
@@ -34,7 +35,6 @@ $(".loginform").on("submit", function(e) {
             return;
         }
     });
-    /*
     $.get('api/users', function(data) {
         for (var i = 0; i < data.length; i++) {
             if (data[i].username == username) {
@@ -42,9 +42,9 @@ $(".loginform").on("submit", function(e) {
             }
         }
     });
-    */
     $("#contact, section.right-elements > i").removeClass("hidden");
     $(".login-here, .formsection").addClass("hidden");
+    */
 })
 
 ///////////////////////////
@@ -211,6 +211,8 @@ $(".passwordconfirm").blur(function() {
 
 $(".registerform").on("submit", function(e) {
     e.preventDefault();
+    console.log("Register User");
+    /*
     let user = $(".usernameregister").val();
     let pw = $(".passwordregister").val();
     let firstName = $(".firstname").val();
@@ -248,7 +250,10 @@ $(".registerform").on("submit", function(e) {
             alert("Sorry. This Username has already been taken");
         }
     });
+    */
 })
+
+
 
 function newUserForm(user) {
 
@@ -405,7 +410,6 @@ $(".title").blur(function() {
 function submitIt(event, userId) {
     event.preventDefault();
     console.log("submitIt function has run");
-    
     // var title = $(".title").val();
     if ($(".title").val() == null || $(".title").val() == "") {
         console.log("Please Input a Title");

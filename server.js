@@ -12,6 +12,81 @@ const metaget = require('metaget');
 const fs = require('fs');
 const path = require('path');
 const jade = require('jade');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const expressValidator = require('express-validator');
+const flash = require('connect-flash');
+
+const routes = require('./routes/index');
+const users = require('./routes/users');
+
+const app = express();
+
+app.set('views', path.join(__dirname, 'views'));
+// app.engine('handlebars', expresshbs({defaultLayout: 'layout'}));
+app.set('view engine', 'handlebars'); 
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
+
+app.use(express.static(path.join(__dirname, 'public'))); 
+
+//express session
+app.use(session({
+    secret: 'SECRET',
+    saveUninitialized: true,
+    resave: true
+}));
+
+
+//passport initialization
+app.use(passport.initialize());
+app.use(passport.session()); 
+
+//express validator
+app.use(expressValidator({
+    errorFormatter: function(param, msg, value) {
+        var namespace = param.split('.')
+        , root = namespace.shift()
+        , formParam = root;
+
+    while (namespace.length) {
+        formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+        param: formParam,
+        msg: msg,
+        value: value
+    };
+    }
+}));
+
+//express flash
+app.use(flash());
+
+app.use(function(req, res, next) {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    res.locals.user = req.user || null;
+    next();
+});
+
+
+
+app.use('/', routes);
+app.use('/users', users);
+
+app.set('port', (process.env.PORT || 3000));
+
+app.listen(app.get('port'), function() {
+    console.log('Server started at '+app.get('port'));
+})
+
+
+
+/*
 
 const {DATABASE_URL, PORT} = require('./config/config');
 const {Resources} = require('./models/model');
@@ -28,8 +103,8 @@ const app = express();
 
 //User Routers 
 
-const {router: usersRouter} = require('./users');
-const {router: authRouter, basicStrategy, jwtStrategy} = require('./auth');
+const routes = require('./auth/index');
+const users = require('./auth/users');
 
 
 // Logging
@@ -48,40 +123,72 @@ app.use(function(req, res, next) {
 
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(basicStrategy);
-passport.use(jwtStrategy);
+// passport.use(basicStrategy);
+// passport.use(jwtStrategy);
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
+
+app.use(express.static(path.join(__dirname, 'public'))); 
+
+//express session
+app.use(session({
+    secret: 'SECRET',
+    saveUninitialized: true,
+    resave: true
+}));
+
+
+//passport initialization
+app.use(passport.initialize());
+app.use(passport.session()); 
+
+//express validator
+app.use(expressValidator({
+    errorFormatter: function(param, msg, value) {
+        var namespace = param.split('.')
+        , root = namespace.shift()
+        , formParam = root;
+
+    while (namespace.length) {
+        formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+        param: formParam,
+        msg: msg,
+        value: value
+    };
+    }
+}));
+
+//express flash
+app.use(flash());
+
+app.use(function(req, res, next) {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    res.locals.user = req.user || null;
+    next();
+});
 
 
 
-app.use('/api/users/', usersRouter);
-app.use('/api/auth/', authRouter);
+app.use('/', routes);
+app.use('/users', users);
 
 // A protected endpoint which needs a valid JWT to access it
 app.get(
   '/api/protected',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
-    console.log(req);
+    console.log(req)
       return res.json({
           data: 'rosebud'
       });
   }
 );
-
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({ username: username }, function(err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
-    });
-  }
-));
 
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
@@ -91,6 +198,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 ////////////////////////////////
 ////////List of Users///////////
 ////////////////////////////////
+
+/*Simple User Get Requests*/
+/*
 
 app.get('/', (req, res) => {
   res.render('./app', {
@@ -186,12 +296,6 @@ app.get('/login', (req, res) => {
     <section class="small-header-logo">
         <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
     </section>
-    <section class="right-elements">
-        <a href="login.html">
-        <span class="login-here">Login</span>
-        <i class="fa fa-plus-circle hidden" aria-hidden="true" onclick="showSubmit()"></i>
-        </a>
-    </section>
   `,
     masthead: ``,
     bgprimary: ``,
@@ -201,9 +305,9 @@ app.get('/login', (req, res) => {
         <h1>Login</h1>
         <form class="loginform" action="/login" method="post">
             <label>Username</label>
-            <input type="text" class="username" name="username"/>
+            <input class="form-control" placeholder="username" name="username" type="text">
             <label>Password</label>
-            <input type="text" class="password" name="password"/>
+            <input class="form-control" placeholder="password" name="password" type="password" value="">
             <div class="submit">
             <input type="submit" value="Log In">
             </div>
@@ -226,17 +330,17 @@ app.get('/login', (req, res) => {
       <h1>Register</h1>
       <form class="registerform">
           <label>Username</label>
-          <input type="text" class="usernameregister">
+          <input type="text" class="usernameregister" name="username">
           <label>Password</label>
-          <input type="text" class="passwordregister">
+          <input type="text" class="passwordregister" name="password">
           <span class="passwarning1 hidden">Password must have a minimum of 10 characters</span>
           <label>Confirm Password</label>
-          <input type="text" class="passwordconfirm">
+          <input type="text" class="passwordconfirm" name="passwordconfirm">
           <span class="passwarning2 hidden">Your passwords do not match</span>
           <label>First Name</label>
-          <input type="text" class="firstname">
+          <input type="text" class="firstname" name="firstname">
           <label>Last Name</label>
-          <input type="text" class="lastname">
+          <input type="text" class="lastname" name="lastname">
           <div class="submit">
           <input type="submit">
           </div>
