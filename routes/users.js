@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router();
+const app = express.Router();
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const mongo = require('mongodb').mongo;
@@ -8,15 +8,19 @@ const bcrypt = require('bcryptjs');
 
 var User =  require('../models/user');
 
+app.get('/test', function(req, res) {
+    console.log("Testing");
+});
+
 //register route
-router.get('/register', function(req, res) {
+app.get('/register', function(req, res) {
     console.log("Register page was rendered");
-    res.render('register');
 });
 
 //login route
 
-router.get('/login', (req, res) => {
+app.get('/login', (req, res) => {
+    console.log("User is on login page")
     res.render('./app', {
       smallheader: `
       <section class="small-header-logo">
@@ -87,18 +91,17 @@ router.get('/login', (req, res) => {
   
 
 //register route
-router.post('/register', function(req, res) {
+app.post('/register', function(req, res) {
     console.log("New user is being registered"); 
-    let name = req.body.name;
-    let email = req.body.email;
+    let firstName = req.body.firstname;
+    let lastName = req.body.lastname;
     let username = req.body.username;
     let password = req.body.password;
     let confirm = req.body.confirm;
-
+    console.log(`${firstName}, ${lastName}, ${username}, ${password}, ${confirm}`)
     //Validation 
-    req.checkBody('name', 'Name is required').notEmpty();
-    req.checkBody('email', 'Email is required').notEmpty();
-    req.checkBody('email', 'Email is not valid').isEmail();
+    req.checkBody('firstName', 'First Name is required').notEmpty();
+    req.checkBody('lastName', 'Last Name is required').notEmpty();
     req.checkBody('username', 'Username is required').notEmpty();
     req.checkBody('password', 'Password is required').notEmpty();
     req.checkBody('confirm', 'Passwords do not match').equals(req.body.password);
@@ -120,7 +123,7 @@ router.post('/register', function(req, res) {
             if(err) throw err;
             console.log(user);
         });
-        req.flash('success_msg', 'You are registerd and can now login');
+        //req.flash('success_msg', 'You are registerd and can now login');
         res.redirect('/users/login');
     }
 });
@@ -201,17 +204,17 @@ passport.serializeUser(function(user, done) {
 
 
 //Post Request to Login
-router.post('/login',
+app.post('/login',
     passport.authenticate('local', {successRedirect: '/', failureRedirect: '/users/login', failureFlash: true}), 
     function(req, res) {
         console.log("User attempted login");
         res.redirect('/');
 });
 
-router.get('/logout', function(req, res) {
+app.get('/logout', function(req, res) {
     req.logout();
     req.flash('success_msg', 'You are logged out');
     res.redirect('/users/login');
 })
 
-module.exports = router; 
+module.exports = app; 

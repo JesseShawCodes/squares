@@ -212,7 +212,6 @@ $(".passwordconfirm").blur(function() {
 $(".registerform").on("submit", function(e) {
     e.preventDefault();
     console.log("Register User");
-    /*
     let user = $(".usernameregister").val();
     let pw = $(".passwordregister").val();
     let firstName = $(".firstname").val();
@@ -225,6 +224,7 @@ $(".registerform").on("submit", function(e) {
     else {
         console.log("Passwords Match");
     }
+    /*
     $.ajax('/api/users/', {
         method: 'POST',
         beforeSend: function (xhr) {

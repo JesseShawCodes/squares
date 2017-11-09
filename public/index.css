@@ -392,7 +392,6 @@ section.plus-sign {
 .login .submit input, .register .submit input {
     width: 200px;
     height: 50px;
-    margin-top: 10px;
     margin-bottom: 20px;
     border: none;
     background-color: #813772;
@@ -514,6 +513,16 @@ section {
 
 .submit {
     margin-top: 10px;
+    border: none;
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    color: white;
+    display: block;
+    align-content: center;
+    margin: 0px auto;
+    margin-top: 20px;
+    background-color: #803872;
 }
 
 button.showlogin {
