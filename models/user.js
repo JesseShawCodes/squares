@@ -3,25 +3,30 @@ const mongoose = require('mongoose');
 
 const bcrypt = require('bcryptjs');
 
+// mongoose.Promise = global.Promise;
 
-
-var  userSchema = mongoose.Schema({
+var userSchema = new mongoose.Schema({
     username: {
         type: String,
-        index: true
+        index: true,
+        unique: true
     },
     password: {
         type: String,
+        required: true
     },
-    email: {
+    firstName: {
         type: String,
+        default: ''
     },
-    name: {
-        type: String
+    lastName: {
+        type: String,
+        default: ''
     }
 });
 
-var User = module.exports = mongoose.model('users', userSchema);
+var User = mongoose.model('users', userSchema);
+module.exports = User
 
 
 //Password encryption

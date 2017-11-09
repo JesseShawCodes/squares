@@ -15,17 +15,21 @@ const db = mongoose.connection;
 const routes = require('./routes/index');
 const users = require('./routes/users');
 
+//Init Express
 const app = express();
 
+//view Engine
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+//Body Parser Middle ware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
+//Set Public Folder
 app.use(express.static(path.join(__dirname, 'public'))); 
 
 //express session
@@ -58,7 +62,7 @@ app.use(expressValidator({
     }
 }));
 
-//express flash
+//Connect flash
 app.use(flash());
 
 app.use(function(req, res, next) {
@@ -74,8 +78,9 @@ app.use(function(req, res, next) {
 app.use('/', routes);
 app.use('/users', users);
 
-app.get('/testit', function() {
+app.get('./testit', function() {
   console.log("Testing");
+  res.send("demologin.html");
 });
 
 

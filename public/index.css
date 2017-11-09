@@ -370,6 +370,7 @@ section.plus-sign {
 
 .login form, .register form {
     margin: auto 10px;
+    margin-bottom: 18px;
 }
 
 .username, .password, .usernameregister, .firstname, .lastname {

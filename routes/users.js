@@ -6,11 +6,9 @@ const mongo = require('mongodb').mongo;
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-var User =  require('../models/user');
+var User =  require('../models/user.js');
 
-app.get('/test', function(req, res) {
-    console.log("Testing");
-});
+
 
 //register route
 app.get('/register', function(req, res) {
@@ -91,42 +89,28 @@ app.get('/login', (req, res) => {
   
 
 //register route
+
+
 app.post('/register', function(req, res) {
-    console.log("New user is being registered"); 
-    let firstName = req.body.firstname;
-    let lastName = req.body.lastname;
-    let username = req.body.username;
-    let password = req.body.password;
-    let confirm = req.body.confirm;
-    console.log(`${firstName}, ${lastName}, ${username}, ${password}, ${confirm}`)
-    //Validation 
-    req.checkBody('firstName', 'First Name is required').notEmpty();
-    req.checkBody('lastName', 'Last Name is required').notEmpty();
-    req.checkBody('username', 'Username is required').notEmpty();
-    req.checkBody('password', 'Password is required').notEmpty();
-    req.checkBody('confirm', 'Passwords do not match').equals(req.body.password);
-    let errors = req.validationErrors();
-    if(errors) {
-        res.render('register', {
-            errors: errors
-        });
-    }
-    else {
-        console.log("No Errors");
-        var newUser = new User({
-            name: name,
-            email: email,
-            username: username,
-            password: password
-        });
-        User.createUser(newUser, function(err, user){
-            if(err) throw err;
-            console.log(user);
-        });
-        //req.flash('success_msg', 'You are registerd and can now login');
-        res.redirect('/users/login');
-    }
-});
+    console.log("User has attempted to register");
+    var username = req.body.username;
+    var password = req.body.password;
+    var firstName = req.body.firstname;
+    var lastName = req.body.lastname;
+
+    var newuser = new User();
+    newuser.username = username;
+    newuser.password = password;
+    newuser.firstName = firstName;
+    newuser.lastName = lastName;
+    newuser.save(function(err, save) {
+        if(err) {
+            console.log(err);
+            return res.status(500).send();
+        }
+        return res.status(200).send();
+    })
+})
 
 /*
 passport.use(new localStrategy(

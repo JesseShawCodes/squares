@@ -1,3 +1,5 @@
+
+
 ///////////////////////////////
 /////////////Login/////////////
 ///////////////////////////////
@@ -144,23 +146,23 @@ function loadAppPage() {
 ////Register////
 ////////////////
 
-//////////////////////
-//SHOW Register Form//
-//////////////////////
-
-$(".registerbutton").on("click", function(e) {
-    console.log("register button was clicked");
+$(".registerform").on("submit", function(e) {
     e.preventDefault();
-    $(".register").removeClass("hidden");
-    $(".login").addClass("hidden");
-})
-
-////Hide Register Form. Show Login form/////
-$(".showlogin").on("click", function(e) {
-    console.log("hide register form, show login form");
-    e.preventDefault()
-    $(".register").addClass("hidden");
-    $(".login").removeClass("hidden");
+    console.log("Register Test");
+    let username = $("input.usernameregister").val();
+    let password = $("input.passwordregister").val();
+    let firstName = $("input.firstname").val();
+    let lastName = $("input.lastname").val();
+    $.ajax({
+        method: "POST",
+        url: "/register",
+        success: function() {
+            console.log("Post was a success!!!");
+        },
+        error: function() {
+            console.log("There was an error! :-(");
+        }
+    })
 })
 
 /////////////////////////////////
@@ -209,49 +211,7 @@ $(".passwordconfirm").blur(function() {
 //Submit Username, Password, First Name and Last Name to register //////////////////
 ////////////////////////////////////////////////////////////////////////////////////
 
-$(".registerform").on("submit", function(e) {
-    e.preventDefault();
-    console.log("Register User");
-    let user = $(".usernameregister").val();
-    let pw = $(".passwordregister").val();
-    let firstName = $(".firstname").val();
-    let lastName = $(".lastname").val();
-    let pass2 = $(".passwordconfirm").val();
-    if (pw != pass2) {
-        alert("Passwords do not match");
-        return;
-    }
-    else {
-        console.log("Passwords Match");
-    }
-    /*
-    $.ajax('/api/users/', {
-        method: 'POST',
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("Authorization", "Basic " + btoa(user + ":" + pw));
-        },
-        contentType: "application/json; charset=UTF-8",
-        dataType: "json",
-        data: JSON.stringify({
-            username: user,
-            password: pw,
-            firstName: firstName,
-            lastName: lastName
-        }, false),
-        success: function() {
-            console.log("SUCESS!!");
-            alert("You have succesfully Registered a user");
-            newUserForm(user);
-            $(".register").addClass("hidden");
-            $("#contact").removeClass("hidden");
-        },
-        error: function() {
-            console.log("THERE WAS AN ERROR!");
-            alert("Sorry. This Username has already been taken");
-        }
-    });
-    */
-})
+
 
 
 

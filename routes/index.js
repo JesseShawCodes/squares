@@ -89,6 +89,8 @@ router.get('/', (req, res) => {
     })
 });
 
+///Login Page///
+
 router.get('/login', (req, res) => {
     res.render('./app', {
       smallheader: `
@@ -120,21 +122,44 @@ router.get('/login', (req, res) => {
           </div>
           <div class="newuser">
               <span>New User? Click Below to Register</span>
-              <button class="registerbutton">Register</button>
+              <a href="/register"><button class="registerbutton">Register</button></a>
           </div>
           </div>
       `,
       register: `
-      <div class="register hidden">
+      `,
+      inputform: ``,
+      readmore: ``,
+      editform: ``,
+      GridContent: ``,
+      contact: ``
+    })
+});
+
+///Register Page///
+
+router.get('/register', (req, res) => {
+    res.render('./app', {
+      smallheader: `
+      <section class="small-header-logo">
+          <a href="/"><img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text"></a>
+      </section>
+    `,
+      masthead: ``,
+      bgprimary: ``,
+      login: `
+      `,
+      register: `
+      <div class="register">
         <h1>Register</h1>
-        <form class="registerform" method="post" action="/users/register">
+        <form class="registerform">
             <label>Username</label>
             <input type="text" class="usernameregister" name="username">
             <label>Password</label>
-            <input type="text" class="passwordregister" name="password">
+            <input type="text" class="passwordregister" name="password" autocomplete="off">
             <span class="passwarning1 hidden">Password must have a minimum of 10 characters</span>
             <label>Confirm Password</label>
-            <input type="text" class="passwordconfirm" name="confirm">
+            <input type="text" class="passwordconfirm" name="confirm"  autocomplete="off">
             <span class="passwarning2 hidden">Your passwords do not match</span>
             <label>First Name</label>
             <input type="text" class="firstname" name="firstname">
@@ -146,7 +171,7 @@ router.get('/login', (req, res) => {
         </form>
         <section>
             <span>Already registered? Click below to login</span>
-            <button class="showlogin">Login</button>
+            <a href="/login"><button class="showlogin">Login</button></a>
         </section>
       </div>
       `,
