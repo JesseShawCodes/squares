@@ -78,9 +78,8 @@ app.use(function(req, res, next) {
 app.use('/', routes);
 app.use('/users', users);
 
-app.get('./testit', function() {
+app.get('/testit', function(req, res) {
   console.log("Testing");
-  res.send("demologin.html");
 });
 
 

@@ -1,5 +1,11 @@
+
 const express = require('express');
 const router = express.Router();
+
+var User =  require('../models/user');
+var Resources = require('../models/model');
+
+console.log("index route loaded");
 
 router.get('/', (req, res) => {
     res.render('./app', {
@@ -86,12 +92,14 @@ router.get('/', (req, res) => {
           </div>
       </footer>
       `
-    })
+    });
+    console.log("Landing Page loaded");
 });
 
 ///Login Page///
 
 router.get('/login', (req, res) => {
+    console.log("Register");
     res.render('./app', {
       smallheader: `
       <section class="small-header-logo">
@@ -181,7 +189,38 @@ router.get('/register', (req, res) => {
       GridContent: ``,
       contact: ``
     })
+    console.log("Register")
 });
+
+//register route
+
+router.post('/register', function(req, res) {
+    console.log("User has attempted to register");
+    var username = req.body.username;
+    var password = req.body.password;
+    var firstName = req.body.firstname;
+    var lastName = req.body.lastname;
+
+    var newuser = new User();
+    newuser.username = username;
+    newuser.password = password;
+    newuser.firstName = firstName;
+    newuser.lastame = lastName;
+    newuser.save(function(err, save) {
+        if(err) {
+            console.log(err);
+            return res.status(500).send();
+        }
+        return res.status(200).send();
+    })
+    User.create(newuser, function (err, user) {
+        if (err) {
+          return next(err)
+        } else {
+          return res.redirect('/profile');
+        }
+    });
+})
 
 ////////////////////////////////
 ////////List of Users///////////
@@ -371,9 +410,9 @@ router.get('/api/links', (req, res) => {
     });
 });
   
-  ////////////////////////////////
-  ////////User by ID//////////////
-  ////////////////////////////////
+////////////////////////////////
+////////User by ID//////////////
+////////////////////////////////
   
 router.get('/api/users/:id', (req, res) => {
     User
@@ -385,9 +424,9 @@ router.get('/api/users/:id', (req, res) => {
       })
 });
   
-  ////////////////////////////////
-  //////User Links Get Request////
-  ////////////////////////////////
+////////////////////////////////
+//////User Links Get Request////
+////////////////////////////////
   
 router.get('/api/users/:id/links', (req, res) => {
     let userId = req.params.id;

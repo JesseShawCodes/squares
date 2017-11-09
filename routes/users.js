@@ -1,23 +1,18 @@
 const express = require('express');
-const app = express.Router();
+const router = express.Router();
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
-const mongo = require('mongodb').mongo;
+const mongo = require('mongodb');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-var User =  require('../models/user.js');
+var User =  require('../models/user');
 
-
-
-//register route
-app.get('/register', function(req, res) {
-    console.log("Register page was rendered");
-});
+console.log("User route loaded");
 
 //login route
 
-app.get('/login', (req, res) => {
+router.get('/login', (req, res) => {
     console.log("User is on login page")
     res.render('./app', {
       smallheader: `
@@ -90,19 +85,19 @@ app.get('/login', (req, res) => {
 
 //register route
 
-
-app.post('/register', function(req, res) {
+router.post('/register', function(req, res) {
     console.log("User has attempted to register");
     var username = req.body.username;
     var password = req.body.password;
     var firstName = req.body.firstname;
     var lastName = req.body.lastname;
-
+    console.log(username);
     var newuser = new User();
     newuser.username = username;
     newuser.password = password;
     newuser.firstName = firstName;
-    newuser.lastName = lastName;
+    newuser.lastame = lastName;
+    console.log(newuser);
     newuser.save(function(err, save) {
         if(err) {
             console.log(err);
@@ -188,17 +183,17 @@ passport.serializeUser(function(user, done) {
 
 
 //Post Request to Login
-app.post('/login',
+router.post('/login',
     passport.authenticate('local', {successRedirect: '/', failureRedirect: '/users/login', failureFlash: true}), 
     function(req, res) {
         console.log("User attempted login");
         res.redirect('/');
 });
 
-app.get('/logout', function(req, res) {
+router.get('/logout', function(req, res) {
     req.logout();
     req.flash('success_msg', 'You are logged out');
     res.redirect('/users/login');
 })
 
-module.exports = app; 
+module.exports = router; 

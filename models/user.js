@@ -9,11 +9,13 @@ var userSchema = new mongoose.Schema({
     username: {
         type: String,
         index: true,
-        unique: true
+        unique: true,
+        trim: true
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     firstName: {
         type: String,
@@ -25,7 +27,7 @@ var userSchema = new mongoose.Schema({
     }
 });
 
-var User = mongoose.model('users', userSchema);
+var User = mongoose.model('User', userSchema);
 module.exports = User
 
 

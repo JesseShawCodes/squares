@@ -1,3 +1,4 @@
+const mongo = require('mongodb').mongo;
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
