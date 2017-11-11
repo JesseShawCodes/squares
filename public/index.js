@@ -155,7 +155,7 @@ $(".registerform").on("submit", function(e) {
     let lastName = $("input.lastname").val();
     $.ajax({
         method: "POST",
-        url: "/register",
+        url: "/users/register",
         success: function() {
             console.log("Post was a success!!!");
         },
