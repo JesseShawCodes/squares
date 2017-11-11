@@ -1,6 +1,7 @@
 
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 
 var User =  require('../models/user');
 var Resources = require('../models/model');
@@ -196,16 +197,16 @@ router.get('/register', (req, res) => {
 
 router.post('/register', function(req, res) {
     console.log("User has attempted to register");
-    var username = req.body.username;
-    var password = req.body.password;
-    var firstName = req.body.firstname;
-    var lastName = req.body.lastname;
-
+    let username = req.body.username;
+    let password = bcrypt.hashSync(req.body.password, 10);
+    let firstName = req.body.firstName;
+    let lastName = req.body.lastName;
+    console.log(req.body);
     var newuser = new User();
     newuser.username = username;
     newuser.password = password;
     newuser.firstName = firstName;
-    newuser.lastame = lastName;
+    newuser.lastName = lastName;
     newuser.save(function(err, save) {
         if(err) {
             console.log(err);
@@ -217,7 +218,7 @@ router.post('/register', function(req, res) {
         if (err) {
           return err
         } else {
-          return res.redirect('/profile');
+          console.log(`User has been registered with the following credentials: ${newuser}`)
         }
     });
 })

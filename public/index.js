@@ -155,6 +155,12 @@ $(".registerform").on("submit", function(e) {
     $.ajax({
         method: "POST",
         url: "/register",
+        data: {
+            username: username,
+            password: password,
+            firstName: firstName,
+            lastName: lastName
+        },
         success: function() {
             console.log("Post was a success!!!");
         },

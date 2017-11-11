@@ -77,9 +77,6 @@ app.use(function(req, res, next) {
 app.use('/', routes);
 app.use('/users', users);
 
-app.get('/testit', function(req, res) {
-  console.log("Testing");
-});
 
 
 app.set('port', (process.env.PORT || 8080));
