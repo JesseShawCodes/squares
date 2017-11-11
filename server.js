@@ -9,8 +9,7 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/loginapp');
-const db = mongoose.connection;
+
 
 const routes = require('./routes/index');
 const users = require('./routes/users');

@@ -7,7 +7,7 @@
 $(".loginform").on("submit", function(e) {
     console.log("login form has been submitted");
     e.preventDefault();
-    /*
+
     var username = $(".username").val();
     var password = $(".password").val();
     $.ajax('/api/auth/login', {
@@ -46,7 +46,6 @@ $(".loginform").on("submit", function(e) {
     });
     $("#contact, section.right-elements > i").removeClass("hidden");
     $(".login-here, .formsection").addClass("hidden");
-    */
 })
 
 ///////////////////////////
@@ -155,7 +154,7 @@ $(".registerform").on("submit", function(e) {
     let lastName = $("input.lastname").val();
     $.ajax({
         method: "POST",
-        url: "/users/register",
+        url: "/register",
         success: function() {
             console.log("Post was a success!!!");
         },
