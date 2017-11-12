@@ -1,3 +1,4 @@
+//Load Packages
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -72,12 +73,8 @@ app.use(function(req, res, next) {
     next();
 });
 
-
-
 app.use('/', routes);
 app.use('/users', users);
-
-
 
 app.set('port', (process.env.PORT || 8080));
 
