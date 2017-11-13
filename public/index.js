@@ -165,7 +165,6 @@ $(".registerform").on("submit", function(e) {
             console.log("Post was a success!!!");
         },
         error: function() {
-            
             console.log("There was an error! :-(");
         }
     })

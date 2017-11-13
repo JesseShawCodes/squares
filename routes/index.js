@@ -205,15 +205,13 @@ router.post('/register', function(req, res) {
     newuser.password = password;
     newuser.firstName = firstName;
     newuser.lastName = lastName;
-    console.log(newuser);
+    let userId = newuser._id;
     // console.log(newuser);
     User.create(newuser, function(err, user) {
-        console.log(user);
         if(err) {
             return err;
         }
         else {
-            console.log(`SUCCESS. ${newuser}`);
             res.status(201).send();
         }
     });
