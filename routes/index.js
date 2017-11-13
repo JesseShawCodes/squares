@@ -1,6 +1,7 @@
-
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
+const localStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 
 var User =  require('../models/user');
@@ -189,7 +190,7 @@ router.get('/register', (req, res) => {
       GridContent: ``,
       contact: ``
     })
-    console.log("Register")
+    console.log("Register");
 });
 
 //register route
@@ -200,6 +201,15 @@ router.post('/register', function(req, res) {
     let password = bcrypt.hashSync(req.body.password, 10);
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
+
+    //validation 
+    req.checkBody('username', 'username is required').notEmpty();
+    req.checkBody('email', 'Email is required').notEmpty();
+    req.checkBody('email', 'Email is not valid').isEmail();
+    req.checkBody('password', 'password is required').notEmpty();
+
+    var errors = req.validationErrors();
+
     var newuser = new User();
     newuser.username = username;
     newuser.password = password;
@@ -212,9 +222,23 @@ router.post('/register', function(req, res) {
             return err;
         }
         else {
+            loadUserPage(userId);
+            console.log(`User with id ${userId} has been registered`);
             res.status(201).send();
         }
     });
+})
+
+function loadUserPage(userId) {
+    console.log(`data has been loaded for ${userId}`);
+}
+
+//Login Route
+router.post('/login', function(req, res) {
+    passport.authenticate('local'),
+    function(req, res) {
+        res.redirect('app')
+    }
 })
 
 module.exports = router;
