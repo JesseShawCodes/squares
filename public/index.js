@@ -163,6 +163,8 @@ $(".registerform").on("submit", function(e) {
         },
         success: function() {
             console.log("Post was a success!!!");
+            alert
+            window.location.replace('/login');
         },
         error: function() {
             console.log("There was an error! :-(");

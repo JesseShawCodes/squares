@@ -100,7 +100,7 @@ router.get('/', (req, res) => {
 ///Login Page///
 
 router.get('/login', (req, res) => {
-    console.log("Register");
+    console.log("Login Page loaded");
     res.render('./app', {
       smallheader: `
       <section class="small-header-logo">
@@ -218,24 +218,28 @@ router.post('/register', function(req, res) {
     let userId = newuser._id;
     // console.log(newuser);
     User.create(newuser, function(err, user) {
+        console.log(`Creating user ${userId}`);
         if(err) {
+            console.log("Error creating User");
             return err;
         }
         else {
-            loadUserPage(userId);
-            console.log(`User with id ${userId} has been registered`);
-            res.status(201).send();
+            console.log(`Load login page for ${userId}`);
+            loadUserPage(userId, req, res);
+            // console.log(`User with id ${userId} has been registered`);
+            // res.status(201).send();
         }
     });
 })
 
-function loadUserPage(userId) {
+function loadUserPage(userId, req, res) {
     console.log(`data has been loaded for ${userId}`);
+    res.redirect('/login');
 }
 
 //Login Route
 router.post('/login', function(req, res) {
-    passport.authenticate('local'),
+    passport.authenticate('local', {}),
     function(req, res) {
         res.redirect('app')
     }
