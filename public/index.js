@@ -1,53 +1,4 @@
 
-
-///////////////////////////////
-/////////////Login/////////////
-///////////////////////////////
-/*
-$(".loginform").on("submit", function(e) {
-    console.log("login form has been submitted");
-    e.preventDefault();
-
-    var username = $(".username").val();
-    var password = $(".password").val();
-    $.ajax('/api/auth/login', {
-        method: 'POST',
-        dataType: 'json',
-        async: true,
-        crossDomain: true,
-        beforeSend: function (xhr) {
-            xhr.withCredentials = true;
-            xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
-        },
-        headers: {
-            authorization: "Basic",
-            "cache-control": "no-cache"
-        },
-        data: {
-            username: username,
-            password: password
-        },
-        success: function() {
-            // window.location.href = "app.html";
-            getUserID(username, password);
-        },
-        error: function() {
-            console.log("THERE WAS AN ERROR");
-            $(".loginerror").removeClass("hidden");
-            return;
-        }
-    });
-    $.get('api/users', function(data) {
-        for (var i = 0; i < data.length; i++) {
-            if (data[i].username == username) {
-                $(".greeting").html(`Hi ${data[i].firstName}!`);
-            }
-        }
-    });
-    $("#contact, section.right-elements > i").removeClass("hidden");
-    $(".login-here, .formsection").addClass("hidden");
-})
-*/
 ///////////////////////////
 //Obtain User Information//
 ///////////////////////////
@@ -163,7 +114,7 @@ $(".registerform").on("submit", function(e) {
         },
         success: function() {
             console.log("Post was a success!!!");
-            alert
+            alert("New User has been created");
             window.location.replace('/login');
         },
         error: function() {

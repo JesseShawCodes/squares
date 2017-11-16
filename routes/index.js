@@ -117,7 +117,7 @@ router.get('/login', (req, res) => {
               <label>Username</label>
               <input type="text" class="username" name="username"/>
               <label>Password</label>
-              <input type="text" class="password" name="password"/>
+              <input type="text" class="password" name="password" autocomplete="off"/>
               <div class="submit">
               <input type="submit" value="Log In">
               </div>
@@ -240,6 +240,166 @@ router.get('/register', (req, res) => {
     console.log("Register");
 });
 
+router.get('/app/:id', (req, res) => {
+    let userId = req.params.id;
+    let ret = [];
+    let rej = [];
+    User
+      .findById(userId)
+      .catch(err => {
+        console.error(err);
+        res.status(404).json({error: 'Sorry. That user ID could not be found.'});
+      })
+    Resources
+      .find()
+      .then(post => {
+        for (var i = 0; i < post.length; i++) {
+          if (post[i].image == undefined) {
+            post[i].image = "/Images/Logo/JPG/Logo3.jpg";
+          }
+          if (post[i].author == userId) {
+            let postSection = `
+          <section class="resource" id="${post[i]._id}">
+            <span><h1>${post[i].title}</h1></span> 
+            <span>${post[i].content}...</span>
+            <img src="${post[i].image}" alt="${post[i].title} resource">
+            <section class="clickableitems">
+            <span class="link"><button onclick="readMore('${post[i]._id}')">Click Here To Read More</button></span>
+            <span class="link"><a href='${post[i].link}' target="_blank"><button>Visit Resource</button></a></span>
+            <section class="delete-request" onclick="deleteResource('${post[i]._id}', '${post[i].author}');"><button>Delete</button></section>
+            <section class="edit-request" onclick="editResource('${post[i]._id}', '${post[i].author}');"><button>Edit</button></section>
+            </section class="clickableitems">
+          </section>
+          `
+            ret.push(postSection);
+          }
+          else {
+            rej.push(post[i]);
+          }
+        }
+        // console.log(ret);
+        var gridItems = ret.join('');
+        res.render('./app', {
+          masthead: ``,
+          bgprimary: ``,
+          login: ``,
+          register: ``,
+          GridContent: `
+          <div class="grid" onload="startMasonry()">
+          ${gridItems}
+          </div>
+          `,
+          smallheader: `            
+          <section class="small-header-logo">
+              <a href="/">
+              <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
+              </a>
+          </section>
+          <section class="right-elements">
+              <section class="plus-sign">
+                      <i class="fa fa-plus-circle" aria-hidden="true" onclick="showSubmit()"></i>
+              </section>
+              <a href="/">
+              <span class="login-here">Logout</span>
+              </a>  
+          </section>`,
+          inputform: `            
+          <div class="formsection">
+          <label>
+              <h1 class="greeting"></h1>
+          <form class="resoure-submit" onsubmit="submitIt(event, '${userId}') & setTimeout(function () { window.location.reload(); }, 1000)">
+              <label for="title">Title</label>
+              <input type="text" class="title">
+              <label for="description">Description</label>
+              <textarea type="text" class="description"></textarea>
+              <label for="link">Link</label>
+              <input type="text" class="link">
+              <div class="submit">
+              <input type="submit">
+              </div>
+          </form>
+          </label>
+          </div>
+              `,
+          readmore: `            
+            <div class="readmore hidden">
+            <form>
+                <section class="readmorecontent">
+                    <h2 class="title"></h2>
+                    <p class="description-readmore"></p>
+                    <img class="sourceimage">
+                    <a class="link-readmore"></a>
+                </section>
+                    <input type="button" value="Close" onclick="closeReadMore()">
+            </form>
+            </div>
+          `,
+          contact: `            
+            <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center">
+                        <h2 class="section-heading">Questions about the App?</h2>
+                        <hr class="primary">
+                        <p class="contactp">If you have any questions regarding this project, feel free to contact Jesse Shaw at any of the points of contact below:</p>
+                    </div>
+                </div>
+            <div class="contactpoints">
+                <div class="col-lg-4 ml-auto text-center">
+                    <i class="fa fa-phone fa-3x sr-contact"></i>
+                    <p><a href="tel:410-703-6125">410-703-6125</a></p>
+                </div>
+                <div class="col-lg-4 mr-auto text-center">
+                    <i class="fa fa-envelope-o fa-3x sr-contact"></i>
+                        <p>
+                            <a href="mailto:your-email@your-domain.com">jdshaw1987@gmail.com</a>
+                        </p>
+                </div>
+                <div class="col-lg-4 mr-auto text-center">
+                    <i class="fa fa-github fa-3x sr-contact"></i>
+                        <p>
+                            <a href="https://github.com/thejesseshaw">GitHub</a>
+                        </p>
+                </div>  
+                <div class="col-lg-4 mr-auto text-center">
+                    <a href="index.html">
+                        <img src="/Images/Logo/JPG/Logo3.jpg" alt="Squares Logo">
+                    </a>
+                </div>
+            </div>
+            </div>
+            </footer>
+            `,
+          editform: `            
+            <div class="editformsection">
+            <form class="editform hidden">
+                <h1>Edit Resource</h1>
+                <label>Title</label>
+                <input type="text" class="title edit-title">
+                <label>Description</label>
+                <textarea type="text" class="description edit-description"></textarea>
+                <label>Link</label>
+                <input type="text" class="link edit-link">
+                <div class="submit">
+                <input type="submit">
+                <!--
+                <input type="button" value="Close" onclick="closeEdit()">
+                -->
+                </div>
+            </form>
+            </div>
+          `
+        })
+        // res.json(ret);
+        // res.render('./app.ejs');
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).json({error: 'something went horribly awry'});
+      });
+})
+  
+
 //register route
 
 router.post('/register', function(req, res) {
@@ -272,7 +432,6 @@ router.post('/register', function(req, res) {
         }
         else {
             console.log(`Load login page for ${userId}`);
-            loadUserPage(userId, req, res);
             // console.log(`User with id ${userId} has been registered`);
             // res.status(201).send();
         }
@@ -330,7 +489,6 @@ router.post('/login',
     function(req, res) {
         let username = req.body.username;
         let password = req.body.password;
-        console.log(req);
         console.log("User attempted login");
         // res.redirect('/test');
 })
