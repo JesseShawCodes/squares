@@ -5,7 +5,7 @@ const localStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 
 var User =  require('../models/user');
-var Resources = require('../models/model');
+var Resources = require('../models/model.js');
 
 
 router.get('/', (req, res) => {
@@ -240,88 +240,56 @@ router.get('/register', (req, res) => {
     console.log("Register");
 });
 
+//Dashboard//
+
 router.get('/app/:id', (req, res) => {
     let userId = req.params.id;
     let ret = [];
     let rej = [];
     User
-      .findById(userId)
-      .catch(err => {
-        console.error(err);
-        res.status(404).json({error: 'Sorry. That user ID could not be found.'});
-      })
-    Resources
-      .find()
-      .then(post => {
-        for (var i = 0; i < post.length; i++) {
-          if (post[i].image == undefined) {
-            post[i].image = "/Images/Logo/JPG/Logo3.jpg";
-          }
-          if (post[i].author == userId) {
-            let postSection = `
-          <section class="resource" id="${post[i]._id}">
-            <span><h1>${post[i].title}</h1></span> 
-            <span>${post[i].content}...</span>
-            <img src="${post[i].image}" alt="${post[i].title} resource">
-            <section class="clickableitems">
-            <span class="link"><button onclick="readMore('${post[i]._id}')">Click Here To Read More</button></span>
-            <span class="link"><a href='${post[i].link}' target="_blank"><button>Visit Resource</button></a></span>
-            <section class="delete-request" onclick="deleteResource('${post[i]._id}', '${post[i].author}');"><button>Delete</button></section>
-            <section class="edit-request" onclick="editResource('${post[i]._id}', '${post[i].author}');"><button>Edit</button></section>
-            </section class="clickableitems">
-          </section>
-          `
-            ret.push(postSection);
-          }
-          else {
-            rej.push(post[i]);
-          }
-        }
-        // console.log(ret);
-        var gridItems = ret.join('');
+        .findById(userId)
+        .catch(err => {
+            console.error(err);
+            res.status(404).json({error: 'Sorry. That user ID could not be found.'});
+        })
         res.render('./app', {
-          masthead: ``,
-          bgprimary: ``,
-          login: ``,
-          register: ``,
-          GridContent: `
-          <div class="grid" onload="startMasonry()">
-          ${gridItems}
-          </div>
-          `,
-          smallheader: `            
-          <section class="small-header-logo">
-              <a href="/">
-              <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
-              </a>
-          </section>
-          <section class="right-elements">
-              <section class="plus-sign">
-                      <i class="fa fa-plus-circle" aria-hidden="true" onclick="showSubmit()"></i>
-              </section>
-              <a href="/">
-              <span class="login-here">Logout</span>
-              </a>  
-          </section>`,
-          inputform: `            
-          <div class="formsection">
-          <label>
-              <h1 class="greeting"></h1>
-          <form class="resoure-submit" onsubmit="submitIt(event, '${userId}') & setTimeout(function () { window.location.reload(); }, 1000)">
-              <label for="title">Title</label>
-              <input type="text" class="title">
-              <label for="description">Description</label>
-              <textarea type="text" class="description"></textarea>
-              <label for="link">Link</label>
-              <input type="text" class="link">
-              <div class="submit">
-              <input type="submit">
-              </div>
-          </form>
-          </label>
-          </div>
-              `,
-          readmore: `            
+            masthead: ``,
+            bgprimary: ``,
+            login: ``,
+            register: ``,
+            GridContent: `
+            <div class="grid" onload="startMasonry()">
+            </div>
+            `,
+            smallheader: `            
+            <section class="small-header-logo">
+                <a href="/">
+                <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
+                </a>
+            </section>
+            <section class="right-elements">
+                <section class="plus-sign">
+                        <i class="fa fa-plus-circle" aria-hidden="true" onclick="showSubmit()"></i>
+                </section>
+                <a href="/logout">
+                <span class="login-here">Logout</span>
+                </a>  
+            </section>`,
+            inputform: `            
+            <div class="formsection">
+            <label>
+                <h1 class="greeting"></h1>
+            <form class="resoure-submit" onsubmit="submitIt(event, '${userId}') & setTimeout(function () { window.location.reload(); }, 1000)">
+                <label for="link">Link</label>
+                <input type="text" class="link">
+                <div class="submit">
+                <input type="submit">
+                </div>
+            </form>
+            </label>
+            </div>
+                `,
+            readmore: `            
             <div class="readmore hidden">
             <form>
                 <section class="readmorecontent">
@@ -333,8 +301,8 @@ router.get('/app/:id', (req, res) => {
                     <input type="button" value="Close" onclick="closeReadMore()">
             </form>
             </div>
-          `,
-          contact: `            
+            `,
+            contact: `            
             <footer>
             <div class="container">
                 <div class="row">
@@ -370,7 +338,7 @@ router.get('/app/:id', (req, res) => {
             </div>
             </footer>
             `,
-          editform: `            
+            editform: `            
             <div class="editformsection">
             <form class="editform hidden">
                 <h1>Edit Resource</h1>
@@ -388,16 +356,17 @@ router.get('/app/:id', (req, res) => {
                 </div>
             </form>
             </div>
-          `
+            `
         })
         // res.json(ret);
         // res.render('./app.ejs');
       })
+      /*
       .catch(err => {
         console.error(err);
         res.status(500).json({error: 'something went horribly awry'});
       });
-})
+//})*/
   
 
 //register route
@@ -427,15 +396,24 @@ router.post('/register', function(req, res) {
     User.create(newuser, function(err, user) {
         console.log(`Creating user ${userId}`);
         if(err) {
-            console.log("Error creating User");
+            console.log(`Error creating User: ${err.code}`);
             return err;
         }
         else {
             console.log(`Load login page for ${userId}`);
-            // console.log(`User with id ${userId} has been registered`);
-            // res.status(201).send();
+            res.status(201).send();
         }
+        // console.log(`User with id ${userId} has been registered`);
+        // res.status(201).send();
     });
+})
+
+router.post('/resources', function(req, res) {
+    // console.log(req.body);
+    let link = req.body.link;
+    let author = req.body.author;
+    console.log(link);
+    console.log(author);
 })
 
 passport.use(new localStrategy(
@@ -485,12 +463,18 @@ passport.serializeUser(function(user, done) {
 
 //Login Route
 router.post('/login', 
-    passport.authenticate('local', {successRedirect: '/', failureRedirect: '/retrylogin', failureFlash: true}), 
+    passport.authenticate('local', {/*successRedirect: `/app/${req.user._id}`, */failureRedirect: '/retrylogin', failureFlash: true}), 
     function(req, res) {
-        let username = req.body.username;
-        let password = req.body.password;
-        console.log("User attempted login");
-        // res.redirect('/test');
+        // let username = req.body.username;
+        // let password = req.body.password;
+        // console.log("User attempted login");
+        res.redirect(`/app/${req.user._id}`);
+})
+
+router.get('/logout', function(req, res) {
+    req.logout();
+    // req.flash('success_msg', 'You are logged out');
+    res.redirect('/login');
 })
 
 module.exports = router;

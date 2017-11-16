@@ -328,14 +328,8 @@ $(".title").blur(function() {
 function submitIt(event, userId) {
     event.preventDefault();
     console.log("submitIt function has run");
-    // var title = $(".title").val();
-    if ($(".title").val() == null || $(".title").val() == "") {
-        console.log("Please Input a Title");
-    }
     // $("#grid").empty();
-    var description = $(".description").val();
     var link = $(".link").val();
-    var category = $(".category").val();
     if (link.startsWith("http://") || link.startsWith("https://")) {
         console.log("Success!");
     }
@@ -345,10 +339,9 @@ function submitIt(event, userId) {
     else {
         link = "http://" + link;
     }
-    $.post(`/api/users/${userId}`, {
-        title: $(".title").val(),
-        content: $(".description").val(),
-        link: link
+    $.post(`/resources`, {
+        link: link,
+        author: userId
     });
 }
 

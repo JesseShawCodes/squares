@@ -3,15 +3,30 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const resourcePostSchema = new mongoose.Schema({
-  title: {type: String, required: true},
-  content: {type: String, required: true},
-  created: {type: Date, default: Date.now},
-  link: {type: String},
-  author: {type: String},
-  image: {type: String}
+  title: {
+    type: String, 
+    required: true
+  },
+  content: {
+    type: String, 
+    required: true
+  },
+  created: {
+    type: Date, 
+    default: Date.now
+  },
+  link: {
+    type: String
+  },
+  author: {
+    type: String
+  },
+  image: {
+    type: String
+  }
 });
 
-
+/*
 resourcePostSchema.methods.apiGet = function() {
   return {
     id: this._id,
@@ -22,6 +37,7 @@ resourcePostSchema.methods.apiGet = function() {
     image: this.image
   };
 }
+*/
 
 const Resources = mongoose.model('Resources', resourcePostSchema);
 
