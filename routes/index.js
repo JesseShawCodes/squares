@@ -272,7 +272,7 @@ router.get('/app/:id', (req, res) => {
                         <i class="fa fa-plus-circle" aria-hidden="true" onclick="showSubmit()"></i>
                 </section>
                 <a href="/logout">
-                <span class="login-here">Logout</span>
+                <span class="login-here"><i class="fa fa-power-off" aria-hidden="true"></i></span>
                 </a>  
             </section>`,
             inputform: `            
