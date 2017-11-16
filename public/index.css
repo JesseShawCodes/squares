@@ -404,6 +404,11 @@ section.plus-sign {
     display: inline-block;
 }
 
+label.loginerror {
+    color: red;
+    font-size: 22px;
+}
+
 /*Register Form*/
 /*
 /* Created by Filipe Pina

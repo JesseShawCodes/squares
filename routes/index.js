@@ -145,6 +145,53 @@ router.get('/login', (req, res) => {
     })
 });
 
+router.get('/retrylogin', (req, res) => {
+    console.log("Login Retry Page loaded");
+    res.render('./app', {
+      smallheader: `
+      <section class="small-header-logo">
+          <a href="/"><img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text"></a>
+      </section>
+    `,
+      masthead: ``,
+      bgprimary: ``,
+      login: `
+          <div class="login">
+          <label>
+          <h1>Login</h1>
+          <form class="loginform" action="/login" method="post">
+                <label class="loginerror">Sorry. The username/password combination was not accepted. Please try to login again</label>   
+                <label>Username</label>
+                <input type="text" class="username" name="username"/>
+                <label>Password</label>
+                <input type="text" class="password" name="password"/>
+                <div class="submit">
+                <input type="submit" value="Log In">
+                </div>
+          </form>
+          </label>
+          <div class="loginerror hidden">You did not enter a correct username and/or password</div>
+          <div class="testlogin">
+          <span>To test this application, use the following:</span>
+          <span>Login: demo</span>
+          <span>Password: p@$$word2017</span>
+          </div>
+          <div class="newuser">
+              <span>New User? Click Below to Register</span>
+              <a href="/register"><button class="registerbutton">Register</button></a>
+          </div>
+          </div>
+      `,
+      register: `
+      `,
+      inputform: ``,
+      readmore: ``,
+      editform: ``,
+      GridContent: ``,
+      contact: ``
+    })
+});
+
 ///Register Page///
 
 router.get('/register', (req, res) => {
@@ -232,17 +279,60 @@ router.post('/register', function(req, res) {
     });
 })
 
-function loadUserPage(userId, req, res) {
-    console.log(`data has been loaded for ${userId}`);
-    res.redirect('/login');
-}
+passport.use(new localStrategy(
+    function(username, password, done) {
+      User.findOne({ username: username }, function (err, user) {
+        if (user) {
+            let userPassword = user.password; 
+        }
+        if (err) { 
+            return done(err); 
+        }
+        if (!user) {
+          return done(null, false, { message: 'Incorrect username.' });
+        }
+        User.comparePassword(password, user.password, function(err, isMatch) {
+            // console.log(`User.password is ${User.password}`);
+            if (err) { 
+                return done(err); 
+            }
+            if (isMatch) {
+                console.log("It's a match");
+                return done(null, user);
+            }
+            else {
+                console.log("Invalid Password");
+                return done(null, false, {message: "Invalid Password"});
+            }
+        })
+      });
+    }
+  ));
+
+//Local Strategy
+
+passport.deserializeUser(function(id, done) {
+    console.log("Deserializer was used");    
+    User.getUserById(id, function(err, user) {
+      done(err, user);
+    });
+});
+
+passport.serializeUser(function(user, done) {
+    console.log("Serializer was used");
+    return done(null, user.id);
+});
+
 
 //Login Route
-router.post('/login', function(req, res) {
-    passport.authenticate('local', {}),
+router.post('/login', 
+    passport.authenticate('local', {successRedirect: '/', failureRedirect: '/retrylogin', failureFlash: true}), 
     function(req, res) {
-        res.redirect('app')
-    }
+        let username = req.body.username;
+        let password = req.body.password;
+        console.log(req);
+        console.log("User attempted login");
+        // res.redirect('/test');
 })
 
 module.exports = router;

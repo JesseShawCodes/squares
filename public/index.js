@@ -3,7 +3,7 @@
 ///////////////////////////////
 /////////////Login/////////////
 ///////////////////////////////
-
+/*
 $(".loginform").on("submit", function(e) {
     console.log("login form has been submitted");
     e.preventDefault();
@@ -47,7 +47,7 @@ $(".loginform").on("submit", function(e) {
     $("#contact, section.right-elements > i").removeClass("hidden");
     $(".login-here, .formsection").addClass("hidden");
 })
-
+*/
 ///////////////////////////
 //Obtain User Information//
 ///////////////////////////
