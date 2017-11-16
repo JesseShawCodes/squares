@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
+const metaget = require('metaget');
 
 var User =  require('../models/user');
 var Resources = require('../models/model.js');
@@ -410,10 +411,22 @@ router.post('/register', function(req, res) {
 
 router.post('/resources', function(req, res) {
     // console.log(req.body);
-    let link = req.body.link;
     let author = req.body.author;
     console.log(link);
     console.log(author);
+    metaget.fetch(`${link}`, function (err, meta_response) {
+        if(err){
+            console.log(err);
+        }else{
+            console.log(meta_response);
+            let description = meta_response['og:description'];
+            let title = meta_response['og:title'];
+            let link = meta_response['og:url'];
+            let image = meta_response['og:image'];
+        }
+    });
+    console.log(description);
+
 })
 
 passport.use(new localStrategy(
