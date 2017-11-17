@@ -236,7 +236,7 @@ function clearForm() {
 function deleteResource(id, author) {
     console.log("deleteResource function has run");
     console.log(`Delete resource ${id}`);
-    if (confirm('This action will permanently delete this item from your resource list. If you are certain you\'d like to continue, press OK')) {
+    if (confirm('This action will permanently delete this item from your resource list. If you are certain you would like to continue, press OK')) {
         $("#grid").empty();
         $.ajax({
             url: `/api/${id}`,

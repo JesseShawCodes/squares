@@ -306,9 +306,8 @@ router.get('/app/:id', (req, res) => {
                 </a>  
             </section>`,
             inputform: `            
-            <div class="formsection">
+            <div class="formsection hidden">
             <label>
-                <h1 class="greeting"></h1>
             <form class="resoure-submit" onsubmit="submitIt(event, '${userId}') & setTimeout(function () { window.location.reload(); }, 1000)">
                 <label for="link">Link</label>
                 <input type="text" class="link">
@@ -482,11 +481,13 @@ router.post('/resources', function(req, res) {
             let image = meta_response['og:image'];
             console.log(title);
             console.log(description);
-            if (title == undefined) {
-                title == " ";
+            if (title === undefined) {
+                console.log("Title is undefined");
+                title == "";
             }
-            if (description == undefined) {
-                description == " ";
+            if (description === undefined) {
+                console.log("Description is undefined");
+                description == "Click here to edit description";
             }
             if (image == undefined) {
                 image == "/Images/Logo/JPG/Logo3.jpg";
@@ -498,6 +499,7 @@ router.post('/resources', function(req, res) {
             newResource.image = image;
             newResource.author = author;
             let resourceId = newResource._id
+            console.log(newResource);
             // console.log(`This the resource ID ${resourceId}`);
             Resource.create(newResource, function(err, newResource) {
                 console.log("Creating resource");
