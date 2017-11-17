@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const metaget = require('metaget');
 
 var User =  require('../models/user');
-var Resources = require('../models/model.js');
+var Resource = require('../models/model');
 
 
 router.get('/', (req, res) => {
@@ -247,6 +247,34 @@ router.get('/app/:id', (req, res) => {
     let userId = req.params.id;
     let ret = [];
     let rej = [];
+    Resource
+        .find()
+        .then(post => {
+            for (var i = 0; i < post.length; i++) {
+              if (post[i].image == undefined) {
+                post[i].image = "/Images/Logo/JPG/Logo3.jpg";
+              }
+              if (post[i].author == userId) {
+                let postSection = `
+              <section class="resource" id="${post[i]._id}">
+                <span><h1>${post[i].title}</h1></span> 
+                <span>${post[i].content}...</span>
+                <img src="${post[i].image}" alt="${post[i].title} resource">
+                <section class="clickableitems">
+                <span class="link"><button onclick="readMore('${post[i]._id}')">Click Here To Read More</button></span>
+                <span class="link"><a href='${post[i].link}' target="_blank"><button>Visit Resource</button></a></span>
+                <section class="delete-request" onclick="deleteResource('${post[i]._id}', '${post[i].author}');"><button>Delete</button></section>
+                <section class="edit-request" onclick="editResource('${post[i]._id}', '${post[i].author}');"><button>Edit</button></section>
+                </section class="clickableitems">
+              </section>
+              `
+                ret.push(postSection);
+              }
+              else {
+                rej.push(post[i]);
+              }
+            }
+            var gridItems = ret.join('');
     User
         .findById(userId)
         .catch(err => {
@@ -260,6 +288,7 @@ router.get('/app/:id', (req, res) => {
             register: ``,
             GridContent: `
             <div class="grid" onload="startMasonry()">
+            ${gridItems}
             </div>
             `,
             smallheader: `            
@@ -362,13 +391,25 @@ router.get('/app/:id', (req, res) => {
         // res.json(ret);
         // res.render('./app.ejs');
       })
-      /*
       .catch(err => {
         console.error(err);
         res.status(500).json({error: 'something went horribly awry'});
       });
-//})*/
-  
+})
+
+router.get('/api/links', (req, res) => {
+    Resource
+    .find()
+    .then(posts => {
+      res.json({
+        posts: posts.map(post => post.apiGet())
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({error: 'Internal Server Error'});
+    });
+  });
 
 //register route
 
@@ -425,6 +466,36 @@ router.post('/resources', function(req, res) {
             let title = meta_response['og:title'];
             let link = meta_response['og:url'];
             let image = meta_response['og:image'];
+            console.log(title);
+            console.log(description);
+            if (title == undefined) {
+                title == " ";
+            }
+            if (description == undefined) {
+                description == " ";
+            }
+            if (image == undefined) {
+                image == "/Images/Logo/JPG/Logo3.jpg";
+            }
+            var newResource = new Resource();
+            newResource.content = description;
+            newResource.title = title;
+            newResource.link = link;
+            newResource.image = image;
+            newResource.author = author;
+            let resourceId = newResource._id
+            // console.log(`This the resource ID ${resourceId}`);
+            Resource.create(newResource, function(err, newResource) {
+                console.log("Creating resource");
+                if(err) {
+                    console.log(`Error creating Resource: ${err}`);
+                    return err;
+                }
+                else {
+                    console.log(`Resource created`);
+                    res.status(201).send();
+                }
+            })
         }
     });
     // console.log(description);

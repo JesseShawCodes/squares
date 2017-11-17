@@ -27,5 +27,16 @@ var resourcePostSchema = new mongoose.Schema({
   }
 });
 
+resourcePostSchema.methods.apiGet = function() {
+  return {
+    id: this._id,
+    title: this.title,  
+    content: this.content,
+    created: this.created,
+    link: this.link,
+    image: this.image
+  };
+}
+
 var Resource = mongoose.model('Resource', resourcePostSchema);
 module.exports = Resource
