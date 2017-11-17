@@ -409,7 +409,21 @@ router.get('/api/links', (req, res) => {
       console.error(err);
       res.status(500).json({error: 'Internal Server Error'});
     });
-  });
+});
+
+//Delete a Resource
+router.delete('/api/:id', (req, res) => {
+    Resource
+      .findByIdAndRemove(req.params.id)
+      .then(() => {
+        res.status(204).json({message: 'success'});
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).json({error: 'Internal Server Error'});
+      });
+    console.log(`A Delete Request has been made`);
+});
 
 //register route
 
