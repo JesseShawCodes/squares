@@ -411,13 +411,15 @@ router.post('/register', function(req, res) {
 
 router.post('/resources', function(req, res) {
     // console.log(req.body);
+    let link = req.body.link;
     let author = req.body.author;
     console.log(link);
     console.log(author);
     metaget.fetch(`${link}`, function (err, meta_response) {
-        if(err){
+        if(err) {
             console.log(err);
-        }else{
+        }
+        else {
             console.log(meta_response);
             let description = meta_response['og:description'];
             let title = meta_response['og:title'];
@@ -425,8 +427,7 @@ router.post('/resources', function(req, res) {
             let image = meta_response['og:image'];
         }
     });
-    console.log(description);
-
+    // console.log(description);
 })
 
 passport.use(new localStrategy(

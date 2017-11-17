@@ -1,8 +1,9 @@
-const mongo = require('mongodb').mongo;
+const mongo = require('mongodb');
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
 
-const resourcePostSchema = new mongoose.Schema({
+// mongoose.Promise = global.Promise;
+
+var resourcePostSchema = new mongoose.Schema({
   title: {
     type: String, 
     required: true
@@ -26,19 +27,5 @@ const resourcePostSchema = new mongoose.Schema({
   }
 });
 
-/*
-resourcePostSchema.methods.apiGet = function() {
-  return {
-    id: this._id,
-    title: this.title,  
-    content: this.content,
-    created: this.created,
-    link: this.link,
-    image: this.image
-  };
-}
-*/
-
-const Resources = mongoose.model('Resources', resourcePostSchema);
-
-module.exports = {Resources};
+var Resource = mongoose.model('Resource', resourcePostSchema);
+module.exports = Resource
