@@ -13,7 +13,7 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/squares');
 var db = mongoose.connection;
 
-
+const {DATABASE_URL, PORT} = require('./config/config');
 const routes = require('./routes/index');
 const users = require('./routes/users');
 

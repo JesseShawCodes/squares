@@ -1,26 +1,14 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const server = require('../server.js');
+const server = require('../routes/index');
 
 var should = chai.should();
-const {app, runServer, closeServer} = require('../server');
+const {app, runServer, closeServer} = require('../routes/index');
 var storage = server.storage;
 
 chai.use(chaiHttp);
 
 //Tests
-
-describe('index page', function() {
-  it('Static HTML Page is loaded', function(done) {
-    chai.request(app)
-      .get('/')
-      .end(function(err, res) {
-        res.should.have.status(200);
-        res.should.be.html;
-        done();
-    });
-  });
-});
 
 describe('Users', function() {
   // `chai.request.get` is an asynchronous operation. When
