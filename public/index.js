@@ -206,7 +206,6 @@ function readMore(userId) {
                 $(".description-readmore").text(data.posts[i].content);
                 $(".sourceimage").attr('src', `${data.posts[i].image}`);
                 $(".sourceimage").attr('alt', `${data.posts[i].title} image`);
-                console.log(data.posts[i]);
                 $(".link-readmore").text(data.posts[i].link);
                 $(".link-readmore").attr('href', `${data.posts[i].link}`);
             }
@@ -217,7 +216,7 @@ function readMore(userId) {
 function closeReadMore() {
     console.log("closeReadMore function was executed");
     $(".readmore").addClass("hidden");
-    $(".grid, .formsection").slideDown();
+    $(".grid").slideDown();
 }
 
 function clearForm() {
