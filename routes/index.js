@@ -4,6 +4,7 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const metaget = require('metaget');
+const cheerio = require('cheerio');
 
 var User =  require('../models/user');
 var Resource = require('../models/model');
