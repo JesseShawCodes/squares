@@ -244,22 +244,6 @@ router.get('/register', (req, res) => {
 
 //Dashboard//
 
-/*
-`
-              <section class="resource" id="${post[i]._id}">
-                <span><h1>${post[i].title}</h1></span> 
-                <span>${post[i].content}...</span>
-                <img src="${post[i].image}" alt="${post[i].title} resource">
-                <section class="clickableitems">
-                <span class="link"><button onclick="readMore('${post[i]._id}')">Click Here To Read More</button></span>
-                <span class="link"><a href='${post[i].link}' target="_blank"><button>Visit Resource</button></a></span>
-                <section class="delete-request" onclick="deleteResource('${post[i]._id}', '${post[i].author}');"><button>Delete</button></section>
-                <section class="edit-request" onclick="editResource('${post[i]._id}', '${post[i].author}');"><button>Edit</button></section>
-                </section class="clickableitems">
-              </section>
-              `
-*/
-
 router.get('/app/:id', (req, res) => {
     let userId = req.params.id;
     let ret = [];
@@ -287,10 +271,10 @@ router.get('/app/:id', (req, res) => {
                                     <span class="card-description">${post[i].content}...</span>
                                 </div><!-- card content -->
                                 <div class="card-action clickableitems">
-                                    <a href="#" button onclick="readMore('${post[i]._id}')" class="link">Read More</a>
-                                    <a href='${post[i].link}' target="_blank" class="link">Visit Resource</a>                    
-                                    <a href="#" section class="delete-request" onclick="deleteResource('${post[i]._id}', '${post[i].author}');">Delete</a>
-                                    <a href="#" class="edit-request" onclick="editResource('${post[i]._id}', '${post[i].author}');">Link</a>
+                                    <a href="#" onclick="readMore('${post[i]._id}')" class="link"><button>Read More</button></a>
+                                    <a href='${post[i].link}' target="_blank" class="link"><button>Visit Resource</button></a>                    
+                                    <a href="#" section class="delete-request" onclick="deleteResource('${post[i]._id}', '${post[i].author}');"><button>Delete</button></a>
+                                    <a href="#" class="edit-request" onclick="editResource('${post[i]._id}', '${post[i].author}');"><button>Edit</button></a>
                                 </div><!-- card actions -->
                             </div>
                         </div>

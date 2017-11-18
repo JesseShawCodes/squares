@@ -675,9 +675,6 @@ img.sourceimage {
     margin: auto 10px;
     background-color: #062f4f;
     padding-top: 1px;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: #B82601;
     margin-top: 150px;
 }
 
@@ -689,7 +686,6 @@ img.sourceimage {
 .editform .submit input {
     width: 200px;
     height: 50px;
-    margin-top: 10px;
     margin-bottom: 20px;
     border: none;
     background-color: #813772;
@@ -901,21 +897,6 @@ input[type="close"] {
     padding: 20px;
     border-top: 1px solid rgba(160, 160, 160, 0.2);
 }
-.card .card-action a{
-    font-size: 15px;
-    color: #ffab40;
-    text-transform:uppercase;
-    margin-right: 20px;    
-    -webkit-transition: color 0.3s ease;
-    -moz-transition: color 0.3s ease;
-    -o-transition: color 0.3s ease;
-    -ms-transition: color 0.3s ease;
-    transition: color 0.3s ease;
-}
-.card .card-action a:hover{    
-    color:#ffd8a6;
-    text-decoration:none;
-}
 
 .card .card-reveal{    
     padding: 20px;
@@ -943,4 +924,8 @@ input[type="close"] {
 
 div.card-content > span {
     display: inline-block;
+}
+
+span.card-description {
+    margin-top: 40px;
 }
