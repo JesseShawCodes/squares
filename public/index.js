@@ -225,9 +225,6 @@ function clearForm() {
     $(".title, .description, .link").val('');
 }
 
-//////////////////////////////
-////
-
 /////////////////////////////
 ////Delete Resource//////////
 /////////////////////////////
@@ -246,6 +243,7 @@ function deleteResource(id, author) {
     else {
         return
     }
+    location.reload();
 }
 
 /////////////////////////////
