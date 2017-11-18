@@ -244,19 +244,8 @@ router.get('/register', (req, res) => {
 
 //Dashboard//
 
-router.get('/app/:id', (req, res) => {
-    let userId = req.params.id;
-    let ret = [];
-    let rej = [];
-    Resource
-        .find()
-        .then(post => {
-            for (var i = 0; i < post.length; i++) {
-              if (post[i].image == undefined) {
-                post[i].image = "/Images/Logo/JPG/Logo3.jpg";
-              }
-              if (post[i].author == userId) {
-                let postSection = `
+/*
+`
               <section class="resource" id="${post[i]._id}">
                 <span><h1>${post[i].title}</h1></span> 
                 <span>${post[i].content}...</span>
@@ -269,6 +258,44 @@ router.get('/app/:id', (req, res) => {
                 </section class="clickableitems">
               </section>
               `
+*/
+
+router.get('/app/:id', (req, res) => {
+    let userId = req.params.id;
+    let ret = [];
+    let rej = [];
+    Resource
+        .find()
+        .then(post => {
+            for (var i = 0; i < post.length; i++) {
+              if (post[i].image == undefined) {
+                post[i].image = "/Images/Logo/JPG/Logo3.jpg";
+              }
+              if (post[i].author == userId) {
+                let postSection = 
+              `<div class="container resource" id="${post[i]._id}">
+                    <div class="row">    
+                        <div class="col-md-6 col-md-offset-3">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img class="img-responsive" src="${post[i].image}" alt="${post[i].title} resource">
+                                    
+                                </div><!-- card image -->
+                                
+                                <div class="card-content">
+                                    <span class="card-title">${post[i].title}</span>
+                                    <span class="card-description">${post[i].content}...</span>
+                                </div><!-- card content -->
+                                <div class="card-action clickableitems">
+                                    <a href="#" button onclick="readMore('${post[i]._id}')" class="link">Read More</a>
+                                    <a href='${post[i].link}' target="_blank" class="link">Visit Resource</a>                    
+                                    <a href="#" section class="delete-request" onclick="deleteResource('${post[i]._id}', '${post[i].author}');">Delete</a>
+                                    <a href="#" class="edit-request" onclick="editResource('${post[i]._id}', '${post[i].author}');">Link</a>
+                                </div><!-- card actions -->
+                            </div>
+                        </div>
+                    </div>
+                </div>`
                 ret.push(postSection);
               }
               else {

@@ -940,3 +940,7 @@ input[type="close"] {
     background-color: transparent;
     font-size:18px;
 }
+
+div.card-content > span {
+    display: inline-block;
+}
