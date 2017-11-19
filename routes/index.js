@@ -495,14 +495,17 @@ router.post('/resources', function(req, res) {
             console.log(description);
             if (title === undefined) {
                 console.log("Title is undefined");
-                title == "";
+                title = "Click Edit to edit title";
             }
             if (description === undefined) {
                 console.log("Description is undefined");
-                description == "Click here to edit description";
+                description = meta_response.description;
+                if (description === undefined) {
+                    description = "Click Edit to update description";
+                }
             }
             if (image == undefined) {
-                image == "/Images/Logo/JPG/Logo3.jpg";
+                image = "/Images/Logo/JPG/Logo3.jpg";
             }
             var newResource = new Resource();
             newResource.content = description;

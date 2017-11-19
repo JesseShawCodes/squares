@@ -930,3 +930,8 @@ div.card-content > span {
 span.card-description {
     margin-top: 40px;
 }
+
+
+i.fa.fa-plus-circle:hover {
+    color: #b82701;
+}
