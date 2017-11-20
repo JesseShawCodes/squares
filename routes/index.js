@@ -5,6 +5,7 @@ const localStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const metaget = require('metaget');
 const cheerio = require('cheerio');
+const request = require('request');
 
 var User =  require('../models/user');
 var Resource = require('../models/model');
@@ -491,11 +492,14 @@ router.post('/resources', function(req, res) {
             let title = meta_response['og:title'];
             let link = meta_response['og:url'];
             let image = meta_response['og:image'];
-            console.log(title);
-            console.log(description);
+            // console.log(title);
+            // console.log(description);
             if (title === undefined) {
                 console.log("Title is undefined");
-                title = "Click Edit to edit title";
+                let title = meta_response['og:site_name'];
+                if (title === undefined) {
+                    title = "Click Edit to Update Title";
+                }
             }
             if (description === undefined) {
                 console.log("Description is undefined");
