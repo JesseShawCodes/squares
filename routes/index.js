@@ -296,7 +296,8 @@ router.get('/app/:id', (req, res) => {
         })
         res.render('./app', {
             masthead: ``,
-            bgprimary: ``,
+            bgprimary: `
+            `,
             login: ``,
             register: ``,
             GridContent: `
@@ -318,10 +319,13 @@ router.get('/app/:id', (req, res) => {
                 <span class="login-here"><i class="fa fa-power-off" aria-hidden="true"></i></span>
                 </a>  
             </section>`,
-            inputform: `            
+            inputform: `
+            <div class="overlay">
+                <div id="loading-img"></div>
+            </div>              
             <div class="formsection hidden">
             <label>
-            <form class="resoure-submit" onsubmit="submitIt(event, '${userId}') & setTimeout(function () { window.location.reload(); }, 1000)">
+            <form class="resoure-submit" onsubmit="submitIt(event, '${userId}')">
                 <label for="link">Link</label>
                 <input type="text" class="link">
                 <div class="submit">
@@ -390,11 +394,10 @@ router.get('/app/:id', (req, res) => {
                 <textarea type="text" class="description edit-description"></textarea>
                 <label>Link</label>
                 <input type="text" class="link edit-link">
+                <label>Image Link</label>
+                <input type="text" class="image-link edit-imagelink">
                 <div class="submit">
                 <input type="submit">
-                <!--
-                <input type="button" value="Close" onclick="closeEdit()">
-                -->
                 </div>
             </form>
             </div>
@@ -474,67 +477,107 @@ router.post('/register', function(req, res) {
         // console.log(`User with id ${userId} has been registered`);
         // res.status(201).send();
     });
-})
+});
 
 router.post('/resources', function(req, res) {
     // console.log(req.body);
     let link = req.body.link;
     let author = req.body.author;
-    console.log(link);
-    console.log(author);
-    metaget.fetch(`${link}`, function (err, meta_response) {
-        if(err) {
-            console.log(err);
-        }
-        else {
-            console.log(meta_response);
-            let description = meta_response['og:description'];
-            let title = meta_response['og:title'];
-            let link = meta_response['og:url'];
-            let image = meta_response['og:image'];
-            // console.log(title);
-            // console.log(description);
-            if (title === undefined) {
-                console.log("Title is undefined");
-                let title = meta_response['og:site_name'];
-                if (title === undefined) {
-                    title = "Click Edit to Update Title";
-                }
-            }
-            if (description === undefined) {
-                console.log("Description is undefined");
-                description = meta_response.description;
-                if (description === undefined) {
-                    description = "Click Edit to update description";
-                }
-            }
-            if (image == undefined) {
-                image = "/Images/Logo/JPG/Logo3.jpg";
-            }
-            var newResource = new Resource();
-            newResource.content = description;
-            newResource.title = title;
-            newResource.link = link;
-            newResource.image = image;
-            newResource.author = author;
-            let resourceId = newResource._id
-            console.log(newResource);
-            // console.log(`This the resource ID ${resourceId}`);
-            Resource.create(newResource, function(err, newResource) {
-                console.log("Creating resource");
+    request(`${link}`, function(err, resp, html) {
+        if (!err){
+          const $ = cheerio.load(html);
+          let title = $("head > title").html();
+          console.log(title);
+          console.log(link);
+          console.log(author);
+          setTimeout(function() {
+            metaget.fetch(`${link}`, function (err, meta_response) {
                 if(err) {
-                    console.log(`Error creating Resource: ${err}`);
-                    return err;
+                    console.log(err);
                 }
                 else {
-                    console.log(`Resource created`);
-                    res.status(201).send();
+                    console.log(meta_response);
+                    let description = meta_response['og:description'];
+                    let link = meta_response['og:url'];
+                    let image = meta_response['og:image'];
+                    // console.log(title);
+                    // console.log(description);
+                    if (title === undefined) {
+                        console.log("Title is undefined");
+                        let title = meta_response['og:title'];
+                        if (title === undefined) {
+                            let title = meta_response['og:site_name'];
+                            if (title === undefined) {
+                                request(`${link}`, function(err, resp, html) {
+                                    console.log("Cheerio is running");
+                                    if (!err){
+                                      const $ = cheerio.load(html);
+                                      let title = $("head > title").html();
+                                      console.log(title); 
+                                  }
+                                });
+                            }
+                        }
+                    }
+                    if (description === undefined) {
+                        console.log("Description is undefined");
+                        description = meta_response.description;
+                        if (description === undefined) {
+                            description = title;
+                        }
+                    }
+                    if (image == undefined) {
+                        image = "/Images/Logo/JPG/Logo3.jpg";
+                    }
+                    var newResource = new Resource();
+                    newResource.content = description;
+                    newResource.title = title;
+                    newResource.link = link;
+                    newResource.image = image;
+                    newResource.author = author;
+                    let resourceId = newResource._id
+                    console.log(`title is ${title}`);
+                    // console.log(`This the resource ID ${resourceId}`);
+                    Resource.create(newResource, function(err, newResource) {
+                        console.log("Creating resource");
+                        if(err) {
+                            console.log(`Error creating Resource: ${err}`);
+                            return err;
+                        }
+                        else {
+                            console.log(`Resource created`);
+                            res.status(201).send();
+                        }
+                    })
                 }
-            })
+            });
+            }, 3000);
         }
     });
+
     // console.log(description);
-})
+});
+
+router.put('/api/:id', (req, res) => {
+    if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+      res.status(400).json({
+        error: 'Request path id and request body id values must match'
+      });
+    }
+  
+    const updated = {};
+    const updateableFields = ['title', 'content', 'link', 'image'];
+    updateableFields.forEach(field => {
+      if (field in req.body) {
+        updated[field] = req.body[field];
+      }
+    });
+
+    Resource
+      .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
+      .then(updatedPost => res.status(204).end())
+      .catch(err => res.status(500).json({message: 'Something went wrong'}));
+});
 
 passport.use(new localStrategy(
     function(username, password, done) {

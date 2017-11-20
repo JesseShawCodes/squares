@@ -260,22 +260,24 @@ function editResource(resourceId, userId) {
                 $(".edit-title").attr("value", `${data.posts[i].title}`);
                 $(".edit-description").html(`${data.posts[i].content}`);
                 $(".edit-link").attr("value", `${data.posts[i].link}`);
+                $(".edit-imagelink").attr("value", `${data.posts[i].image}`)
                 let id = data.posts[i].id;
                 $(".editform").submit(function(e){
                     e.preventDefault();
                     let title = $(".edit-title").val();
                     let content = $(".edit-description").val();
                     let url = $(".edit-link").val();
+                    let image = $(".edit-imagelink").val();
                     let idPlaceholder = id;
                     let userIdPlaceholder = userId;
-                    editIt(idPlaceholder, title, content, url, userIdPlaceholder);
+                    editIt(idPlaceholder, title, content, url, image, userIdPlaceholder);
                 })
             }
         };
     });
 };
 
-function editIt(resourceId, title, content, url, userId) {
+function editIt(resourceId, title, content, url, image, userId) {
     console.log("editIt function has run");
     $.ajax({
         url: `/api/${resourceId}`,
@@ -284,14 +286,14 @@ function editIt(resourceId, title, content, url, userId) {
                 id: resourceId,
                 title: title,
                 content: content,
-                link: url
+                link: url,
+                image: image
             },
         success: function() {
             closeEdit();
             // $("#grid").empty();
         }
     })
-    $(".formsection, #grid").slideDown();
 };
 
 
@@ -299,9 +301,9 @@ function editIt(resourceId, title, content, url, userId) {
 ///Update Close Edit Form******
 
 function closeEdit() {
-    console.log("closeEdit function has run");
-    $(".editform").addClass("hidden");
-    $(".formsection").slideDown();
+    $(".grid, #contact").slideUp();
+    $(".overlay").show();
+    setTimeout(myFunction, 3000);
 }
 
 /////////////////////////////
@@ -340,6 +342,13 @@ function submitIt(event, userId) {
         link: link,
         author: userId
     });
+    $(".grid, #contact").slideUp();
+    $(".overlay").show();
+    setTimeout(myFunction, 5000);
+}
+
+function myFunction() {
+    location.reload();    
 }
 
 //Show Submit function. this function shows the submit form when user clicks on (+) in header

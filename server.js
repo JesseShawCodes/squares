@@ -15,7 +15,7 @@ var db = mongoose.connection;
 
 const {DATABASE_URL, PORT} = require('./config/config');
 const routes = require('./routes/index');
-const users = require('./routes/users');
+// const users = require('./routes/users');
 
 //Init Express
 const app = express();
@@ -76,7 +76,7 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', routes);
-app.use('/users', users);
+// app.use('/users', users);
 
 app.set('port', (process.env.PORT || 8080));
 
