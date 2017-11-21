@@ -70,14 +70,16 @@ $("span.login-here").on("click", function(e) {
 /////////////////////////////////////////////
 
 $(window).scroll(function() {
+    if ($(this).width() > 700) {
         if ($(this).scrollTop()>10)
-         {
+        {
             $('.small-header').slideUp();
-         }
-        else
-         {
-          $('.small-header').slideDown();
-         }
+        }
+       else
+        {
+            $('.small-header').slideDown();
+        }
+    }
 });
 
 

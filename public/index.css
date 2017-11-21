@@ -358,6 +358,18 @@ section.plus-sign {
 }
 
 
+@media screen and (max-width: 800px) {
+    .small-header {
+        margin-bottom: 0px;
+        overflow: initial;
+        height: 130px;
+        position: relative;
+    }
+    .small-header img {
+        width: 200px;
+    }
+}
+
 
 /*Login Section*/
 .login, .register {
