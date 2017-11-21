@@ -362,11 +362,22 @@ section.plus-sign {
     .small-header {
         margin-bottom: 0px;
         overflow: initial;
-        height: 130px;
+        height: 100px;
         position: relative;
+    }
+    .small-header-logo {
+        display: none;
     }
     .small-header img {
         display: none;
+    }
+    section.small-header > section.right-elements {
+        margin: 0px auto;
+        width: 100%;
+        align-content: center;
+    }
+    section.small-header > section.right-elements > a {
+        margin: 0px auto;
     }
 }
 
