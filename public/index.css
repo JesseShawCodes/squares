@@ -366,7 +366,7 @@ section.plus-sign {
         position: relative;
     }
     .small-header img {
-        width: 200px;
+        display: none;
     }
 }
 
