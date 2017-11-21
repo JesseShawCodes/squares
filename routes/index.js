@@ -110,8 +110,8 @@ router.get('/login', (req, res) => {
     console.log("Login Page loaded");
     res.render('./app', {
       smallheader: `
-      <section class="small-header-logo">
-          <a href="/"><img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text"></a>
+      <section class="small-header-logo2">
+          <a href="/"><img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text" class="mainlogologin"></a>
       </section>
     `,
       masthead: ``,
@@ -156,9 +156,9 @@ router.get('/retrylogin', (req, res) => {
     console.log("Login Retry Page loaded");
     res.render('./app', {
       smallheader: `
-      <section class="small-header-logo">
-          <a href="/"><img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text"></a>
-      </section>
+        <section class="small-header-logo2">
+            <a href="/"><img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text" class="mainlogologin"></a>
+        </section>
     `,
       masthead: ``,
       bgprimary: ``,

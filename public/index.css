@@ -359,11 +359,15 @@ section.plus-sign {
 
 
 @media screen and (max-width: 800px) {
+    main {
+        display: inline-block;
+    }
     .small-header {
         margin-bottom: 0px;
         overflow: initial;
         height: 100px;
         position: relative;
+        display: inline;
     }
     .small-header-logo {
         display: none;
@@ -372,12 +376,13 @@ section.plus-sign {
         display: none;
     }
     section.small-header > section.right-elements {
-        margin: 0px auto;
-        width: 100%;
         align-content: center;
     }
     section.small-header > section.right-elements > a {
         margin: 0px auto;
+    }
+    img.mainlogologin {
+        display: inherit;
     }
 }
 
@@ -838,7 +843,7 @@ input[type="close"] {
         font-size: 20px;
     }
     .title, .description, .link {
-        width: 300px;
+        width: 80%;
         font-size: 18px;
     }
     /*Banner*/
