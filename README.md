@@ -16,7 +16,10 @@ This application was designed as a capstone project while studying at Thinkful.
 - Chai
 - Morgan
 - MongoDB/mongoose
+- mLab
 - TravisCI
 - Heroku
 - jQuery
 - Masonry
+- Cheerio
+
