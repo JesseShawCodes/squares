@@ -497,6 +497,10 @@ router.post('/resources', function(req, res) {
                 }
                 else {
                     console.log(meta_response);
+                    if (meta_response['og:title'] !== undefined) {
+                        let title = meta_response['og:title'];
+                        console.log(`${title} line 501`);
+                    }
                     let description = meta_response['og:description'];
                     let link = meta_response['og:url'];
                     let image = meta_response['og:image'];

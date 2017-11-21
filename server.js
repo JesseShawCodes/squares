@@ -10,7 +10,7 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/squares');
+mongoose.connect('https://dry-sierra-11824.herokuapp.com/');
 var db = mongoose.connection;
 
 const {DATABASE_URL, PORT} = require('./config/config');

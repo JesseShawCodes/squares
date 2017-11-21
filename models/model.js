@@ -10,14 +10,15 @@ var resourcePostSchema = new mongoose.Schema({
   },
   content: {
     type: String, 
-    required: true
+    trim: true
   },
   created: {
     type: Date, 
     default: Date.now
   },
   link: {
-    type: String
+    type: String,
+    trim: true
   },
   author: {
     type: String
