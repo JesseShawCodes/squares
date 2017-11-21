@@ -384,6 +384,9 @@ section.plus-sign {
     img.mainlogologin {
         display: inherit;
     }
+    .editform {
+        width: 80%;
+    }
 }
 
 
@@ -483,6 +486,7 @@ input,
 input::-webkit-input-placeholder {
     font-size: 11px;
     padding-top: 3px;
+    font-size: 18px;
 }
 
 .main-login{
