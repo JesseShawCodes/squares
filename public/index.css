@@ -51,7 +51,7 @@ h1,h2,h3,h4,h5,h6{
 }
 
 p {
-    font-size:16px;
+    font-size:18px;
     line-height:1.5;
     margin-bottom:20px
 }
@@ -332,14 +332,14 @@ span.login-here {
     cursor: hand;
 }
 
-i.fa.fa-plus-circle {
+.circle-submit {
     float: right;
     position: absolute;
     top: 40px;
     font-size: 40px;
 }
 
-i.fa.fa-plus-circle:hover {
+.circle-submit:hover {
     cursor: pointer;
     cursor: hand;
 }
@@ -392,6 +392,11 @@ section.plus-sign {
     }
 }
 
+/*Directions*/
+
+.directions > ul {
+    list-style: none;
+}
 
 /*Login Section*/
 .login, .register {
@@ -503,10 +508,12 @@ input::-webkit-input-placeholder {
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 
 }
+
 .form-control {
     height: auto!important;
-padding: 8px 12px !important;
+    padding: 8px 12px !important;
 }
+
 .input-group {
     -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.21)!important;
     -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.21)!important;
@@ -521,10 +528,10 @@ padding: 8px 12px !important;
 	    color: #FFF;
     text-shadow: none;
 	-webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
--moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
-
+    -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
 }
+
 span.input-group-addon i {
     color: #009edf;
     font-size: 17px;
@@ -971,7 +978,7 @@ span.card-description {
 }
 
 
-i.fa.fa-plus-circle:hover, i.fa.fa-power-off:hover {
+.circle-submit:hover, i.fa.fa-power-off:hover {
     color: #b82701;
 }
 
@@ -989,5 +996,5 @@ i.fa.fa-plus-circle:hover, i.fa.fa-power-off:hover {
     right: 0;
     bottom: 0;
     left: 0;
-    opacity: 0.5;
+    opacity: 0.2;
 }

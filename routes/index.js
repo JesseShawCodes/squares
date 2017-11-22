@@ -34,7 +34,7 @@ router.get('/', (req, res) => {
               <div class="header-content-inner">
                   <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
                   <div id="headingbackground">
-                      <h1 id="homeheading">Your projects resource storage database</h1>
+                      <h1 id="homeheading">A place for all your resources</h1>
                   </div>
                 <hr>
                 <p></p>
@@ -50,6 +50,12 @@ router.get('/', (req, res) => {
               <hr class="light">
               <div class="directions">
               <p class="text-faded">This app is an online resource database to save resources for your project team and yourself.</p>
+              <ul>
+              <li>To add an item, click <i class="fa fa-plus-circle" aria-hidden="true"></i></li>
+              <li>To edit an item, click <i class="fa fa-pencil" aria-hidden="true"></i></li>
+              <li>To delete an item, click <i class="fa fa-window-close" aria-hidden="true"></i></li>
+              <li>To visit the resource, click <i class="fa fa-globe" aria-hidden="true"></i></li>
+              </ul>
               </div>
               <!--
               <a class="btn btn-default btn-xl js-scroll-trigger" href="app.html">Click Here to try out the app!</a>
@@ -171,7 +177,7 @@ router.get('/retrylogin', (req, res) => {
                 <label>Username</label>
                 <input type="text" class="username" name="username"/>
                 <label>Password</label>
-                <input type="text" class="password" name="password"/>
+                <input type="text" class="password" name="password" autocomplete="off"/>
                 <div class="submit">
                 <input type="submit" value="Log In">
                 </div>
@@ -317,7 +323,7 @@ router.get('/app/:id', (req, res) => {
             </section>
             <section class="right-elements">
                 <section class="plus-sign">
-                        <i class="fa fa-plus-circle" aria-hidden="true" onclick="showSubmit()"></i>
+                        <i class="fa fa-plus-circle circle-submit" aria-hidden="true" onclick="showSubmit()"></i>
                 </section>
                 <a href="/logout">
                 <span class="login-here"><i class="fa fa-power-off" aria-hidden="true"></i></span>

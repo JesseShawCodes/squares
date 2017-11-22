@@ -71,7 +71,7 @@ $("span.login-here").on("click", function(e) {
 
 $(window).scroll(function() {
     if ($(this).width() > 700) {
-        if ($(this).scrollTop()>10)
+        if ($(this).scrollTop()>30)
         {
             $('.small-header').slideUp();
         }
