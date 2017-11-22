@@ -845,9 +845,18 @@ input[type="close"] {
         width: 80%;
         font-size: 20px;
     }
+    .readmorecontent {
+        padding: 0px;
+        margin-top: 110px;
+    }
     .title, .description, .link {
-        width: 80%;
-        font-size: 18px;
+        font-size: 22px;
+    }
+    div.readmore > form > section > p {
+        font-size: 22px;
+    }
+    div.readmore > form > section > img {
+        width: 100%;
     }
     /*Banner*/
     section.masthead .header-content {
