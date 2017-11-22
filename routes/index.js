@@ -277,9 +277,9 @@ router.get('/app/:id', (req, res) => {
                                 </div><!-- card content -->
                                 <div class="card-action clickableitems">
                                     <a href="#" onclick="readMore('${post[i]._id}')" class="link"><button>Read More</button></a>
-                                    <a href='${post[i].link}' target="_blank" class="link"><button>Visit Resource</button></a>                    
-                                    <a href="#" section class="delete-request" onclick="deleteResource('${post[i]._id}', '${post[i].author}');"><button>Delete</button></a>
-                                    <a href="#" class="edit-request" onclick="editResource('${post[i]._id}', '${post[i].author}');"><button>Edit</button></a>
+                                    <a href='${post[i].link}' target="_blank" class="link"><button><i class="fa fa-globe" aria-hidden="true"></i></button></a>                    
+                                    <a href="#" section class="delete-request" onclick="deleteResource('${post[i]._id}', '${post[i].author}');"><button><i class="fa fa-window-close" aria-hidden="true"></i></button></a>
+                                    <a href="#" class="edit-request" onclick="editResource('${post[i]._id}', '${post[i].author}');"><button><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
                                 </div><!-- card actions -->
                             </div>
                         </div>
@@ -394,12 +394,12 @@ router.get('/app/:id', (req, res) => {
                 <h1>Edit Resource</h1>
                 <label>Title</label>
                 <input type="text" class="title edit-title">
-                <label>Description</label>
-                <textarea type="text" class="description edit-description"></textarea>
                 <label>Link</label>
                 <input type="text" class="link edit-link">
                 <label>Image Link</label>
                 <input type="text" class="image-link edit-imagelink">
+                <label>Description</label>
+                <textarea type="text" class="description edit-description"></textarea>
                 <div class="submit">
                 <input type="submit">
                 </div>

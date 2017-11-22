@@ -387,6 +387,9 @@ section.plus-sign {
     .editform {
         width: 80%;
     }
+    .testlogin {
+        width: 90%;
+    }
 }
 
 
@@ -630,11 +633,11 @@ button.showlogin {
 form textarea {
     width: 400px;
     height: 100px;
+    font-size: 18px;
 }
 
 form input {
     width: 400px;
-    height: 100px;
 }
 
 .formsection .submit input {
@@ -745,6 +748,7 @@ input[type="close"] {
     color: white;
     font-size: 20px;
     display: block;
+    margin-top: 10px;
 }
 
 /*Resource Section*/
@@ -752,7 +756,7 @@ input[type="close"] {
 .grid {
     display: inline-block;
     margin-bottom: 20px;
-    margin-top: 150px;
+    margin-top: 100px;
 }
 
 .resource {
@@ -778,16 +782,12 @@ input[type="close"] {
 }
 
 .delete-request button, .edit-request button, .link button {
-    width: 50%;
     border: none;
-    background-color: #813772;
-    color: white;
     font-size: 20px;
     margin: 4px;
 }
 
 .delete-request button:hover, .edit-request button:hover, .link button:hover {
-    width: 50%;
     border: none;
     background-color: #062f4f;
     color: white;
@@ -795,7 +795,6 @@ input[type="close"] {
 
 .clickableitems {
     text-align: center;
-    padding-bottom: 10px;
 }
 
 /*Main Media Queries*/
@@ -927,7 +926,6 @@ input[type="close"] {
 }
 
 .card .card-action{
-    padding: 20px;
     border-top: 1px solid rgba(160, 160, 160, 0.2);
 }
 
