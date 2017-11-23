@@ -50,6 +50,7 @@ router.get('/', (req, res) => {
               <hr class="light">
               <div class="directions">
               <p class="text-faded">This app is an online resource database to save resources for your project team and yourself.</p>
+              <img src="/Images/Screen Shot_1.png" alt="Screenshot">              
               <ul>
               <li>To add an item, click <i class="fa fa-plus-circle" aria-hidden="true"></i></li>
               <li>To edit an item, click <i class="fa fa-pencil" aria-hidden="true"></i></li>
@@ -489,6 +490,7 @@ router.post('/register', function(req, res) {
     });
 });
 
+
 router.post('/resources', function(req, res) {
     // console.log(req.body);
     let link = req.body.link;
@@ -497,9 +499,9 @@ router.post('/resources', function(req, res) {
         if (!err){
           const $ = cheerio.load(html);
           let title = $("head > title").html();
-          console.log(title);
-          console.log(link);
-          console.log(author);
+          console.log(title + " line 500");
+          console.log(link + " line 501");
+          console.log(author + " line 502");
           setTimeout(function() {
             metaget.fetch(`${link}`, function (err, meta_response) {
                 if(err) {
@@ -520,16 +522,19 @@ router.post('/resources', function(req, res) {
                         console.log("Title is undefined");
                         let title = meta_response['og:title'];
                         if (title === undefined) {
-                            let title = meta_response['og:site_name'];
+                            let title = meta_response['application-name'];
                             if (title === undefined) {
-                                request(`${link}`, function(err, resp, html) {
-                                    console.log("Cheerio is running");
-                                    if (!err){
-                                      const $ = cheerio.load(html);
-                                      let title = $("head > title").html();
-                                      console.log(title); 
-                                  }
-                                });
+                                let title = meta_response['og:site_name'];
+                                if (title === undefined) {
+                                    request(`${link}`, function(err, resp, html) {
+                                        console.log("Cheerio is running");
+                                        if (!err){
+                                          const $ = cheerio.load(html);
+                                          let title = $("head > title").html();
+                                          console.log(title); 
+                                      }
+                                    });
+                                }
                             }
                         }
                     }
