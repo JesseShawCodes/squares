@@ -400,9 +400,7 @@ section.plus-sign {
 
 /*Login Section*/
 
-img.mainlogologin {
-    width: 30%;
-}
+
 
 .login, .register {
     padding-bottom: 100px;
@@ -840,6 +838,10 @@ input[type="close"] {
         width: 80%;
         margin: auto;
     } 
+    /*Login Page*/
+    img.mainlogologin {
+        width: 40%;
+    }
 }
 
 @media screen and (max-width: 600px) {
