@@ -842,6 +842,10 @@ input[type="close"] {
     img.mainlogologin {
         width: 40%;
     }
+    /*Edit Form*/
+    form input {
+        width: 90%;
+    }
 }
 
 @media screen and (max-width: 600px) {
