@@ -538,6 +538,9 @@ router.post('/resources', function(req, res) {
                         description = meta_response.description;
                         if (description === undefined) {
                             description = title;
+                            if (description === undefined) {
+                                description = meta_response.description;
+                            }
                         }
                     }
                     if (image == undefined) {

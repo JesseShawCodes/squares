@@ -305,7 +305,7 @@ function editIt(resourceId, title, content, url, image, userId) {
 function closeEdit() {
     $(".grid, #contact").slideUp();
     $(".overlay").show();
-    setTimeout(myFunction, 3000);
+    setTimeout(myFunction, 5000);
 }
 
 /////////////////////////////
