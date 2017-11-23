@@ -844,7 +844,7 @@ input[type="close"] {
     }
     /*Edit Form*/
     form input {
-        width: 90%;
+        width: 80%;
     }
 }
 
