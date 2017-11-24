@@ -369,14 +369,16 @@ section.plus-sign {
         position: relative;
         display: inline;
     }
+    /*
     .small-header-logo {
         display: none;
     }
     .small-header img {
         display: none;
     }
+    */
     section.small-header > section.right-elements {
-        align-content: center;
+        margin: 0px auto;
     }
     section.small-header > section.right-elements > a {
         margin: 0px auto;
