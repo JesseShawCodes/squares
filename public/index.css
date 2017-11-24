@@ -390,6 +390,9 @@ section.plus-sign {
     .testlogin {
         width: 90%;
     }
+    .formsection form {
+        width: 90%;
+    }
 }
 
 /*Directions*/
@@ -634,6 +637,7 @@ button.showlogin {
 .formsection form {
     display: inline-block;
     margin: auto 10px;
+    width: 30%;
 }
 
 .greeting {
