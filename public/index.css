@@ -647,7 +647,7 @@ form textarea {
 }
 
 form input {
-    width: 40%;
+    width: 100%;
 }
 
 .formsection .submit input {
