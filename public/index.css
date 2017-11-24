@@ -656,6 +656,11 @@ form textarea {
 form input {
     width: 50%;
 }
+/*Input updates*/
+
+.input-link {
+    width: 100%;
+}
 
 .formsection .submit input {
     width: 50%;

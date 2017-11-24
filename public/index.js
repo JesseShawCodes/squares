@@ -358,6 +358,7 @@ function myFunction() {
 function showSubmit() {
     console.log("showSubmit function has run");
     $(".formsection").toggleClass("hidden");
+    $(".editformsection").addClass("hidden");
 }
 
 //Directions for App//

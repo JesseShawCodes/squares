@@ -338,7 +338,7 @@ router.get('/app/:id', (req, res) => {
             <label>
             <form class="resoure-submit" onsubmit="submitIt(event, '${userId}')">
                 <label for="link">Link</label>
-                <input type="text" class="link">
+                <input type="text" class="link input-link">
                 <div class="submit">
                 <input type="submit">
                 </div>
