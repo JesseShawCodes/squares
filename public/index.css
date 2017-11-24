@@ -393,6 +393,9 @@ section.plus-sign {
     .formsection form {
         width: 90%;
     }
+    form input {
+        width: 90%;
+    }
 }
 
 /*Directions*/
@@ -651,7 +654,7 @@ form textarea {
 }
 
 form input {
-    width: 100%;
+    width: 50%;
 }
 
 .formsection .submit input {
