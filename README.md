@@ -1,7 +1,9 @@
 # Squares
-This is an app that serves as an online resource database
+Squares is created as a one stop-shop to store online resources. These resources can include anything from a personal reading list to an environmental scanning log. 
 
 [Live Demo](https://squaresapp.herokuapp.com/)
+
+![Squares Screenshot](/public/Images/screenshot_2.png"Squares Screenshot")
 
 This application was designed as a capstone project while studying at Thinkful.
 
