@@ -3,7 +3,7 @@ Squares is created as a one stop-shop to store online resources. These resources
 
 [Live Demo](https://squaresapp.herokuapp.com/)
 
-![Squares Screenshot](/public/Images/screenshot_2.png"Squares Screenshot")
+![Squares Screenshot](/public/Images/screenshot_2.png "Squares Screenshot")
 
 This application was designed as a capstone project while studying at Thinkful.
 
