@@ -7,3 +7,5 @@ deploy:
   app: squares
   on:
     repo: thejesseshaw/squares
+  edge:
+    branch: heroku-v3
