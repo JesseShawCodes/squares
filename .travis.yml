@@ -8,4 +8,4 @@ deploy:
   on:
     repo: thejesseshaw/squares
   edge:
-    branch: heroku-v3
+    branch: heroku
