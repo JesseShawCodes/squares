@@ -314,11 +314,16 @@ footer a:hover {
     margin-bottom: 150px;
 }
 
-.small-header img {
-    width: 30%;
-    margin: 20px;
-    background-color: #d4dce3;
+
+.icon-image {
+    width: 100px;
     float: left;
+    margin: 20px;
+}
+
+i.fa.fa-sign-in {
+    width: 30%;
+    font-size: 74px;
 }
 
 span.login-here {
@@ -394,6 +399,7 @@ section.plus-sign {
 
 .directions > ul {
     list-style: none;
+    padding: 0px;
 }
 
 /*Login Section*/

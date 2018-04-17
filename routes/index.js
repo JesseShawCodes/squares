@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
     res.render('./app', {
       smallheader: `
         <section class="small-header-logo">
-            <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
+            <img src="/Images/header_logo.jpg" alt="squares icon" class="icon-image">
         </section>
         <section class="right-elements">
             <a href="/login">
