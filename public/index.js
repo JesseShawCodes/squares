@@ -56,19 +56,10 @@ function loadData(userId) {
     startMasonry();
 }
 
-//Show Login Form//
-/*
-$("span.login-here").on("click", function(e) {
-    console.log("show login form");
-    e.preventDefault();
-    $(".login").removeClass("hidden");
-    $(".bg-primary, .masthead, #contact").addClass("hidden");
-})
-*/
 /////////////////////////////////////////////
 /////Hide on Scroll Top Menu on Scroll///////
 /////////////////////////////////////////////
-
+/*
 $(window).scroll(function() {
     if ($(this).width() > 700) {
         if ($(this).scrollTop()>30)
@@ -82,7 +73,7 @@ $(window).scroll(function() {
     }
 });
 
-
+*/
 
 ///////////////////////////
 //Load App Page////////////
@@ -376,7 +367,6 @@ $("#about > div > div > div > h2").on("click", function(e) {
 //Masonry//
 
 function startMasonry() {
-    console.log("Masonry is running");
     $('.grid').masonry({
         // options
         itemSelector: '.resource',
