@@ -3,9 +3,8 @@ node_js: node
 deploy:
   provider: heroku
   api_key:
-    secure: DlK4J2JOUBwE1juT/paPhUQ6JJQ2okDI1p9xN/5dIhdSUXKjiVijMEeMW2rvxCu8MFtnKDpKP7izgcqJ+yFYQg/YyUKk9eeSRkrD7myMsaZpiW81rVzomMu9m/f30EEw8IBvm/6l8UQ8fMOYAhcaSmmOn+ZQlltHVNOTzSf1FCnJVCDSPOO+0og9zsDrjXzbF/TlgF8R05P4dD2Q6fIKRFgp/JiaVDvNXXsQfpyqDgspSmQhqlhOUUVVTSXBonEqvCr4VKK8EF9abz9bZPzhQl7WSfcHmrtDXNsNBtWojwXBCoA0DjhCbd19ZNdchBSJeLVN9A6bac/lg8tOTiY35WRh5HxkfdPWjVuvU91Zzv/aq1DgI/5DFpBmllad4hT8EIttNoM4eC/q+xKW0fmRLsnLg5Dqsbi7XU0FhjucsCcVx5ZWQFYiSJmtXkrFQWRJsZaFz9npPD6J4RUzEHC5z72D/X38w+dg5Jl5MsORCPRUyT5jHG1TLEo8ObN6aWmIzZQ0GyW9odwyhjXReAT2ieHwGoeBxagXI7lyi04AM6v8DsEKdBVNJ+rzdTSn4//SHyaWjng+s3nr6y0IUeIGYJ6WJAUK9VKYuB2KRDS/i7BUErAJ6DWjel0r/LVLP304TsPKLsso8Lgv1XAXi18fOUIB5+niEQGxL2JrynXGrO8=
+    secure: 6736ebe7-b08c-4d20-9d81-ceb5843f553e
   app: squaresapp
   on:
     repo: thejesseshaw/squares
-  edge:
-    branch: heroku
+
