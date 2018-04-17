@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
         </section>
         <section class="right-elements">
             <a href="/login">
-            <span class="login-here">Login</span>
+            <span class="login-here"><i class="fa fa-sign-in"></i></span>
             <i class="fa fa-plus-circle hidden" aria-hidden="true" onclick="showSubmit()"></i>
             </a>
         </section>

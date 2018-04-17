@@ -364,14 +364,9 @@ section.plus-sign {
         margin-bottom: 0px;
         height: 100px;
     }
-    /*
-    .small-header-logo {
-        display: none;
-    }
     .small-header img {
         display: none;
     }
-    */
     section.small-header > section.right-elements {
         margin: 0px auto;
     }
