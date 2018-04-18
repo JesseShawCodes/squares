@@ -374,13 +374,10 @@ section.plus-sign {
         width: 70px;
     }
     section.small-header > section.right-elements {
-        display: initial;
+        display: -webkit-inline-box;
     }
     section.small-header > section.right-elements > a {
         display: initial;
-    }
-    span.login-here {
-        padding: 0px;
     }
     img.mainlogologin {
         display: inherit;
