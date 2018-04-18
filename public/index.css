@@ -365,6 +365,7 @@ section.plus-sign {
 @media screen and (max-width: 800px) {
     main {
         display: inline-block;
+        width: 100%;
     }
     .small-header {
         margin-bottom: 0px;
