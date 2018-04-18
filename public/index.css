@@ -376,6 +376,7 @@ section.plus-sign {
     }
     section.small-header > section.right-elements {
         display: -webkit-inline-box;
+        margin: 0px;
     }
     section.small-header > section.right-elements > a {
         display: initial;
@@ -388,6 +389,9 @@ section.plus-sign {
     }
     .testlogin {
         width: 90%;
+    }
+    .formsection {
+        margin-top: 0px;
     }
     .formsection form {
         width: 90%;
@@ -631,13 +635,11 @@ button.showlogin {
 .formsection {
     margin: auto 0px;
     background-color: #062f4f;
-    margin-top: 180px
 }
 
 .formsection form {
     display: inline-block;
     margin: auto 10px;
-    width: 30%;
 }
 
 .greeting {
@@ -775,7 +777,11 @@ input[type="close"] {
 .grid {
     display: inline-block;
     margin-bottom: 20px;
-    margin-top: 120px;
+    margin-top: 20px;
+}
+
+.grid a {
+    color: white;
 }
 
 .resource {
@@ -796,9 +802,7 @@ input[type="close"] {
     position: relative;
 }
 
-.grid a {
-    color: white;
-}
+
 
 .delete-request button, .edit-request button, .link button {
     border: none;
@@ -878,6 +882,9 @@ input[type="close"] {
     }
     .title, .description, .link {
         font-size: 22px;
+    }
+    .link {
+        width: 80%;
     }
     div.readmore > form > section > p {
         font-size: 22px;
