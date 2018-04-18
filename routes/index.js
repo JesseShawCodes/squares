@@ -117,9 +117,9 @@ router.get('/login', (req, res) => {
     console.log("Login Page loaded");
     res.render('./app', {
       smallheader: `
-      <section class="small-header-logo2">
-          <a href="/"><img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text" class="mainlogologin"></a>
-      </section>
+        <section class="small-header-logo">
+            <a href="/"><img src="/Images/header_logo.jpg" alt="squares icon" class="icon-image"></a>
+        </section>
     `,
       masthead: ``,
       bgprimary: ``,
@@ -163,10 +163,10 @@ router.get('/retrylogin', (req, res) => {
     console.log("Login Retry Page loaded");
     res.render('./app', {
       smallheader: `
-        <section class="small-header-logo2">
-            <a href="/"><img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text" class="mainlogologin"></a>
+        <section class="small-header-logo">
+            <img src="/Images/header_logo.jpg" alt="squares icon" class="icon-image">
         </section>
-    `,
+        `,
       masthead: ``,
       bgprimary: ``,
       login: `
@@ -211,9 +211,9 @@ router.get('/retrylogin', (req, res) => {
 router.get('/register', (req, res) => {
     res.render('./app', {
       smallheader: `
-      <section class="small-header-logo">
-          <a href="/"><img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text"></a>
-      </section>
+        <section class="small-header-logo">
+            <a href="/"><img src="/Images/header_logo.jpg" alt="squares icon" class="icon-image"></a>
+        </section>
     `,
       masthead: ``,
       bgprimary: ``,
@@ -251,7 +251,6 @@ router.get('/register', (req, res) => {
       GridContent: ``,
       contact: ``
     })
-    console.log("Register");
 });
 
 //Dashboard//
@@ -318,9 +317,7 @@ router.get('/app/:id', (req, res) => {
             `,
             smallheader: `            
             <section class="small-header-logo">
-                <a href="/">
-                <img src="/Images/Logo/LogoText2.png" alt="Squares Logo with Text">
-                </a>
+                <img src="/Images/header_logo.jpg" alt="squares icon" class="icon-image">
             </section>
             <section class="right-elements">
                 <section class="plus-sign">
@@ -414,8 +411,6 @@ router.get('/app/:id', (req, res) => {
             </div>
             `
         })
-        // res.json(ret);
-        // res.render('./app.ejs');
       })
       .catch(err => {
         console.error(err);
@@ -448,13 +443,11 @@ router.delete('/api/:id', (req, res) => {
         console.error(err);
         res.status(500).json({error: 'Internal Server Error'});
       });
-    console.log(`A Delete Request has been made`);
 });
 
 //register route
 
 router.post('/register', function(req, res) {
-    console.log("User has attempted to register via index route");
     let username = req.body.username;
     let password = bcrypt.hashSync(req.body.password, 10);
     let firstName = req.body.firstName;
@@ -474,41 +467,30 @@ router.post('/register', function(req, res) {
     newuser.firstName = firstName;
     newuser.lastName = lastName;
     let userId = newuser._id;
-    // console.log(newuser);
     User.create(newuser, function(err, user) {
-        console.log(`Creating user ${userId}`);
         if(err) {
-            console.log(`Error creating User: ${err.code}`);
             return err;
         }
         else {
-            console.log(`Load login page for ${userId}`);
             res.status(201).send();
         }
-        // console.log(`User with id ${userId} has been registered`);
-        // res.status(201).send();
     });
 });
 
 
 router.post('/resources', function(req, res) {
-    // console.log(req.body);
     let link = req.body.link;
     let author = req.body.author;
     request(`${link}`, function(err, resp, html) {
         if (!err){
           const $ = cheerio.load(html);
           let title = $("head > title").html();
-          console.log(title + " line 500");
-          console.log(link + " line 501");
-          console.log(author + " line 502");
           setTimeout(function() {
             metaget.fetch(`${link}`, function (err, meta_response) {
                 if(err) {
                     console.log(err);
                 }
                 else {
-                    console.log(meta_response);
                     if (meta_response['og:title'] !== undefined) {
                         let title = meta_response['og:title'];
                         console.log(`${title} line 501`);
@@ -516,10 +498,7 @@ router.post('/resources', function(req, res) {
                     let description = meta_response['og:description'];
                     let link = meta_response['og:url'];
                     let image = meta_response['og:image'];
-                    // console.log(title);
-                    // console.log(description);
                     if (title === undefined) {
-                        console.log("Title is undefined");
                         let title = meta_response['og:title'];
                         if (title === undefined) {
                             let title = meta_response['application-name'];
@@ -527,11 +506,9 @@ router.post('/resources', function(req, res) {
                                 let title = meta_response['og:site_name'];
                                 if (title === undefined) {
                                     request(`${link}`, function(err, resp, html) {
-                                        console.log("Cheerio is running");
                                         if (!err){
                                           const $ = cheerio.load(html);
                                           let title = $("head > title").html();
-                                          console.log(title); 
                                       }
                                     });
                                 }
@@ -539,7 +516,6 @@ router.post('/resources', function(req, res) {
                         }
                     }
                     if (description === undefined) {
-                        console.log("Description is undefined");
                         description = meta_response.description;
                         if (description === undefined) {
                             description = title;
@@ -558,16 +534,11 @@ router.post('/resources', function(req, res) {
                     newResource.image = image;
                     newResource.author = author;
                     let resourceId = newResource._id
-                    console.log(`title is ${title}`);
-                    // console.log(`This the resource ID ${resourceId}`);
                     Resource.create(newResource, function(err, newResource) {
-                        console.log("Creating resource");
                         if(err) {
-                            console.log(`Error creating Resource: ${err}`);
                             return err;
                         }
                         else {
-                            console.log(`Resource created`);
                             res.status(201).send();
                         }
                     })
@@ -576,8 +547,6 @@ router.post('/resources', function(req, res) {
             }, 3000);
         }
     });
-
-    // console.log(description);
 });
 
 router.put('/api/:id', (req, res) => {
@@ -614,16 +583,13 @@ passport.use(new localStrategy(
           return done(null, false, { message: 'Incorrect username.' });
         }
         User.comparePassword(password, user.password, function(err, isMatch) {
-            // console.log(`User.password is ${User.password}`);
             if (err) { 
                 return done(err); 
             }
             if (isMatch) {
-                console.log("It's a match");
                 return done(null, user);
             }
             else {
-                console.log("Invalid Password");
                 return done(null, false, {message: "Invalid Password"});
             }
         })
@@ -634,14 +600,12 @@ passport.use(new localStrategy(
 //Local Strategy
 
 passport.deserializeUser(function(id, done) {
-    console.log("Deserializer was used");    
     User.getUserById(id, function(err, user) {
       done(err, user);
     });
 });
 
 passport.serializeUser(function(user, done) {
-    console.log("Serializer was used");
     return done(null, user.id);
 });
 
@@ -650,15 +614,11 @@ passport.serializeUser(function(user, done) {
 router.post('/login', 
     passport.authenticate('local', {/*successRedirect: `/app/${req.user._id}`, */failureRedirect: '/retrylogin', failureFlash: true}), 
     function(req, res) {
-        // let username = req.body.username;
-        // let password = req.body.password;
-        // console.log("User attempted login");
         res.redirect(`/app/${req.user._id}`);
 })
 
 router.get('/logout', function(req, res) {
     req.logout();
-    // req.flash('success_msg', 'You are logged out');
     res.redirect('/login');
 })
 

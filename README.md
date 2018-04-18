@@ -25,3 +25,6 @@ This application was designed as a capstone project while studying at Thinkful.
 - Masonry
 - Cheerio
 
+## How to Use
+
+Squares was created as 

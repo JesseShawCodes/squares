@@ -182,10 +182,6 @@ ol.text-faded {
     color: #fff;
 }
 
-img {
-    margin-bottom: 40px;
-}
-
 @media screen and (max-width: 600px) {
     .section-content img {
         width: 250px;
@@ -229,6 +225,7 @@ section {
 .masthead img {
     width: 80%;
     background-color: #D4DCE3;
+    margin-bottom: 40px;
 }
 
 .resize img {
@@ -237,6 +234,11 @@ section {
 
 h1#homeheading {
     background-color: #053050;
+}
+
+img.mainlogologin {
+    width: 30%;
+    background-color: white;
 }
 
 
@@ -359,7 +361,6 @@ section.plus-sign {
     position: relative;
     bottom: 6px;
 }
-
 
 @media screen and (max-width: 800px) {
     main {
@@ -508,15 +509,12 @@ input::-webkit-input-placeholder {
 }
 
 .main-login{
- 	/*background-color: #fff;*/
-    /* shadows and rounded borders */
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-
 }
 
 .form-control {
