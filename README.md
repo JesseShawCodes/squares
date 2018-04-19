@@ -1,5 +1,5 @@
 # Squares
-Squares is created as a one stop-shop to store online resources. These resources can include anything from a personal reading list to an environmental scanning log. 
+Squares is created as a one stop-shop to store online resources. These resources can include anything from a personal reading list to an environmental scanning log for your project. 
 
 [Live Demo](https://squaresapp.herokuapp.com/)
 
@@ -27,4 +27,4 @@ This application was designed as a capstone project while studying at Thinkful.
 
 ## How to Use
 
-Squares was created as 
+After creating your account and logging into Squares, to add a new resource to your dashboard, click the (+) button located at the top right of the application.
