@@ -50,7 +50,7 @@ router.get('/', (req, res) => {
               <hr class="light">
               <div class="directions">
               <p class="text-faded">This app is an online resource database to save resources for your project team and yourself.</p>
-              <img src="/Images/Screen Shot_1.png" alt="Screenshot">              
+              <img src="/Images/screenshot_1.png" alt="Screenshot">              
               <ul>
               <li>To add an item, click <i class="fa fa-plus-circle" aria-hidden="true"></i></li>
               <li>To edit an item, click <i class="fa fa-pencil" aria-hidden="true"></i></li>
