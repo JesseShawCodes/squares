@@ -10,7 +10,6 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://thejesseshaw:Mbdtf87!@ds139964.mlab.com:39964/capstone2');
 var db = mongoose.connection;
 
 const {DATABASE_URL, PORT} = require('./config/config');
