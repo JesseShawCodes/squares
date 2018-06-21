@@ -95,7 +95,7 @@ router.get('/', (req, res) => {
               <div class="col-lg-4 mr-auto text-center">
                   <i class="fa fa-github fa-3x sr-contact"></i>
                       <p>
-                          <a href="https://github.com/thejesseshaw">GitHub</a>
+                          <a href="https://github.com/JesseShawCodes">GitHub</a>
                       </p>
               </div>  
               <div class="col-lg-4 mr-auto text-center">
@@ -380,7 +380,7 @@ router.get('/app/:id', (req, res) => {
                 <div class="col-lg-4 mr-auto text-center">
                     <i class="fa fa-github fa-3x sr-contact"></i>
                         <p>
-                            <a href="https://github.com/thejesseshaw">GitHub</a>
+                            <a href="https://github.com/JesseShawCodes">GitHub</a>
                         </p>
                 </div>  
                 <div class="col-lg-4 mr-auto text-center">
