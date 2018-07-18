@@ -7,7 +7,7 @@ const metaget = require('metaget');
 const cheerio = require('cheerio');
 const request = require('request');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://thejesseshaw:Mbdtf87!@ds139964.mlab.com:39964/capstone2');
+// mongoose.connect('mongodb://thejesseshaw:Mbdtf87!@ds139964.mlab.com:39964/capstone2');
 
 var User =  require('../models/user');
 var Resource = require('../models/model');
