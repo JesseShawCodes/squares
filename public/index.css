@@ -445,7 +445,6 @@ section.plus-sign {
 }
 
 .login .submit input, .register .submit input {
-    width: 70%;
     height: 50px;
     margin-bottom: 20px;
     border: none;

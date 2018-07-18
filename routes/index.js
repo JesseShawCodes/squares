@@ -87,7 +87,7 @@ router.get('/', (req, res) => {
               <div class="col-lg-4 mr-auto text-center">
                   <i class="fa fa-envelope-o fa-3x sr-contact"></i>
                       <p>
-                          <a href="mailto:your-email@your-domain.com">jdshaw1987@gmail.com</a>
+                          <a href="mailto:JesseShawCodes@gmail.com">JesseShawCodes@gmail.com</a>
                       </p>
               </div>
               <div class="col-lg-4 mr-auto text-center">
@@ -372,7 +372,7 @@ router.get('/app/:id', (req, res) => {
                 <div class="col-lg-4 mr-auto text-center">
                     <i class="fa fa-envelope-o fa-3x sr-contact"></i>
                         <p>
-                            <a href="mailto:your-email@your-domain.com">jdshaw1987@gmail.com</a>
+                            <a href="mailto:JesseShawCodes@gmail.com">JesseShawCodes@gmail.com</a>
                         </p>
                 </div>
                 <div class="col-lg-4 mr-auto text-center">
