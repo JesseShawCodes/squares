@@ -6,10 +6,8 @@ const bcrypt = require('bcryptjs');
 const metaget = require('metaget');
 const cheerio = require('cheerio');
 const request = require('request');
-const mongo = require('mongodb');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://thejesseshaw:Mbdtf87!@ds139964.mlab.com:39964/capstone2');
-var db = mongoose.connection;
 
 var User =  require('../models/user');
 var Resource = require('../models/model');

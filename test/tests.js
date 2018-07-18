@@ -11,11 +11,6 @@ chai.use(chaiHttp);
 //Tests
 
 describe('Users', function() {
-  // `chai.request.get` is an asynchronous operation. When
-  // using Mocha with async operations, we need to either
-  // return an ES6 promise or else pass a `done` callback to the
-  // test that we call at the end. We prefer the first approach, so
-  // we just return the chained `chai.request.get` object.
   it('should list users on GET', function() {
     return chai.request(app)
     this.timeout(15000)
@@ -48,11 +43,6 @@ describe('Users', function() {
 });
 
 describe('Links', function() {
-  // `chai.request.get` is an asynchronous operation. When
-  // using Mocha with async operations, we need to either
-  // return an ES6 promise or else pass a `done` callback to the
-  // test that we call at the end. We prefer the first approach, so
-  // we just return the chained `chai.request.get` object.
   it('should list links on GET', function() {
     return chai.request(app)
     this.timeout(5000)
